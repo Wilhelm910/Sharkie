@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+}
+
+body {
+    color: white;
+    background-color: rgb(52, 52, 120);
+}
+
+h1 {
+    text-align: center;
+    margin: 20px;
+}
+
+#container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+#canvas {
+    position: relative;
+    background-color: black;
+}
+
+#slider {
+    width: 100%;
+}
+
+p {
+    font-size: 24px;
+}
