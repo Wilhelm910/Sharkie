@@ -3,8 +3,9 @@ class World {
         new Water(),
         new ThirdLayer(),
         new SecondLayer(),
-        new FirstLayer()  
+        new FirstLayer()
     ]
+    hero = new Hero();
     
 
     canvas;
@@ -28,7 +29,7 @@ class World {
     drawAll() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.width)
         this.background.forEach(element => {
-            element.drawBackground(this.ctx, gamespeed);
+            element.drawBackground(this.ctx);
         });
       
 

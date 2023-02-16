@@ -7,17 +7,33 @@ class DrawingObjects {
     position_x2 = this.background_width
     position_y = 0;
     img;
-   // gamespeed = 5;
+    imageCache = {}
+    width;
+    height;
+   
 
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
+    loadImages(imgArray) {
+        imgArray.forEach(path => {
+            let img = new Image();
+            img.src = path;
+            this.imageCache[path] = img;
+        });
+    }
 
-    drawBackground(ctx, gamespeed) {
+
+    drawBackground(ctx) {
         ctx.drawImage(this.img, this.position_x, this.position_y, this.background_width, this.background_height);
         ctx.drawImage(this.img, this.position_x2, this.position_y, this.background_width, this.background_height);
+        this.alignBackground()
+    }
+
+
+    alignBackground() {
         if (this.position_x < -this.background_width) {
             this.position_x = this.background_width + this.position_x2 - (gamespeed * this.speedModifier)
         } else {
@@ -27,9 +43,6 @@ class DrawingObjects {
             this.position_x2 = this.background_width + this.position_x - (gamespeed * this.speedModifier)
         } else {
             this.position_x2 -= gamespeed * this.speedModifier;
-        }
-        
-       
+        } 
     }
-
 }
