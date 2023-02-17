@@ -10,6 +10,7 @@ class DrawingObjects {
     imageCache = {}
     width;
     height;
+    currentImage = 0;
    
 
     loadImage(path) {
@@ -23,6 +24,10 @@ class DrawingObjects {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
     }
 
 

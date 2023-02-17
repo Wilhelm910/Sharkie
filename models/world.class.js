@@ -1,28 +1,31 @@
 class World {
+
     background = [
         new Water(),
         new ThirdLayer(),
         new SecondLayer(),
         new FirstLayer()
     ]
+
     hero = new Hero();
+    //keyboard = new Keyboard();
     
 
     canvas;
     ctx;
+    keyboard;
 
- 
-    
-
-    
-   
-
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
-      //  this.getGameSpeed(gamespeed);
+        this.keyboard = keyboard;
         this.drawAll();
-        
+      //  this.setWorld();
+    }
+
+
+    setWorld() {
+        this.hero.world = this;
     }
 
 
@@ -30,6 +33,7 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.width)
         this.background.forEach(element => {
             element.drawBackground(this.ctx);
+            this.hero.draw(this.ctx);
         });
       
 
