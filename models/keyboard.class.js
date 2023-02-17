@@ -1,4 +1,5 @@
-class Keyboard extends MovingObjects {
+class Keyboard {
+
     LEFT = false;
     RIGHT = false;
     UP = false;

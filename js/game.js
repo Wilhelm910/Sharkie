@@ -1,11 +1,12 @@
 let canvas;
 let world;
-//let keyboard = new Keyboard();
 let gamespeed = 0;
+let keyboard = new Keyboard();
+
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas);
+    world = new World(canvas,keyboard);
 }
 
 function changeSpeed() {
@@ -14,17 +15,18 @@ function changeSpeed() {
     gamespeed = slider.value
 }
 
-
 window.addEventListener('keydown', (event) => {
     let key = event.keyCode
     if (key == 37) {
         keyboard.LEFT = true;
+        gamespeed = -15;
     }
     if (key == 38) {
         keyboard.UP = true;
     }
     if (key == 39) {
         keyboard.RIGHT = true;
+        gamespeed = 15;
     }
     if (key == 40) {
         keyboard.DOWN = true;
@@ -42,12 +44,14 @@ window.addEventListener('keyup', (event) => {
     let key = event.keyCode
     if (key == 37) {
         keyboard.LEFT = false;
+        gamespeed = 0;
     }
     if (key == 38) {
         keyboard.UP = false;
     }
     if (key == 39) {
         keyboard.RIGHT = false;
+        gamespeed = 0;
     }
     if (key == 40) {
         keyboard.DOWN = false;

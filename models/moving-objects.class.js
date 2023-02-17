@@ -1,7 +1,9 @@
 class MovingObjects extends DrawingObjects {
-    speed = 0.5;
-
-
+    enemieSpeed = 3;
+    speed = 5;
+    mirroredImage = false;
+    swimmingUp = false;
+    swimmingDown = false;
 
     playAnimation(images) {
         let i = this.currentImage % images.length
@@ -12,7 +14,24 @@ class MovingObjects extends DrawingObjects {
 
 
     swimRight() {
-        this.position_x += this.speed;
+        this.position_x += this.herospeed;
+        this.mirroredImage = false;
     }
+
+    swimLeft() {
+        this.position_x -= this.enemieSpeed;
+    }
+
+    swimUp() {
+        this.position_y -= this.speed;
+        this.swimmingDown = false;
+    }
+
+    swimDown() {
+        this.position_y += this.speed;
+        this.swimmingUp = false;
+    }
+
+
 
 }

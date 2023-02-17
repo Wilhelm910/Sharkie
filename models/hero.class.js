@@ -1,7 +1,7 @@
 class Hero extends MovingObjects {
 
-    //world;
-    speed = 5;
+    world;
+    //speed = 5;
 
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
@@ -46,14 +46,32 @@ class Hero extends MovingObjects {
 
 
     animate() {
-        
         setInterval(() => {
-            
-            
+            if (this.world.hero.world.keyboard.RIGHT) {
+                this.swimRight();
+            }
+            if (this.world.hero.world.keyboard.LEFT) {
+                this.swimLeft();
+                this.mirroredImage = true;
+            }
+            if (this.world.hero.world.keyboard.UP) {
+                this.swimUp();
+                this.swimmingUp = true;
+            }
+            if (this.world.hero.world.keyboard.DOWN) {
+                this.swimDown();
+                this.swimmingDown = true;
+            }
+            this.world.camera_x = -this.position_x 
         }, 1000 / 60);
 
         setInterval(() => {
-            this.playAnimation(this.IMAGES_IDLE)
+            if (this.world.hero.world.keyboard.RIGHT || this.world.hero.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_SWIM)
+            } else {
+                this.playAnimation(this.IMAGES_IDLE)
+            }
+            
         }, 1000 / 7);
     }
 }
