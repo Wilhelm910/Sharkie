@@ -37,7 +37,7 @@ class Hero extends MovingObjects {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SWIM);
-        this.position_x = 200;
+        this.positionHero_x = 200;
         this.position_y = 200;
         this.width = 815 / 4
         this.height = 1000 / 4
