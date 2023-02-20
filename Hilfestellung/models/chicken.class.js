@@ -9,7 +9,7 @@ class Chicken extends MovingObject {
     constructor() {
         super().loadImage('../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALK)
-        this.position_x = Math.floor(Math.random() * 800) + 100
+        this.position_x = Math.floor(Math.random() * 100) + 100
         this.position_y = 450
         this.height = 241 / 3;
         this.width = 198 / 3;
