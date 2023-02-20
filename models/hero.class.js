@@ -50,18 +50,18 @@ class Hero extends MovingObjects {
     ]
 
     IMAGES_DEAD_POISONED = [
-    'img/1.Sharkie/6.dead/1.Poisoned/1.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/2.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/3.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/4.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/5.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/6.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/7.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/8.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/9.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/10.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/11.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/12.png'
+        'img/1.Sharkie/6.dead/1.Poisoned/1.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/2.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/3.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/4.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/5.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/6.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/7.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/8.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/9.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/10.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/11.png',
+        'img/1.Sharkie/6.dead/1.Poisoned/12.png'
     ]
 
     IMAGES_DEAD_ELECTROSHOCK = [
@@ -90,7 +90,7 @@ class Hero extends MovingObjects {
         this.width = 815 / 4
         this.height = 1000 / 4
         this.animate();
-        
+
     }
 
 
@@ -105,20 +105,25 @@ class Hero extends MovingObjects {
             }
             if (this.world.hero.world.keyboard.UP) {
                 this.swimUp();
-               // this.swimmingUp = true;
+                // this.swimmingUp = true;
             }
             if (this.world.hero.world.keyboard.DOWN) {
                 this.swimDown();
-               // this.swimmingDown = true;
+                // this.swimmingDown = true;
             }
-            this.world.camera_x = -this.positionHero_x 
+            this.world.camera_x = -this.positionHero_x
         }, 1000 / 60);
 
         setInterval(() => {
             if (!this.isDead_poisoned && !this.isDead_electroshock) {
-                if (this.isHurt()) {
+                if (this.isHurtPoison()) {
                     this.playAnimation(this.IMAGES_POISONED);
-                } else if  (this.world.hero.world.keyboard.RIGHT || 
+                }
+                else if (this.isHurtElectroshock()) {
+                    console.log(this.IMAGES_ELECTROSHOCK)
+                    this.playAnimation(this.IMAGES_ELECTROSHOCK);
+                }
+                else if (this.world.hero.world.keyboard.RIGHT ||
                     this.world.hero.world.keyboard.LEFT ||
                     this.world.hero.world.keyboard.UP ||
                     this.world.hero.world.keyboard.DOWN) {
@@ -129,13 +134,17 @@ class Hero extends MovingObjects {
             } else {
                 if (this.isDead_poisoned) {
                     this.playAnimation(this.IMAGES_DEAD_POISONED);
+                    this.gameOver = true;
+                    gamespeed = 0;
                 } else {
                     this.playAnimation(this.IMAGES_DEAD_ELECTROSHOCK);
+                    this.gameOver = true;
+                    gamespeed = 0;
                 }
-                
+
             }
-            
-            
+
+
         }, 1000 / 7);
     }
 }

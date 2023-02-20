@@ -5,15 +5,19 @@ class MovingObjects extends DrawingObjects {
     mirroredImage = false;
     swimmingUp = false;
     swimmingDown = false;
-    lastHit = 0;
+    lastHitPoison = 0;
+    lastHitElectroshock = 0;
     moveUp = true;
     moveDown = false;
+    gameOver = false;
     
     playAnimation(images) {
-        let i = this.currentImage % images.length
-        let path = images[i]
-        this.img = this.imageCache[path]
-        this.currentImage++
+        if (!this.gameOver) {
+            let i = this.currentImage % images.length
+            let path = images[i]
+            this.img = this.imageCache[path]
+            this.currentImage++
+        }  
     }
     // Draw muss auch an position Hero X geschehen. ALso extra draw methode für Hero und für enemies!
 
@@ -81,17 +85,25 @@ class MovingObjects extends DrawingObjects {
     }
 
 
-    hit() {
+    hit(attack) {
         if (!this.energy == 0) {
             this.energy -= 20;
-            console.log(this.energy)
-            this.lastHit = new Date().getTime();
+            if (attack == 'poison') {
+                this.lastHitPoison = new Date().getTime();
+            } else {
+                this.lastHitElectroshock = new Date().getTime();
+            }
         }
     }
 
 
-    isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit
+    isHurtPoison() {
+        let timepassed = new Date().getTime() - this.lastHitPoison
+        return timepassed < 500
+    }
+
+    isHurtElectroshock() {
+        let timepassed = new Date().getTime() - this.lastHitElectroshock
         return timepassed < 500
     }
 

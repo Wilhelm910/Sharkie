@@ -22,16 +22,19 @@ class Jellyfish extends MovingObjects {
     }
 
     animate() {
-       
+
         setInterval(() => {
-          //  console.log(this.world)
+            //  console.log(this.world)
             this.swimLeftEnemie();
         }, 1000 / 60);
-      
+
         setInterval(() => {
             this.playAnimation(this.IMAGES_SWIM)
 
         }, 1000 / 7);
+
+
+
     }
 
 }

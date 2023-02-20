@@ -9,7 +9,7 @@ class World {
 
     hero = new Hero();
 
-    pufferfish = [
+    enemies = [
         new Pufferfish(),
         new Pufferfish(),
         new Pufferfish(),
@@ -22,9 +22,6 @@ class World {
         new Pufferfish(),
         new Pufferfish(),
         new Pufferfish(),
-    ]
-
-    jellyfish = [
         new Jellyfish(),
         new Jellyfish(),
         new Jellyfish(),
@@ -46,8 +43,8 @@ class World {
         this.keyboard = keyboard;
         this.drawAll();
         this.setWorld();
-        this.checkCollisionPufferfish(this.pufferfish)
-        this.checkCollisionJellyfish()
+        this.checkCollision()
+
     }
 
     // Um in der Klasse Hero auf world.keyboard zugreifen zu können
@@ -65,8 +62,8 @@ class World {
 
         this.addObjectToMap(this.background)
         this.addHeroToMap(this.hero)
-        this.addToMap(this.pufferfish)
-        this.addToMap(this.jellyfish)
+        this.addToMap(this.enemies)
+
 
         this.ctx.translate(-this.cameraHero_x, 0)
         // Funktion wiederholt sich selbst
@@ -136,40 +133,23 @@ class World {
         element.positionHero_x = element.positionHero_x * -1;
         this.ctx.restore();
     }
-// auf attack art der Gegner achten
-    checkCollisionPufferfish(test) {
+    // auf attack art der Gegner achten
+    checkCollision() {
         setInterval(() => {
-            console.log(test)
-            this.pufferfish.forEach(element => {
+            this.enemies.forEach(element => {
                 if (this.hero.isColliding(element)) {
                     if (element.tagged == false) {
-                        this.hero.hit()
+                        this.hero.hit(element.attack)
                         element.tagged = true
                     }
-
                     //  this.statusBar.setPercentage(this.hero.energy)
                     if (this.hero.energy == 0) {
+                        if (element.attack == 'poison') {
+                            this.hero.isDead_poisoned = true;
+                        } else if (element.attack == 'electroshock') {
+                            this.hero.isDead_electroshock = true;
 
-                        this.hero.isDead_poisoned = true;
-                    }
-                }
-            });
-        }, 100);
-    }
-
-    checkCollisionJellyfish(){
-        setInterval(() => {
-            this.jellyfish.forEach(element => {
-                if (this.hero.isColliding(element)) {
-                    if (element.tagged == false) {
-                        this.hero.hit()
-                        element.tagged = true
-                    }
-
-                    //  this.statusBar.setPercentage(this.hero.energy)
-                    if (this.hero.energy == 0) {
-
-                        this.hero.isDead_electroshock = true;
+                        }
                     }
                 }
             });
