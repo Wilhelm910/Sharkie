@@ -10,7 +10,7 @@ class World {
     hero = new Hero();
 
     enemies = [
-        new Pufferfish(),
+     /*   new Pufferfish(),
         new Pufferfish(),
         new Pufferfish(),
         new Pufferfish(),
@@ -28,7 +28,11 @@ class World {
         new Jellyfish(),
         new Jellyfish(),
         new Jellyfish(),
-        new Jellyfish(),
+        new Jellyfish(),*/
+    ]
+
+    bubble = [
+       
     ]
 
     herospeed;
@@ -41,10 +45,12 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.spawnEnemies();
         this.drawAll();
         this.setWorld();
-        this.checkCollision()
-
+        this.checkCollision();
+        this.shootBubble();
+        this.checkBubbleCollision();
     }
 
     // Um in der Klasse Hero auf world.keyboard zugreifen zu können
@@ -53,16 +59,27 @@ class World {
     }
 
 
+    spawnEnemies() {
+        setInterval(() => {
+            let pufferfish = new Pufferfish();
+            let jellyfish = new Jellyfish();
+            this.enemies.push(pufferfish);
+            this.enemies.push(jellyfish);
+        }, 2000);
+    }
+
+
 
 
 
     drawAll() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.width)
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.ctx.translate(this.cameraHero_x, 0)
 
         this.addObjectToMap(this.background)
         this.addHeroToMap(this.hero)
         this.addToMap(this.enemies)
+        this.addBubblesToMap(this.bubble)
 
 
         this.ctx.translate(-this.cameraHero_x, 0)
@@ -76,6 +93,13 @@ class World {
     addObjectToMap(array) {
         array.forEach(element => {
             element.drawBackground(this.ctx);
+        });
+    }
+
+    addBubblesToMap(array) {
+        array.forEach(element => {
+            element.drawBubble(this.ctx);
+            element.drawBubbleHitBox(this.ctx)
         });
     }
 
@@ -137,6 +161,11 @@ class World {
     checkCollision() {
         setInterval(() => {
             this.enemies.forEach(element => {
+                for (let i = 0; i < this.bubble.length; i++) {
+                    if (this.bubble[i].isColliding(element)) {
+                        console.log("got hit")
+                    }
+                }
                 if (this.hero.isColliding(element)) {
                     if (element.tagged == false) {
                         this.hero.hit(element.attack)
@@ -156,4 +185,45 @@ class World {
         }, 100);
     }
 
-}
+    checkBubbleCollision() {
+     
+        setInterval(() => {
+       
+            this.enemies.forEach(element => {
+                for (let i = 0; i < this.bubble.length; i++) {
+                  //  console.log(this.bubble)
+                  //  console.log(this.bubble[i].positionBubble_x)
+                 // console.log(element.positionEnemie_x)
+                 /*   if (this.bubble[i].positionBubble_x > element.positionEnemie_x + element.width 
+                        || this.bubble[i].positionBubble_x + this.bubble[i].width < element.positionEnemie_x
+                        || this.bubble[i].positionBubble_y > element.positionEnemie_< + element.height - 10
+                        || this.bubble[i].positionBubble_y + this.bubble[i].height < element.positionEnemie_y) 
+                        {
+                          
+                        } else {
+                            console.log("test")
+                        }*/
+                    if (this.bubble[i].isCollidingBubble(element)) {
+                        console.log("hit")
+                        element.gotHit = true;
+                      //  this.bubble.splice(i,1)
+                       // this.enemies.splice(element,1)
+                    }
+                }
+            });
+        }, 100);
+    }
+
+    shootBubble() {
+        setInterval(() => {
+            if (this.keyboard.SPACE) {
+                
+                let bubble = new Bubbleattack(this.hero.positionHero_x + 155, this.hero.positionHero_y + 130)
+                this.bubble.push(bubble)
+                console.log(bubble)
+            }
+        }, 100);
+
+    }
+
+} 

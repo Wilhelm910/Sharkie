@@ -15,6 +15,7 @@ class DrawingObjects {
     currentImage = 0;
     heroSpeed = 5;
     attack;
+    bubbleSpeed;
 
 
     loadImage(path) {
@@ -46,8 +47,20 @@ class DrawingObjects {
         ctx.stroke();
     }
 
+    drawBubbleHitBox(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'red';
+        ctx.rect(this.positionBubble_x, this.positionBubble_y, this.width, this.height);
+        ctx.stroke();
+    }
+
     draw(ctx) {
         ctx.drawImage(this.img, this.positionHero_x, this.positionHero_y, this.width, this.height);
+    }
+
+    drawBubble(ctx) {
+        ctx.drawImage(this.img, this.positionBubble_x, this.positionBubble_y, this.width, this.height);
     }
 
     drawEnemie(ctx) {

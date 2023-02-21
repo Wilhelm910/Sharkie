@@ -77,6 +77,17 @@ class Hero extends MovingObjects {
         'img/1.Sharkie/6.dead/2.Electro_shock/10.png',
     ]
 
+    IMAGES_BUBBLEATTACK = [
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png',
+    ]
+
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
@@ -85,6 +96,7 @@ class Hero extends MovingObjects {
         this.loadImages(this.IMAGES_ELECTROSHOCK);
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_DEAD_ELECTROSHOCK);
+        this.loadImages(this.IMAGES_BUBBLEATTACK);
         this.positionHero_x = 200;
         this.positionHero_y = 200;
         this.width = 815 / 4
@@ -115,12 +127,17 @@ class Hero extends MovingObjects {
         }, 1000 / 60);
 
         setInterval(() => {
+            if (this.world.hero.world.keyboard.SPACE) {
+                this.playAnimation(this.IMAGES_BUBBLEATTACK);
+            }
+        }, 1000 / 60);
+
+        setInterval(() => {
             if (!this.isDead_poisoned && !this.isDead_electroshock) {
                 if (this.isHurtPoison()) {
                     this.playAnimation(this.IMAGES_POISONED);
                 }
                 else if (this.isHurtElectroshock()) {
-                    console.log(this.IMAGES_ELECTROSHOCK)
                     this.playAnimation(this.IMAGES_ELECTROSHOCK);
                 }
                 else if (this.world.hero.world.keyboard.RIGHT ||
@@ -128,6 +145,7 @@ class Hero extends MovingObjects {
                     this.world.hero.world.keyboard.UP ||
                     this.world.hero.world.keyboard.DOWN) {
                     this.playAnimation(this.IMAGES_SWIM)
+                
                 } else {
                     this.playAnimation(this.IMAGES_IDLE)
                 }
@@ -141,10 +159,7 @@ class Hero extends MovingObjects {
                     this.gameOver = true;
                     gamespeed = 0;
                 }
-
             }
-
-
         }, 1000 / 7);
     }
 }
