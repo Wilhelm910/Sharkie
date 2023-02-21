@@ -10,7 +10,7 @@ class MovingObjects extends DrawingObjects {
     moveUp = true;
     moveDown = false;
     gameOver = false;
-
+/*
     playAnimation(images) {
         if (!this.gameOver) {
             let i = this.currentImage % images.length
@@ -18,7 +18,7 @@ class MovingObjects extends DrawingObjects {
             this.img = this.imageCache[path]
             this.currentImage++
         }
-    }
+    }*/
     // Draw muss auch an position Hero X geschehen. ALso extra draw methode für Hero und für enemies!
 
     swimRight() {
@@ -97,6 +97,11 @@ class MovingObjects extends DrawingObjects {
             (this.position_y + this.offsetY) <= (obj.position_y + obj.height) &&
             obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
     */
+    }
+
+    isInLine(obj) {
+        return (this.positionHero_y + 110 + this.height - 160 > obj.positionEnemie_y
+            && this.positionHero_y + 110 < obj.positionEnemie_y + obj.height - 10);
     }
 
     isCollidingBubble(obj) {

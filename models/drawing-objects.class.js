@@ -18,6 +18,16 @@ class DrawingObjects {
     bubbleSpeed;
 
 
+    playAnimation(images) {
+        if (!this.gameOver) {
+            let i = this.currentImage % images.length
+            let path = images[i]
+            this.img = this.imageCache[path]
+            this.currentImage++
+        }
+    }
+
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
@@ -55,6 +65,14 @@ class DrawingObjects {
         ctx.stroke();
     }
 
+    drawPoisonBubbleHitBox(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'red';
+        ctx.rect(this.position_x, this.position_y, this.width, this.height);
+        ctx.stroke();
+    }
+
     draw(ctx) {
         ctx.drawImage(this.img, this.positionHero_x, this.positionHero_y, this.width, this.height);
     }
@@ -65,6 +83,10 @@ class DrawingObjects {
 
     drawEnemie(ctx) {
         ctx.drawImage(this.img, this.positionEnemie_x, this.positionEnemie_y, this.width, this.height);
+    }
+
+    drawPoisonBubble(ctx) {
+        ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
     }
 
 

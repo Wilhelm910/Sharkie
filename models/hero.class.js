@@ -117,11 +117,11 @@ class Hero extends MovingObjects {
             }
             if (this.world.hero.world.keyboard.UP) {
                 this.swimUp();
-                // this.swimmingUp = true;
+                 this.swimmingUp = true;
             }
             if (this.world.hero.world.keyboard.DOWN) {
                 this.swimDown();
-                // this.swimmingDown = true;
+                 this.swimmingDown = true;
             }
             this.world.camera_x = -this.positionHero_x
         }, 1000 / 60);

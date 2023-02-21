@@ -31,8 +31,10 @@ class World {
         new Jellyfish(),*/
     ]
 
-    bubble = [
-       
+    bubble = []
+
+    poisonbubble = [
+        new Poisonbubble()
     ]
 
     herospeed;
@@ -77,6 +79,7 @@ class World {
         this.ctx.translate(this.cameraHero_x, 0)
 
         this.addObjectToMap(this.background)
+        this.addPoisonBubbleToMap(this.poisonbubble)
         this.addHeroToMap(this.hero)
         this.addToMap(this.enemies)
         this.addBubblesToMap(this.bubble)
@@ -100,6 +103,13 @@ class World {
         array.forEach(element => {
             element.drawBubble(this.ctx);
             element.drawBubbleHitBox(this.ctx)
+        });
+    }
+
+    addPoisonBubbleToMap(array) {
+        array.forEach(element => {
+            element.drawPoisonBubble(this.ctx);
+            element.drawPoisonBubbleHitBox(this.ctx)
         });
     }
 
@@ -166,6 +176,13 @@ class World {
                         console.log("got hit")
                     }
                 }
+
+                if (this.hero.isInLine(element)) {
+                    element.lineOfSight = true;
+                } else {
+                    element.lineOfSight = false;
+                }
+
                 if (this.hero.isColliding(element)) {
                     if (element.tagged == false) {
                         this.hero.hit(element.attack)
@@ -205,8 +222,9 @@ class World {
                         }*/
                     if (this.bubble[i].isCollidingBubble(element)) {
                         console.log("hit")
+                        element.tagged = true
                         element.gotHit = true;
-                      //  this.bubble.splice(i,1)
+                        this.bubble.splice(i,1)
                        // this.enemies.splice(element,1)
                     }
                 }
@@ -217,7 +235,6 @@ class World {
     shootBubble() {
         setInterval(() => {
             if (this.keyboard.SPACE) {
-                
                 let bubble = new Bubbleattack(this.hero.positionHero_x + 155, this.hero.positionHero_y + 130)
                 this.bubble.push(bubble)
                 console.log(bubble)

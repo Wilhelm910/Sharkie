@@ -1,0 +1,3 @@
+class FixedObjects extends DrawingObjects {
+    
+}
