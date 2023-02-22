@@ -94,7 +94,7 @@ class MovingObjects extends DrawingObjects {
         return (this.positionHero_x + 30 + this.width - 65 > obj.positionEnemie_x
             && this.positionHero_y + 110 + this.height - 160 > obj.positionEnemie_y
             && this.positionHero_x + 30 < obj.positionEnemie_x
-            && this.positionHero_y + 110 < obj.positionEnemie_y + obj.height - 10);
+            && this.positionHero_y + 110 < obj.positionEnemie_y + obj.height);
         /*return (this.position_x + this.width) >= obj.position_x && this.position_x <= (obj.position_x + obj.width) &&
             (this.position_y + this.offsetY + this.height) >= obj.Y &&
             (this.position_y + this.offsetY) <= (obj.position_y + obj.height) &&
@@ -104,14 +104,14 @@ class MovingObjects extends DrawingObjects {
 
     isInLine(obj) {
         return (this.positionHero_y + 110 + this.height - 160 > obj.positionEnemie_y
-            && this.positionHero_y + 110 < obj.positionEnemie_y + obj.height - 10);
+            && this.positionHero_y + 110 < obj.positionEnemie_y + obj.height);
     }
 
     isCollidingBubble(obj) {
         return (this.positionBubble_x + this.width > obj.positionEnemie_x
             && this.positionBubble_y + this.height > obj.positionEnemie_y
             && this.positionBubble_x < obj.positionEnemie_x
-            && this.positionBubble_y < obj.positionEnemie_y + obj.height - 10);
+            && this.positionBubble_y < obj.positionEnemie_y + obj.height);
         /*return (this.position_x + this.width) >= obj.position_x && this.position_x <= (obj.position_x + obj.width) &&
             (this.position_y + this.offsetY + this.height) >= obj.Y &&
             (this.position_y + this.offsetY) <= (obj.position_y + obj.height) &&

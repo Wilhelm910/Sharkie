@@ -3,7 +3,7 @@ class DrawingObjects {
     CANVAS_HEIGHT = document.getElementById('canvas').height
     background_width = 3840 / (1080 / this.CANVAS_HEIGHT)
     background_height = 1080 / (1080 / this.CANVAS_HEIGHT)
-    endPosition = 4000;
+    endPosition = 2000;
     position_x = 0;
     position_x2 = this.background_width;
     //   position_x0 = -this.background_width;
@@ -51,11 +51,20 @@ class DrawingObjects {
         }
     }
 
+    drawEndbossHitBox(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'red';
+        ctx.rect(this.positionHero_x + 10, this.positionHero_y + 190, this.width - 25, this.height - 260);
+        ctx.stroke();
+
+    }
+
     drawEnemieHitBox(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'red';
-        ctx.rect(this.positionEnemie_x, this.positionEnemie_y, this.width, this.height - 10);
+        ctx.rect(this.positionEnemie_x, this.positionEnemie_y, this.width, this.height);
         ctx.stroke();
     }
 

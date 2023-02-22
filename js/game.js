@@ -1,6 +1,6 @@
 let canvas;
 let world;
-let gamespeed =  5;
+let gamespeed = 0 // 5;
 let keyboard = new Keyboard();
 
 function init() {

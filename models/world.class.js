@@ -31,6 +31,8 @@ class World {
            new Jellyfish(),*/
     ]
 
+    endboss = []; 
+
     bubble = [];
 
     poisonbubble = [];
@@ -60,6 +62,7 @@ class World {
         this.shootBubble();
         this.checkBubbleCollision();
         this.removeObjects();
+        this.checkForEndposition();
 
         // funkion check endPosition. WEnn ja gamespeed = 0; spawn endboss. Remove restliche gegner, ...
     }
@@ -67,6 +70,20 @@ class World {
     // Um in der Klasse Hero auf world.keyboard zugreifen zu können
     setWorld() {
         this.hero.world = this;
+    }
+// WARUM wird else getriggert obwohl if ausgelöst wird??
+    checkForEndposition() {
+        setInterval(() => {
+              console.log(world.hero.world.background[3].position_x)
+            if (world.hero.world.background[3].position_x == 0/* 2550 */&& this.endboss.length < 1) {
+                let endboss = new Endboss();
+                this.endboss.push(endboss);
+                console.log(this.endboss)
+            } else {
+                console.log("test")
+            }
+        }, 500);
+
     }
 
     spawnEnemies() {
@@ -79,7 +96,7 @@ class World {
             } else {
                 this.enemies = []
             }
-        
+
         }, Math.floor(Math.random() * 2000) + 1000);
     }
 
@@ -92,7 +109,7 @@ class World {
             } else {
                 this.coins = []
             }
-        
+
         }, Math.floor(Math.random() * 3000) + 3000);
     }
 
@@ -128,26 +145,27 @@ class World {
 
 
     drawAll() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-        this.ctx.translate(this.cameraHero_x, 0)
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.cameraHero_x, 0);
 
-        this.addObjectToMap(this.background)
-        this.addHeroToMap(this.hero)
-        this.addHeroToMap(this.healthbar)
-        this.addHeroToMap(this.coinbar)
-        this.addHeroToMap(this.poisonbar)
-        this.addToMap(this.enemies)
-        this.addBubblesToMap(this.bubble)
-       
+        this.addObjectToMap(this.background);
+        this.addHeroToMap(this.hero);
+        this.addEndbossToMap(this.endboss);
+        this.addHeroToMap(this.healthbar);
+        this.addHeroToMap(this.coinbar);
+        this.addHeroToMap(this.poisonbar);
+        this.addToMap(this.enemies);
+        this.addBubblesToMap(this.bubble);
+
 
         // this.ctx.translate(-this.cameraHero_x, 0)
 
         //  this.ctx.translate(this.cameraHero_x, 0)
 
 
-        this.ctx.translate(-this.cameraHero_x, 0)
-        this.addPoisonBubbleToMap(this.poisonbubble)
-        this.addPoisonBubbleToMap(this.coins)
+        this.ctx.translate(-this.cameraHero_x, 0);
+        this.addPoisonBubbleToMap(this.poisonbubble);
+        this.addPoisonBubbleToMap(this.coins);
         // Funktion wiederholt sich selbst
         let self = this;
         requestAnimationFrame(function () {
@@ -193,6 +211,14 @@ class World {
         //        this.undoRotateUp(element);
         //   }
 
+    }
+
+    addEndbossToMap(array) {
+        array.forEach(element => {
+            element.draw(this.ctx)
+            element.drawEndbossHitBox(this.ctx)
+        });
+      
     }
 
     addToMap(array) {
