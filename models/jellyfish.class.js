@@ -20,7 +20,7 @@ class Jellyfish extends MovingObjects {
         super().loadImage(this.IMAGES_SWIM[0]);
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_DEAD_JELLYFISH);
-        this.positionEnemie_x = Math.floor(Math.random() * 4400) + 1600;
+        this.positionEnemie_x = 1600;
         this.positionEnemie_y = Math.floor(Math.random() * 470) + 40;
         this.width = 211 / 4
         this.height = 300 / 4

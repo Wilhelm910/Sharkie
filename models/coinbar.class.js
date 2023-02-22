@@ -11,9 +11,9 @@ class Coinbar extends FixedObjects {
     constructor() {
         super().loadImage(this.IMAGES[0]);
         this.positionHero_x = 0;
-        this.positionHero_y = 158 / 4;
-        this.width = 595 / 4;
-        this.height = 158 / 4;
+        this.positionHero_y = 158 / 3;
+        this.width = 595 / 3;
+        this.height = 158 / 3;
         this.setPercentage()
      
     }

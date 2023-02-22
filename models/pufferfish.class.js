@@ -41,8 +41,8 @@ class Pufferfish extends MovingObjects {
         this.loadImages(this.IMAGES_DEAD_PUFFERFISH);
         this.loadImages(this.IMAGES_TRANSITION);
         this.loadImages(this.IMAGES_BUBBLESWIM);
-        this.positionEnemie_x = 1000//Math.floor(Math.random() * 4400) + 600;
-        this.positionEnemie_y = 300//Math.floor(Math.random() * 470) + 40;
+        this.positionEnemie_x = 1200//Math.floor(Math.random() * 4400) + 600;
+        this.positionEnemie_y = Math.floor(Math.random() * 470) + 40;
         this.width = 241 / 4
         this.height = 198 / 4
         this.attack = 'poison';

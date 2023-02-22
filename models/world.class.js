@@ -44,7 +44,8 @@ class World {
     ctx;
     keyboard;
     cameraHero_x = 0;
-    cointCounter = 0
+    coinCounter = 0;
+    bubbleCounter = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -59,6 +60,8 @@ class World {
         this.shootBubble();
         this.checkBubbleCollision();
         this.removeObjects();
+
+        // funkion check endPosition. WEnn ja gamespeed = 0; spawn endboss. Remove restliche gegner, ...
     }
 
     // Um in der Klasse Hero auf world.keyboard zugreifen zu können
@@ -77,13 +80,13 @@ class World {
                 this.enemies = []
             }
         
-        }, 2000);
+        }, Math.floor(Math.random() * 2000) + 1000);
     }
 
     spawnCoins() {
         setInterval(() => {
-            if (!world.hero.gameOver && this.cointCounter <= 5) {
-                this.cointCounter++
+            if (!world.hero.gameOver && this.coinCounter <= 5) {
+                this.coinCounter++
                 let coin = new Coins();
                 this.coins.push(coin);
             } else {
@@ -111,13 +114,13 @@ class World {
 
     spawnPoisonbubbles() {
         setInterval(() => {
-            if (!world.hero.gameOver) {
+            if (!world.hero.gameOver && world.hero.bubblesForShoot < 5) {
                 let poisonbubble = new Poisonbubble();
                 this.poisonbubble.push(poisonbubble);
             } else {
                 this.poisonbubble = []
             }
-        }, 2000);
+        }, Math.floor(Math.random() * 2000) + 2000);
     }
 
 
