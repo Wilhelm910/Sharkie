@@ -5,6 +5,10 @@ class Hero extends MovingObjects {
     energy = 100;
     deadByPoison = false;
     deadByElectroshock = false;
+    bubblesForShoot = 0;
+    heroFinslap = false;
+    coins = 0;
+
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -88,6 +92,18 @@ class Hero extends MovingObjects {
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png',
     ]
 
+    IMAGES_FINSLAP = [
+        'img/1.Sharkie/4.Attack/Fin slap/1.png',
+       // 'img/1.Sharkie/4.Attack/Fin slap/2.png',
+       // 'img/1.Sharkie/4.Attack/Fin slap/3.png',
+        'img/1.Sharkie/4.Attack/Fin slap/4.png',
+        'img/1.Sharkie/4.Attack/Fin slap/5.png',
+        'img/1.Sharkie/4.Attack/Fin slap/6.png',
+        'img/1.Sharkie/4.Attack/Fin slap/7.png',
+        'img/1.Sharkie/4.Attack/Fin slap/8.png'
+    ]
+
+
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
@@ -97,6 +113,7 @@ class Hero extends MovingObjects {
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_DEAD_ELECTROSHOCK);
         this.loadImages(this.IMAGES_BUBBLEATTACK);
+        this.loadImages(this.IMAGES_FINSLAP);
         this.positionHero_x = 200;
         this.positionHero_y = 200;
         this.width = 815 / 4
@@ -117,20 +134,24 @@ class Hero extends MovingObjects {
             }
             if (this.world.hero.world.keyboard.UP) {
                 this.swimUp();
-                 this.swimmingUp = true;
+                this.swimmingUp = true;
             }
             if (this.world.hero.world.keyboard.DOWN) {
                 this.swimDown();
-                 this.swimmingDown = true;
+                this.swimmingDown = true;
             }
-            this.world.camera_x = -this.positionHero_x
+            // Hiermit kann ich das Bild auf dem Helden mittig zentrieren
+            //7this.world.cameraHero_x = -this.positionHero_x
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.world.hero.world.keyboard.SPACE) {
+            if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0) {
                 this.playAnimation(this.IMAGES_BUBBLEATTACK);
             }
+
         }, 1000 / 60);
+
+
 
         setInterval(() => {
             if (!this.isDead_poisoned && !this.isDead_electroshock) {
@@ -145,8 +166,16 @@ class Hero extends MovingObjects {
                     this.world.hero.world.keyboard.UP ||
                     this.world.hero.world.keyboard.DOWN) {
                     this.playAnimation(this.IMAGES_SWIM)
-                
-                } else {
+
+                } else if (this.world.hero.world.keyboard.D && this.heroFinslap == false) {
+                    this.heroFinslap = true;
+                    this.playAnimation(this.IMAGES_FINSLAP);
+                    setTimeout(() => {
+                        this.heroFinslap = false;
+                    }, 100);
+
+                }
+                else {
                     this.playAnimation(this.IMAGES_IDLE)
                 }
             } else {

@@ -10,15 +10,15 @@ class MovingObjects extends DrawingObjects {
     moveUp = true;
     moveDown = false;
     gameOver = false;
-/*
-    playAnimation(images) {
-        if (!this.gameOver) {
-            let i = this.currentImage % images.length
-            let path = images[i]
-            this.img = this.imageCache[path]
-            this.currentImage++
-        }
-    }*/
+    /*
+        playAnimation(images) {
+            if (!this.gameOver) {
+                let i = this.currentImage % images.length
+                let path = images[i]
+                this.img = this.imageCache[path]
+                this.currentImage++
+            }
+        }*/
     // Draw muss auch an position Hero X geschehen. ALso extra draw methode für Hero und für enemies!
 
     swimRight() {
@@ -64,6 +64,9 @@ class MovingObjects extends DrawingObjects {
         if (!this.gameOver) {
             // console.log(world.pufferfish[0].positionEnemie_x)
             this.positionEnemie_x -= this.enemieSpeed + (gamespeed / 2);
+            if (this instanceof Pufferfish && this.lineOfSight) {
+                this.positionEnemie_x -= 2
+            }
             if (this instanceof Jellyfish) {
                 if (this.moveUp) {
                     this.positionEnemie_y -= this.enemieSpeed / 2;

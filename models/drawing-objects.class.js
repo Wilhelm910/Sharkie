@@ -42,18 +42,20 @@ class DrawingObjects {
     }
 
     drawHitBox(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'red';
-        ctx.rect(this.positionHero_x + 30, this.positionHero_y + 110, this.width - 65, this.height - 160);
-        ctx.stroke();
+        if (this instanceof Hero) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.positionHero_x + 30, this.positionHero_y + 110, this.width - 65, this.height - 160);
+            ctx.stroke();
+        }
     }
 
     drawEnemieHitBox(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'red';
-        ctx.rect(this.positionEnemie_x, this.positionEnemie_y, this.width, this.height-10);
+        ctx.rect(this.positionEnemie_x, this.positionEnemie_y, this.width, this.height - 10);
         ctx.stroke();
     }
 
@@ -69,7 +71,7 @@ class DrawingObjects {
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'red';
-        ctx.rect(this.position_x, this.position_y, this.width, this.height);
+        ctx.rect(this.positionEnemie_x, this.positionEnemie_y, this.width, this.height);
         ctx.stroke();
     }
 
@@ -86,7 +88,7 @@ class DrawingObjects {
     }
 
     drawPoisonBubble(ctx) {
-        ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
+        ctx.drawImage(this.img, this.positionEnemie_x, this.positionEnemie_y, this.width, this.height);
     }
 
 

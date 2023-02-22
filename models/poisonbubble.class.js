@@ -1,5 +1,5 @@
 class Poisonbubble extends FixedObjects {
-
+    tagged = false;
     IMAGES_POISON = [
         'img/4. Objects/Posión/animated/1.png',
         'img/4. Objects/Posión/animated/2.png',
@@ -18,12 +18,15 @@ class Poisonbubble extends FixedObjects {
         this.loadImages(this.IMAGES_POISON);
         this.width = 178 / 4
         this.height = 243 / 4
-        this.position_x = 500
-        this.position_y = 500
+        this.positionEnemie_x = 1000
+        this.positionEnemie_y = 500
         this.animate();
     }
 
     animate() {
+        setInterval(() => {
+            this.sticky()
+        }, 1000/60);
         setInterval(() => {
             this.playAnimation(this.IMAGES_POISON);
         }, 1000 / 10);
