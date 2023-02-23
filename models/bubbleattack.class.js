@@ -30,8 +30,14 @@ class Bubbleattack extends MovingObjects {
 
     throw() {
         setInterval(() => {
-            this.positionBubble_x += this.bubbleSpeed;
-            this.bubbleSpeed += this.acceleration;
+           // console.log(world.hero.mirroredImage)
+            if (world.hero.mirroredImage) {
+                this.positionBubble_x -= this.bubbleSpeed;
+                this.bubbleSpeed += this.acceleration;
+            } else if (!world.hero.mirroredImage) {
+                this.positionBubble_x += this.bubbleSpeed;
+                this.bubbleSpeed += this.acceleration;
+            }
         }, 25);
     }
 

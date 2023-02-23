@@ -31,7 +31,7 @@ class World {
            new Jellyfish(),*/
     ]
 
-    endboss = []; 
+    endboss = [];
 
     bubble = [];
 
@@ -53,9 +53,9 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.spawnEnemies();
+        // this.spawnEnemies();
         this.spawnPoisonbubbles();
-        this.spawnCoins();
+        // this.spawnCoins();
         this.drawAll();
         this.setWorld();
         this.checkCollision();
@@ -71,16 +71,13 @@ class World {
     setWorld() {
         this.hero.world = this;
     }
-// WARUM wird else getriggert obwohl if ausgelöst wird??
+    // WARUM wird else getriggert obwohl if ausgelöst wird??
     checkForEndposition() {
         setInterval(() => {
-              console.log(world.hero.world.background[3].position_x)
-            if (world.hero.world.background[3].position_x == 0/* 2550 */&& this.endboss.length < 1) {
+            // console.log(world.hero.world.background[3].position_x)
+            if (world.hero.world.background[3].position_x == 0/* 2550 */ && this.endboss.length < 1) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
-                console.log(this.endboss)
-            } else {
-                console.log("test")
             }
         }, 500);
 
@@ -125,6 +122,11 @@ class World {
                     this.poisonbubble.splice(this.poisonbubble.indexOf(element), 1)
                 }
             });
+            this.bubble.forEach(element => {
+                if (element.positionBubble_x < 0 || element.positionBubble_x > 1200) {
+                    this.bubble.splice(this.bubble.indexOf(element), 1)
+                }
+            });
         }, 100);
 
     }
@@ -135,6 +137,7 @@ class World {
                 let poisonbubble = new Poisonbubble();
                 this.poisonbubble.push(poisonbubble);
             } else {
+                // SOLLTE NICHT GELEERT WERDEN??
                 this.poisonbubble = []
             }
         }, Math.floor(Math.random() * 2000) + 2000);
@@ -215,10 +218,18 @@ class World {
 
     addEndbossToMap(array) {
         array.forEach(element => {
+            if (element.mirroredImage) {
+                this.flipImage(element)
+                element.draw(this.ctx)
+
+            }
             element.draw(this.ctx)
             element.drawEndbossHitBox(this.ctx)
+            if (element.mirroredImage) {
+                this.undoFlipImage(element);
+            }
         });
-      
+
     }
 
     addToMap(array) {
@@ -261,7 +272,6 @@ class World {
         setInterval(() => {
             this.poisonbubble.forEach(element => {
                 if (this.hero.isColliding(element)) {
-                    console.log(element.tagged)
                     if (element.tagged == false) {
                         this.hero.bubblesForShoot++
                         element.tagged = true
@@ -279,6 +289,16 @@ class World {
                         element.tagged = true
                         this.coins.splice(this.coins.indexOf(element), 1)
                     }
+                }
+            });
+        }, 100);
+
+        setInterval(() => {
+            this.endboss.forEach(element => {
+                if (this.hero.isInLine2(element)) {
+                    element.lineOfSight = true;
+                } else {
+                    element.lineOfSight = false;
                 }
             });
         }, 100);
@@ -324,9 +344,26 @@ class World {
         }, 100);
     }
 
+
     checkBubbleCollision() {
 
         setInterval(() => {
+
+            this.endboss.forEach(element => {
+
+                for (let i = 0; i < this.bubble.length; i++) {
+                    if (this.bubble[i].isCollidingBubble2(element) && !element.tagged) {
+                        console.log("hit")
+                        element.tagged = true;
+                        element.gotHit = true;
+                        element.energy--
+                        this.bubble.splice(i, 1)
+                        
+                            element.tagged = false;
+                        
+                    }
+                }
+            });
 
             this.enemies.forEach(element => {
                 for (let i = 0; i < this.bubble.length; i++) {
@@ -357,9 +394,16 @@ class World {
     shootBubble() {
         setInterval(() => {
             if (this.keyboard.SPACE && this.hero.bubblesForShoot > 0) {
-                let bubble = new Bubbleattack(this.hero.positionHero_x + 155, this.hero.positionHero_y + 130)
-                this.bubble.push(bubble)
-                this.hero.bubblesForShoot--
+                if (world.hero.mirroredImage) {
+                    let bubble = new Bubbleattack(this.hero.positionHero_x + 25, this.hero.positionHero_y + 130)
+                    this.bubble.push(bubble)
+                    this.hero.bubblesForShoot--
+                } else if (!world.hero.mirroredImage) {
+                    let bubble = new Bubbleattack(this.hero.positionHero_x + 155, this.hero.positionHero_y + 130)
+                    this.bubble.push(bubble)
+                    this.hero.bubblesForShoot--
+                }
+
             }
         }, 100);
 

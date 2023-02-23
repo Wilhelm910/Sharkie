@@ -22,7 +22,6 @@ class MovingObjects extends DrawingObjects {
     // Draw muss auch an position Hero X geschehen. ALso extra draw methode für Hero und für enemies!
 
     swimRight() {
-        console.log(this.gameOver)
         if (!this.gameOver) {
             if (this.positionHero_x < 900) {
                 this.positionHero_x += this.heroSpeed;
@@ -60,6 +59,86 @@ class MovingObjects extends DrawingObjects {
         //  this.swimmingUp = false;
     }
 
+    swimLeftEndboss() {
+        if (!this.gotHit) {
+            this.positionHero_x -= this.heroSpeed / 1.5;
+        }
+
+    }
+
+    swimUpEndboss() {
+
+        this.positionHero_y -= this.heroSpeed;
+    }
+
+    swimRightEndboss() {
+        if (!this.gotHit) {
+            this.positionHero_x += this.heroSpeed / 1.5;
+        }
+
+    }
+
+    attackHero() {
+        // Hero unter Endboss
+        if (world.hero.positionHero_y - 100 > this.positionHero_y) {
+            this.positionHero_y += this.heroSpeed / 2;
+        }
+        // Hero über Endboss
+        if (world.hero.positionHero_y < this.positionHero_y + 100) {
+            this.positionHero_y -= this.heroSpeed / 2;
+        }
+
+    }
+
+    /* attackHero() {
+         // Hero links unter Endboss
+         if (world.hero.positionHero_x > this.positionHero_x &&
+             world.hero.positionHero_y > this.positionHero_y) {
+             if (!this.turnRight) {
+                 this.mirroredImage = true;
+             } else if (this.turnRight) {
+                 this.mirroredImage = false;
+             }
+             this.positionHero_x += this.heroSpeed / 2;
+             this.positionHero_y += this.heroSpeed / 3;
+         }
+ 
+         // Hero rechts über Endboss
+         if (world.hero.positionHero_x < this.positionHero_x &&
+             world.hero.positionHero_y < this.positionHero_y) {
+             if (!this.turnRight) {
+                 this.mirroredImage = true;
+             } else if (this.turnRight) {
+                 this.mirroredImage = false;
+             }
+             this.positionHero_x -= this.heroSpeed / 2;
+             this.positionHero_y -= this.heroSpeed / 3;
+ 
+         }
+         // Hero rechts unter Endboss
+         if (world.hero.positionHero_x < this.positionHero_x &&
+             world.hero.positionHero_y > this.positionHero_y) {
+            /* if (!this.turnRight) {
+                 this.mirroredImage = true;
+             } else if (this.turnRight) {
+                 this.mirroredImage = false;
+             }
+             this.positionHero_x -= this.heroSpeed / 2;
+             this.positionHero_y += this.heroSpeed / 3;
+         }
+         // Hero links über Endboss
+         if (world.hero.positionHero_x > this.positionHero_x &&
+             world.hero.positionHero_y < this.positionHero_y) {
+             if (!this.turnRight) {
+                 this.mirroredImage = true;
+             } else if (this.turnRight) {
+                 this.mirroredImage = false;
+             }
+             this.positionHero_x += this.heroSpeed / 2;
+             this.positionHero_y -= this.heroSpeed / 3;
+         }
+         console.log(world.hero.positionHero_x)
+     } */
     swimLeftEnemie() {
         if (!this.gameOver) {
             // console.log(world.pufferfish[0].positionEnemie_x)
@@ -107,11 +186,36 @@ class MovingObjects extends DrawingObjects {
             && this.positionHero_y + 110 < obj.positionEnemie_y + obj.height);
     }
 
-    isCollidingBubble(obj) {
+    isInLine2(obj) {
+        return (this.positionHero_y + 110 + this.height - 160 > obj.positionHero_y + 190
+            && this.positionHero_y + 110 < obj.positionHero_y + 190 + obj.height - 260);
+    }
+
+    isCollidingBubble2(obj) {
         return (this.positionBubble_x + this.width > obj.positionEnemie_x
             && this.positionBubble_y + this.height > obj.positionEnemie_y
             && this.positionBubble_x < obj.positionEnemie_x
             && this.positionBubble_y < obj.positionEnemie_y + obj.height);
+        /*return (this.position_x + this.width) >= obj.position_x && this.position_x <= (obj.position_x + obj.width) &&
+            (this.position_y + this.offsetY + this.height) >= obj.Y &&
+            (this.position_y + this.offsetY) <= (obj.position_y + obj.height) &&
+            obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    */
+    }
+
+    isCollidingBubble2(obj) {
+        if (world.hero.mirroredImage) {
+            return (this.positionBubble_x < obj.positionHero_x + obj.width
+                && this.positionBubble_y + this.height > obj.positionHero_y
+                && this.positionBubble_x > obj.positionHero_x
+                && this.positionBubble_y < obj.positionHero_y + obj.height);
+        } else {
+            return (this.positionBubble_x + this.width > obj.positionHero_x
+                && this.positionBubble_y + this.height > obj.positionHero_y
+                && this.positionBubble_x < obj.positionHero_x
+                && this.positionBubble_y < obj.positionHero_y + obj.height);
+        }
+
         /*return (this.position_x + this.width) >= obj.position_x && this.position_x <= (obj.position_x + obj.width) &&
             (this.position_y + this.offsetY + this.height) >= obj.Y &&
             (this.position_y + this.offsetY) <= (obj.position_y + obj.height) &&

@@ -18,7 +18,7 @@ class Poisonbubble extends FixedObjects {
         this.loadImages(this.IMAGES_POISON);
         this.width = 178 / 4
         this.height = 243 / 4
-        this.positionEnemie_x = Math.floor(Math.random() * 1000) + 1000;
+        this.positionEnemie_x = Math.floor(Math.random() * 1000)// + 1000;
         this.positionEnemie_y = Math.floor(Math.random() * 400) + 150;
         this.animate();
     }

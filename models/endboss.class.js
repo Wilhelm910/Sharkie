@@ -1,7 +1,11 @@
 class Endboss extends MovingObjects {
 
     introduced = false;
-
+    lineOfSight = false;
+    turnRight = false;
+    tagged = false;
+    gotHit = false;
+    energy = 2;
     IMAGES_FLOATING = [
         'img/2.Enemy/3 Final Enemy/2.floating/1.png',
         'img/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -31,29 +35,100 @@ class Endboss extends MovingObjects {
         'img/2.Enemy/3 Final Enemy/1.Introduce/10.png',
     ]
 
+    IMAGES_ATTACK = [
+        'img/2.Enemy/3 Final Enemy/Attack/1.png',
+        'img/2.Enemy/3 Final Enemy/Attack/2.png',
+        'img/2.Enemy/3 Final Enemy/Attack/3.png',
+        'img/2.Enemy/3 Final Enemy/Attack/4.png',
+        'img/2.Enemy/3 Final Enemy/Attack/5.png',
+        'img/2.Enemy/3 Final Enemy/Attack/6.png'
+    ]
+
+    IMAGES_HURT = [
+        'img/2.Enemy/3 Final Enemy/Hurt/1.png',
+        'img/2.Enemy/3 Final Enemy/Hurt/2.png',
+        'img/2.Enemy/3 Final Enemy/Hurt/3.png',
+        'img/2.Enemy/3 Final Enemy/Hurt/4.png'
+    ]
+
+    IMAGES_DEAD = [
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png'
+    ]
+
     constructor() {
         super().loadImage(this.IMAGES_INTRODUCE[0]);
         this.loadImages(this.IMAGES_FLOATING);
-        this.loadImages(this.IMAGES_INTRODUCE)
+        this.loadImages(this.IMAGES_INTRODUCE);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.positionHero_x = 700;
-        this.positionHero_y = 100;
+        this.positionHero_y = 0;
         this.width = 1041 / 3;
         this.height = 1216 / 3;
         this.animate();
     }
 
     animate() {
+
         setInterval(() => {
-            if(!this.introduced) {
+            if (this.energy == 0) {
+                this.swimUpEndboss();
+            }
+
+            if (this.introduced && this.lineOfSight && this.positionHero_x > 0 && !this.turnRight) {
+                this.swimLeftEndboss();
+                if (this.positionHero_x < 0) {
+                    this.turnRight = true;
+                }
+            } else if (this.turnRight && this.lineOfSight) {
+                this.swimRightEndboss();
+                this.mirroredImage = true;
+                if (this.positionHero_x > 750) {
+                    this.turnRight = false;
+                    this.mirroredImage = false;
+                }
+            }
+            if (this.introduced && !this.lineOfSight) {
+                setTimeout(() => {
+                    this.attackHero();
+                }, 2000);
+            }
+
+
+        }, 1000 / 60);
+
+
+        setInterval(() => {
+            if (this.energy == 0) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.gotHit) {
+                this.playAnimation(this.IMAGES_HURT);
+                
+                setTimeout(() => {
+                    this.gotHit = false;
+                }, 1000);
+            } else if (!this.introduced) {
                 this.playAnimation(this.IMAGES_INTRODUCE);
                 setTimeout(() => {
                     this.introduced = true;
                 }, 1000);
+            } else if (this.lineOfSight && this.introduced) {
+                this.playAnimation(this.IMAGES_ATTACK);
             } else {
                 this.playAnimation(this.IMAGES_FLOATING);
             }
-            
-          
-        }, 1000/6);
+
+
+        }, 1000 / 6);
     }
 }
