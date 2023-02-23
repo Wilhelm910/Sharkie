@@ -75,6 +75,7 @@ class Endboss extends MovingObjects {
         this.positionHero_y = 0;
         this.width = 1041 / 3;
         this.height = 1216 / 3;
+        this.attack = 'normal';
         this.animate();
     }
 

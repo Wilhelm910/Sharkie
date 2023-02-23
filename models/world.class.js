@@ -53,9 +53,9 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        // this.spawnEnemies();
+        this.spawnEnemies();
         this.spawnPoisonbubbles();
-        // this.spawnCoins();
+        this.spawnCoins();
         this.drawAll();
         this.setWorld();
         this.checkCollision();
@@ -75,7 +75,7 @@ class World {
     checkForEndposition() {
         setInterval(() => {
             // console.log(world.hero.world.background[3].position_x)
-            if (world.hero.world.background[3].position_x == 0/* 2550 */ && this.endboss.length < 1) {
+            if (world.hero.world.background[3].position_x == /*0*/ 2550  && this.endboss.length < 1) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
             }
@@ -300,6 +300,22 @@ class World {
                 } else {
                     element.lineOfSight = false;
                 }
+
+                if (this.hero.isColliding2(element)) {
+                    if (element.tagged == false) {
+                        this.hero.hit(element.attack)
+                        element.tagged = true;
+                        console.log(world.hero.energy)
+                        setTimeout(() => {
+                            element.tagged = false;
+                        }, 1000);
+                    }
+                }
+                if (this.hero.energy == 0) {
+
+                    this.hero.deadByPoison = true;
+
+                }
             });
         }, 100);
 
@@ -333,9 +349,9 @@ class World {
                     //  this.statusBar.setPercentage(this.hero.energy)
                     if (this.hero.energy == 0) {
                         if (element.attack == 'poison') {
-                            this.hero.isDead_poisoned = true;
+                            this.hero.deadByPoison = true;
                         } else if (element.attack == 'electroshock') {
-                            this.hero.isDead_electroshock = true;
+                            this.hero.deadByElectroshock = true;
 
                         }
                     }
@@ -358,9 +374,9 @@ class World {
                         element.gotHit = true;
                         element.energy--
                         this.bubble.splice(i, 1)
-                        
-                            element.tagged = false;
-                        
+
+                        element.tagged = false;
+
                     }
                 }
             });

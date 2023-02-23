@@ -5,6 +5,7 @@ class Hero extends MovingObjects {
     energy = 100;
     deadByPoison = false;
     deadByElectroshock = false;
+    deadByNormal = false;
     bubblesForShoot = 0;
     heroFinslap = false;
     coins = 0;
@@ -53,6 +54,11 @@ class Hero extends MovingObjects {
         'img/1.Sharkie/5.Hurt/2.Electric shock/3.png'
     ]
 
+    IMAGES_NORMAL = [
+        'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
+        'img/1.Sharkie/5.Hurt/1.Poisoned/3.png'
+    ]
+
     IMAGES_DEAD_POISONED = [
         'img/1.Sharkie/6.dead/1.Poisoned/1.png',
         'img/1.Sharkie/6.dead/1.Poisoned/2.png',
@@ -94,8 +100,8 @@ class Hero extends MovingObjects {
 
     IMAGES_FINSLAP = [
         'img/1.Sharkie/4.Attack/Fin slap/1.png',
-       // 'img/1.Sharkie/4.Attack/Fin slap/2.png',
-       // 'img/1.Sharkie/4.Attack/Fin slap/3.png',
+        // 'img/1.Sharkie/4.Attack/Fin slap/2.png',
+        // 'img/1.Sharkie/4.Attack/Fin slap/3.png',
         'img/1.Sharkie/4.Attack/Fin slap/4.png',
         'img/1.Sharkie/4.Attack/Fin slap/5.png',
         'img/1.Sharkie/4.Attack/Fin slap/6.png',
@@ -114,6 +120,7 @@ class Hero extends MovingObjects {
         this.loadImages(this.IMAGES_DEAD_ELECTROSHOCK);
         this.loadImages(this.IMAGES_BUBBLEATTACK);
         this.loadImages(this.IMAGES_FINSLAP);
+        this.loadImages(this.IMAGES_NORMAL);
         this.positionHero_x = 200;
         this.positionHero_y = 200;
         this.width = 815 / 4
@@ -154,12 +161,16 @@ class Hero extends MovingObjects {
 
 
         setInterval(() => {
-            if (!this.isDead_poisoned && !this.isDead_electroshock) {
+           // if (!this.isDead_poisoned && !this.isDead_electroshock && !this.isDead_normal) {
+            if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
                 if (this.isHurtPoison()) {
                     this.playAnimation(this.IMAGES_POISONED);
                 }
                 else if (this.isHurtElectroshock()) {
                     this.playAnimation(this.IMAGES_ELECTROSHOCK);
+                }
+                else if (this.isHurtNormal()) {
+                    this.playAnimation(this.IMAGES_NORMAL);
                 }
                 else if (this.world.hero.world.keyboard.RIGHT ||
                     this.world.hero.world.keyboard.LEFT ||
@@ -179,16 +190,20 @@ class Hero extends MovingObjects {
                     this.playAnimation(this.IMAGES_IDLE)
                 }
             } else {
-                if (this.isDead_poisoned) {
+                if (this.deadByPoison) {
                     this.playAnimation(this.IMAGES_DEAD_POISONED);
                     this.gameOver = true;
                     gamespeed = 0;
-                } else {
+                } else if (this.deadByElectroshock) {
                     this.playAnimation(this.IMAGES_DEAD_ELECTROSHOCK);
+                    this.gameOver = true;
+                    gamespeed = 0;
+                } else if (this.deadByNormal) {
+                    this.playAnimation(this.IMAGES_DEAD_POISONED);
                     this.gameOver = true;
                     gamespeed = 0;
                 }
             }
-        }, 1000 / 7);
+            }, 1000 / 7);
     }
 }

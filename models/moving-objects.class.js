@@ -7,6 +7,7 @@ class MovingObjects extends DrawingObjects {
     swimmingDown = false;
     lastHitPoison = 0;
     lastHitElectroshock = 0;
+    lastHitNormal = 0;
     moveUp = true;
     moveDown = false;
     gameOver = false;
@@ -181,6 +182,26 @@ class MovingObjects extends DrawingObjects {
     */
     }
 
+    isColliding2(obj) {
+        if (world.hero.mirroredImage) {
+            return (this.positionHero_x + 30  < obj.positionHero_x + obj.width
+                && this.positionHero_y + 110 + this.height - 160 > obj.positionHero_y
+                && this.positionHero_x + 30 > obj.positionHero_x
+                && this.positionHero_y + 110 < obj.positionHero_y + obj.height);
+        } else {
+            return (this.positionHero_x + 30 + this.width - 65 > obj.positionHero_x
+                && this.positionHero_y + 110 + this.height - 160 > obj.positionHero_y
+                && this.positionHero_x + 30 < obj.positionHero_x
+                && this.positionHero_y + 110 < obj.positionHero_y + obj.height);
+        }
+        
+        /*return (this.position_x + this.width) >= obj.position_x && this.position_x <= (obj.position_x + obj.width) &&
+            (this.position_y + this.offsetY + this.height) >= obj.Y &&
+            (this.position_y + this.offsetY) <= (obj.position_y + obj.height) &&
+            obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    */
+    }
+
     isInLine(obj) {
         return (this.positionHero_y + 110 + this.height - 160 > obj.positionEnemie_y
             && this.positionHero_y + 110 < obj.positionEnemie_y + obj.height);
@@ -191,7 +212,7 @@ class MovingObjects extends DrawingObjects {
             && this.positionHero_y + 110 < obj.positionHero_y + 190 + obj.height - 260);
     }
 
-    isCollidingBubble2(obj) {
+    isCollidingBubble(obj) {
         return (this.positionBubble_x + this.width > obj.positionEnemie_x
             && this.positionBubble_y + this.height > obj.positionEnemie_y
             && this.positionBubble_x < obj.positionEnemie_x
@@ -229,8 +250,10 @@ class MovingObjects extends DrawingObjects {
             this.energy -= 20;
             if (attack == 'poison') {
                 this.lastHitPoison = new Date().getTime();
-            } else {
+            } else if (attack == 'electroshock') {
                 this.lastHitElectroshock = new Date().getTime();
+            } else {
+                this.lastHitNormal = new Date().getTime();
             }
         }
     }
@@ -243,6 +266,11 @@ class MovingObjects extends DrawingObjects {
 
     isHurtElectroshock() {
         let timepassed = new Date().getTime() - this.lastHitElectroshock
+        return timepassed < 500
+    }
+
+    isHurtNormal() {
+        let timepassed = new Date().getTime() - this.lastHitNormal
         return timepassed < 500
     }
 
