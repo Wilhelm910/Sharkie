@@ -1,8 +1,8 @@
 class Pufferfish extends MovingObjects {
     world;
-    tagged = false;
-    gotHit = false;
-    lineOfSight = false;
+  //  tagged = false;
+  //  gotHit = false;
+   // lineOfSight = false;
     IMAGES_SWIM = [
         'img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
         'img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png',
@@ -41,8 +41,8 @@ class Pufferfish extends MovingObjects {
         this.loadImages(this.IMAGES_DEAD_PUFFERFISH);
         this.loadImages(this.IMAGES_TRANSITION);
         this.loadImages(this.IMAGES_BUBBLESWIM);
-        this.positionEnemie_x = 1200//Math.floor(Math.random() * 4400) + 600;
-        this.positionEnemie_y = Math.floor(Math.random() * 470) + 40;
+        this.position_x = 1100
+        this.position_y = Math.floor(Math.random() * 470) + 40;
         this.width = 241 / 4
         this.height = 198 / 4
         this.attack = 'poison';
@@ -50,10 +50,7 @@ class Pufferfish extends MovingObjects {
     }
 
     animate() {
-
         setInterval(() => {
-            //  console.log(this.world)
-           
             if (this.gotHit) {
                 this.swimUpEnemie();
             } else {
@@ -62,9 +59,6 @@ class Pufferfish extends MovingObjects {
         }, 1000 / 60);
 
         setInterval(() => {
-            //  console.log(this.positionEnemie_y + this.height)
-            // console.log(world.hero.positionHero_y + world.hero.height)
-            //  console.log(world.hero.positionHero_y - world.hero.height)
             if (this.gotHit) {
                 this.playAnimation(this.IMAGES_DEAD_PUFFERFISH);
             } else if (this.lineOfSight) {

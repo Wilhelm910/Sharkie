@@ -1,11 +1,11 @@
 class Endboss extends MovingObjects {
 
     introduced = false;
-    lineOfSight = false;
+  //  lineOfSight = false;
     turnRight = false;
-    tagged = false;
-    gotHit = false;
-    energy = 2;
+  //  tagged = false;
+  //  gotHit = false;
+  //  energy = 2;
     IMAGES_FLOATING = [
         'img/2.Enemy/3 Final Enemy/2.floating/1.png',
         'img/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -71,11 +71,12 @@ class Endboss extends MovingObjects {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.positionHero_x = 700;
-        this.positionHero_y = 0;
+        this.position_x = 700;
+        this.position_y = 0;
         this.width = 1041 / 3;
         this.height = 1216 / 3;
         this.attack = 'normal';
+        this.energy = 2;
         this.animate();
     }
 
@@ -86,15 +87,15 @@ class Endboss extends MovingObjects {
                 this.swimUpEndboss();
             }
 
-            if (this.introduced && this.lineOfSight && this.positionHero_x > 0 && !this.turnRight) {
+            if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
                 this.swimLeftEndboss();
-                if (this.positionHero_x < 0) {
+                if (this.position_x < 0) {
                     this.turnRight = true;
                 }
             } else if (this.turnRight && this.lineOfSight) {
                 this.swimRightEndboss();
                 this.mirroredImage = true;
-                if (this.positionHero_x > 750) {
+                if (this.position_x > 750) {
                     this.turnRight = false;
                     this.mirroredImage = false;
                 }

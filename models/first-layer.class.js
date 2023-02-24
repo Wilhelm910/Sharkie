@@ -7,8 +7,4 @@ class FirstLayer extends MovingObjects {
     constructor() {
         super().loadImage(this.IMAGES[0]);
     }
-
-
-
-
 }

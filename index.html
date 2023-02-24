@@ -24,7 +24,7 @@
     <script src="models/endboss.class.js"></script>
     <script src="models/coins.class.js"></script>
     <script src="models/bubbleattack.class.js"></script>
-    <script src="models/poisonbubble.class.js"></script>
+    <script src="models/poison.class.js"></script>
     <script src="models/keyboard.class.js"></script>
     <script src="js/game.js"></script>
 </head>
@@ -33,12 +33,12 @@
     <h1>Sharkie</h1>
     <div id="container">
         <canvas id="canvas" width="1080px" height="720px"></canvas>
-        <div>
+        <div class="d-none">
             <p>Game Speed</p>
             <p id="showGamespeed">10</p>
         </div>
 
-        <input onchange="changeSpeed()" type="range" min="0" max="20" value="10" class="slider" id="slider">
+        <input onchange="changeSpeed()" type="range" min="0" max="20" value="10" class="slider d-none" id="slider">
     </div>
 
 </body>

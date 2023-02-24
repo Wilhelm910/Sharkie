@@ -8,13 +8,13 @@ class Bubbleattack extends MovingObjects {
     ]
 
 
-    constructor(positionHero_x, positionHero_y) {
+    constructor(position_x, position_y) {
         super().loadImage(this.IMAGES_BUBBLE[0])
         this.loadImages(this.IMAGES_BUBBLE);
         this.width = 172 / 4;
         this.height = 171 / 4;
-        this.positionBubble_x = positionHero_x;
-        this.positionBubble_y = positionHero_y;
+        this.position_x = position_x;
+        this.position_y = position_y;
         this.bubbleSpeed = 5;
         this.acceleration = 0.5;
         this.animate();
@@ -32,10 +32,10 @@ class Bubbleattack extends MovingObjects {
         setInterval(() => {
            // console.log(world.hero.mirroredImage)
             if (world.hero.mirroredImage) {
-                this.positionBubble_x -= this.bubbleSpeed;
+                this.position_x -= this.bubbleSpeed;
                 this.bubbleSpeed += this.acceleration;
             } else if (!world.hero.mirroredImage) {
-                this.positionBubble_x += this.bubbleSpeed;
+                this.position_x += this.bubbleSpeed;
                 this.bubbleSpeed += this.acceleration;
             }
         }, 25);

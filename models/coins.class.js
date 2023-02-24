@@ -1,5 +1,5 @@
 class Coins extends FixedObjects {
-    tagged = false;
+  //  tagged = false;
     IMAGES = [
         'img/4. Objects/1. Coins/1.png',
         'img/4. Objects/1. Coins/2.png',
@@ -12,8 +12,8 @@ class Coins extends FixedObjects {
         this.loadImages(this.IMAGES);
         this.width = 99 / 2
         this.height = 93 / 2
-        this.positionEnemie_x = Math.floor(Math.random() * 1000) + 1000;
-        this.positionEnemie_y = Math.floor(Math.random() * 400) + 150;
+        this.position_x = Math.floor(Math.random() * 1000) + 1000;
+        this.position_y = Math.floor(Math.random() * 400) + 150;
         this.animate();
     }
 

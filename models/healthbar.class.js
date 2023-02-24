@@ -11,8 +11,8 @@ class Healthbar extends FixedObjects {
 
     constructor() {
         super().loadImage(this.IMAGES[5]);
-        this.positionHero_x = 0;
-        this.positionHero_y = 0;
+        this.position_x = 0;
+        this.position_y = 0;
         this.width = 595 / 3;
         this.height = 158 / 3;
         this.setPercentage()

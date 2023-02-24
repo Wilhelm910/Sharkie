@@ -2,7 +2,7 @@ class Hero extends MovingObjects {
 
     world;
     //speed = 5;
-    energy = 100;
+    bubbleShot = false;
     deadByPoison = false;
     deadByElectroshock = false;
     deadByNormal = false;
@@ -121,10 +121,11 @@ class Hero extends MovingObjects {
         this.loadImages(this.IMAGES_BUBBLEATTACK);
         this.loadImages(this.IMAGES_FINSLAP);
         this.loadImages(this.IMAGES_NORMAL);
-        this.positionHero_x = 200;
-        this.positionHero_y = 200;
+        this.position_x = 200;
+        this.position_y = 200;
         this.width = 815 / 4
         this.height = 1000 / 4
+        this.energy = 100;
         this.animate();
 
     }
@@ -132,81 +133,92 @@ class Hero extends MovingObjects {
 
     animate() {
         setInterval(() => {
-            if (this.world.hero.world.keyboard.RIGHT) {
-                this.swimRight();
-            }
-            if (this.world.hero.world.keyboard.LEFT) {
-                this.swimLeft();
-                this.mirroredImage = true;
-            }
-            if (this.world.hero.world.keyboard.UP) {
-                this.swimUp();
-                this.swimmingUp = true;
-            }
-            if (this.world.hero.world.keyboard.DOWN) {
-                this.swimDown();
-                this.swimmingDown = true;
-            }
-            // Hiermit kann ich das Bild auf dem Helden mittig zentrieren
-            //7this.world.cameraHero_x = -this.positionHero_x
-        }, 1000 / 60);
-
-        setInterval(() => {
-            if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0) {
-                this.playAnimation(this.IMAGES_BUBBLEATTACK);
-            }
-
-        }, 1000 / 60);
-
-
-
-        setInterval(() => {
-            // if (!this.isDead_poisoned && !this.isDead_electroshock && !this.isDead_normal) {
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
-                if (this.isHurtPoison()) {
-                    this.playAnimation(this.IMAGES_POISONED);
+                if (this.world.hero.world.keyboard.RIGHT) {
+                    this.swimRight();
                 }
-                else if (this.isHurtElectroshock()) {
-                    this.playAnimation(this.IMAGES_ELECTROSHOCK);
+                if (this.world.hero.world.keyboard.LEFT) {
+                    this.swimLeft();
+                    this.mirroredImage = true;
                 }
-                else if (this.isHurtNormal()) {
-                    this.playAnimation(this.IMAGES_NORMAL);
-                }
-                else if (this.world.hero.world.keyboard.RIGHT ||
-                    this.world.hero.world.keyboard.LEFT ||
-                    this.world.hero.world.keyboard.UP ||
-                    this.world.hero.world.keyboard.DOWN) {
-                    this.playAnimation(this.IMAGES_SWIM)
-
-                } else if (this.world.hero.world.keyboard.D && this.heroFinslap == false) {
-                    this.heroFinslap = true;
-                    this.playAnimation(this.IMAGES_FINSLAP);
-                    setTimeout(() => {
-                        this.heroFinslap = false;
-                    }, 100);
-
-                }
-                else {
-                    this.playAnimation(this.IMAGES_IDLE)
-                }
-            } else {
-                if (this.deadByPoison) {
-                    this.playAnimation(this.IMAGES_DEAD_POISONED);
-                    this.gameOver = true;
+                if (this.world.hero.world.keyboard.UP) {
                     this.swimUp();
-                    gamespeed = 0;
-                } else if (this.deadByElectroshock) {
-                    this.playAnimation(this.IMAGES_DEAD_ELECTROSHOCK);
-                    this.gameOver = true;
+                    this.swimmingUp = true;
+                }
+                if (this.world.hero.world.keyboard.DOWN) {
                     this.swimDown();
-                    gamespeed = 0;
-                } else if (this.deadByNormal) {
-                    this.playAnimation(this.IMAGES_DEAD_POISONED);
-                    this.gameOver = true;
-                    this.swimUp();
-                    gamespeed = 0;
+                    this.swimmingDown = true;
                 }
+            }
+
+            // Hiermit kann ich das Bild auf dem Helden mittig zentrieren
+            //this.world.camera_x = -this.position_x
+        }, 1000 / 60);
+
+        setInterval(() => {
+            if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
+                this.aliveAnimations();
+            } else {
+                this.deadAnimations();
             }
         }, 1000 / 7);
+    }
+
+    aliveAnimations() {
+        if (this.isHurtPoison()) {
+            this.playAnimation(this.IMAGES_POISONED);
+        }
+        else if (this.isHurtElectroshock()) {
+            this.playAnimation(this.IMAGES_ELECTROSHOCK);
+        }
+        else if (this.isHurtNormal()) {
+            this.playAnimation(this.IMAGES_NORMAL);
+        }
+        else if (this.world.hero.world.keyboard.RIGHT ||
+            this.world.hero.world.keyboard.LEFT ||
+            this.world.hero.world.keyboard.UP ||
+            this.world.hero.world.keyboard.DOWN) {
+            this.playAnimation(this.IMAGES_SWIM)
+        }
+        else if (this.world.hero.world.keyboard.D && !this.heroFinslap) {
+            this.heroFinslap = true;
+            this.playAnimation(this.IMAGES_FINSLAP);
+            setTimeout(() => {
+                this.heroFinslap = false;
+            }, 100);
+        }
+        else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) {
+            console.log(this.bubbleShot)
+            this.bubbleShot = true;
+            console.log(this.bubbleShot)
+            console.log("test")
+            this.playAnimation(this.IMAGES_BUBBLEATTACK);
+            setTimeout(() => {
+                this.bubbleShot = false;
+
+            }, 1000);
+        }
+        else {
+            this.playAnimation(this.IMAGES_IDLE)
+        }
+    }
+
+    deadAnimations() {
+        if (this.deadByPoison) {
+            this.playAnimation(this.IMAGES_DEAD_POISONED);
+            this.gameOver = true;
+            this.swimUp();
+            gamespeed = 0;
+        } else if (this.deadByElectroshock) {
+            this.playAnimation(this.IMAGES_DEAD_ELECTROSHOCK);
+            this.gameOver = true;
+            this.swimDown();
+            gamespeed = 0;
+        } else if (this.deadByNormal) {
+            this.playAnimation(this.IMAGES_DEAD_POISONED);
+            this.gameOver = true;
+            this.swimUp();
+            gamespeed = 0;
+        }
     }
 }
