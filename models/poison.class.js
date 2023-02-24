@@ -17,7 +17,7 @@ class Poison extends FixedObjects {
         this.loadImages(this.IMAGES_POISON);
         this.width = 178 / 4
         this.height = 243 / 4
-        this.position_x = 1100;
+        this.position_x = Math.floor(Math.random() * 700) + 400;
         this.position_y = Math.floor(Math.random() * 400) + 150;
         this.animate();
     }

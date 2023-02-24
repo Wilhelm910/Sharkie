@@ -1,5 +1,5 @@
 class Endboss extends MovingObjects {
-
+    isDead = false;
     introduced = false;
   //  lineOfSight = false;
     turnRight = false;
@@ -86,7 +86,6 @@ class Endboss extends MovingObjects {
             if (this.energy == 0) {
                 this.swimUpEndboss();
             }
-
             if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
                 this.swimLeftEndboss();
                 if (this.position_x < 0) {
@@ -111,8 +110,11 @@ class Endboss extends MovingObjects {
 
 
         setInterval(() => {
-            if (this.energy == 0) {
+            if (this.energy == 0  && !this.isDead) {
                 this.playAnimation(this.IMAGES_DEAD);
+                setTimeout(() => {
+                    this.isDead = true;
+                }, 3000);
             } else if (this.gotHit) {
                 this.playAnimation(this.IMAGES_HURT);
                 

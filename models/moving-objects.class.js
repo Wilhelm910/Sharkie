@@ -125,25 +125,25 @@ class MovingObjects extends DrawingObjects {
         this.position_y -= this.enemieSpeed
     }
 
-/*
+
     isColliding(obj) {
         return (this.position_x + 30 + this.width - 65 > obj.position_x
             && this.position_y + 110 + this.height - 160 > obj.position_y
             && this.position_x + 30 < obj.position_x
             && this.position_y + 110 < obj.position_y + obj.height);
     }
-*/
-    isColliding/*Endboss*/(obj) {
+
+    isCollidingEndboss(obj) {
         if (world.hero.mirroredImage) {
-            return (this.position_x + 30 < obj.position_x + obj.width
-                && this.position_y + 110 + this.height - 160 > obj.position_y
-                && this.position_x + 30 > obj.position_x
-                && this.position_y + 110 < obj.position_y + obj.height);
+            return (this.position_x + 30 < obj.position_x + obj.width -25
+                && this.position_y + 110 + this.height - 160 > obj.position_y + 190
+                && this.position_x + 30 > obj.position_x + 10
+                && this.position_y + 110 < obj.position_y + 190 + obj.height - 260);
         } else {
-            return (this.position_x + 30 + this.width - 65 > obj.position_x
-                && this.position_y + 110 + this.height - 160 > obj.position_y
-                && this.position_x + 30 < obj.position_x
-                && this.position_y + 110 < obj.position_y + obj.height);
+            return (this.position_x + 30 + this.width - 65 > obj.position_x + 10
+                && this.position_y + 110 + this.height - 160 > obj.position_y + 190
+                && this.position_x + 30 < obj.position_x + 10
+                && this.position_y + 110 < obj.position_y + 190 + obj.height - 260);
         }
     }
 

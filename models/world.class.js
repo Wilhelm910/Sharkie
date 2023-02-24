@@ -52,7 +52,7 @@ class World {
 
     checkForEndposition() {
         setInterval(() => {
-            if (this.distance > 1000 && this.endboss.length < 1) {
+            if (this.distance > 0 && this.endboss.length < 1) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
                 this.finalScreen = true
@@ -229,7 +229,7 @@ class World {
             } else {
                 element.lineOfSight = false;
             }
-            if (this.hero.isColliding/*Endboss*/(element)) {
+            if (this.hero.isCollidingEndboss(element)) {
                 if (element.tagged == false) {
                     this.hero.hit(element.attack)
                     element.tagged = true;
@@ -286,9 +286,11 @@ class World {
         this.endboss.forEach(element => {
             for (let i = 0; i < this.bubble.length; i++) {
                 if (this.bubble[i].isCollidingBubble/*2*/(element) && !element.tagged) {
+                    console.log("test")
                     element.tagged = true;
                     element.gotHit = true;
                     element.energy--
+                    console.log(element.energy)
                     this.bubble.splice(i, 1)
                     element.tagged = false;
                 }
