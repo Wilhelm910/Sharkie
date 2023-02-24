@@ -161,7 +161,7 @@ class Hero extends MovingObjects {
 
 
         setInterval(() => {
-           // if (!this.isDead_poisoned && !this.isDead_electroshock && !this.isDead_normal) {
+            // if (!this.isDead_poisoned && !this.isDead_electroshock && !this.isDead_normal) {
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
                 if (this.isHurtPoison()) {
                     this.playAnimation(this.IMAGES_POISONED);
@@ -193,17 +193,20 @@ class Hero extends MovingObjects {
                 if (this.deadByPoison) {
                     this.playAnimation(this.IMAGES_DEAD_POISONED);
                     this.gameOver = true;
+                    this.swimUp();
                     gamespeed = 0;
                 } else if (this.deadByElectroshock) {
                     this.playAnimation(this.IMAGES_DEAD_ELECTROSHOCK);
                     this.gameOver = true;
+                    this.swimDown();
                     gamespeed = 0;
                 } else if (this.deadByNormal) {
                     this.playAnimation(this.IMAGES_DEAD_POISONED);
                     this.gameOver = true;
+                    this.swimUp();
                     gamespeed = 0;
                 }
             }
-            }, 1000 / 7);
+        }, 1000 / 7);
     }
 }

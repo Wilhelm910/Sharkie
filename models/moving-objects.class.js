@@ -45,6 +45,8 @@ class MovingObjects extends DrawingObjects {
             if (this.positionHero_y > -100) {
                 this.positionHero_y -= this.heroSpeed;
             }
+        } else if(this.gameOver) {
+            this.positionHero_y -= this.heroSpeed * 2;
         }
 
         //  this.swimmingDown = false;
@@ -55,6 +57,8 @@ class MovingObjects extends DrawingObjects {
             if (this.positionHero_y < 380) {
                 this.positionHero_y += this.heroSpeed;
             }
+        } else if(this.gameOver && this.positionHero_y < 380) {
+            this.positionHero_y += this.heroSpeed * 2;
         }
 
         //  this.swimmingUp = false;

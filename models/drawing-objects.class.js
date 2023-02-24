@@ -24,6 +24,12 @@ class DrawingObjects {
             let path = images[i]
             this.img = this.imageCache[path]
             this.currentImage++
+        } else if (this.gameOver) {
+            for (let i = 0; i < images.length; i++) {
+                let path = images[i]
+                this.img = this.imageCache[path]
+                this.currentImage++
+            }
         }
     }
 
