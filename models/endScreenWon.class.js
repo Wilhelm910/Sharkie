@@ -14,10 +14,12 @@ class EndscreenWon extends DrawingObjects {
 
     animate() {
         setInterval(() => {
+           if(world.finalScreen) {
             if (world.endboss[0].isDead) {
                 this.width = this.CANVAS_WIDTH;
                 this.height = this.CANVAS_HEIGHT;
             }
+           }
         }, 600);
 
     }

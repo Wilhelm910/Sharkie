@@ -55,14 +55,14 @@ class World {
 
     checkForEndposition() {
         setInterval(() => {
-            if (this.distance > 0 && this.endboss.length < 1) {
+            if (this.distance > 1500 && this.endboss.length < 1) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
                 this.finalScreen = true
                 this.enemies = []
-            } else if (world.hero.gameOver) {
-                this.endboss = []
-            }
+            }// else if (world.hero.gameOver) {
+               // this.endboss = []
+           // }
         }, 100);
     }
 
