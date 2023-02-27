@@ -1,11 +1,11 @@
 class Endboss extends MovingObjects {
     isDead = false;
     introduced = false;
-  //  lineOfSight = false;
+    //  lineOfSight = false;
     turnRight = false;
-  //  tagged = false;
-  //  gotHit = false;
-  //  energy = 2;
+    //  tagged = false;
+    //  gotHit = false;
+    //  energy = 2;
     IMAGES_FLOATING = [
         'img/2.Enemy/3 Final Enemy/2.floating/1.png',
         'img/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -83,56 +83,60 @@ class Endboss extends MovingObjects {
     animate() {
 
         setInterval(() => {
-            if (this.energy == 0) {
-                this.swimUpEndboss();
-            }
-            if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
-                this.swimLeftEndboss();
-                if (this.position_x < 0) {
-                    this.turnRight = true;
+            if (!world.hero.gameOver) {
+                if (this.energy == 0) {
+                    this.swimUpEndboss();
                 }
-            } else if (this.turnRight && this.lineOfSight) {
-                this.swimRightEndboss();
-                this.mirroredImage = true;
-                if (this.position_x > 750) {
-                    this.turnRight = false;
-                    this.mirroredImage = false;
+                if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
+                    this.swimLeftEndboss();
+                    if (this.position_x < 0) {
+                        this.turnRight = true;
+                    }
+                } else if (this.turnRight && this.lineOfSight) {
+                    this.swimRightEndboss();
+                    this.mirroredImage = true;
+                    if (this.position_x > 750) {
+                        this.turnRight = false;
+                        this.mirroredImage = false;
+                    }
                 }
-            }
-            if (this.introduced && !this.lineOfSight) {
-                setTimeout(() => {
-                    this.attackHero();
-                }, 2000);
-            }
+                if (this.introduced && !this.lineOfSight) {
+                    setTimeout(() => {
+                        this.attackHero();
+                    }, 2000);
+                }
 
-
+            }
         }, 1000 / 60);
 
 
         setInterval(() => {
-            if (this.energy == 0  && !this.isDead) {
-                this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(() => {
-                    this.isDead = true;
-                }, 3000);
-            } else if (this.gotHit) {
-                this.playAnimation(this.IMAGES_HURT);
-                
-                setTimeout(() => {
-                    this.gotHit = false;
-                }, 1000);
-            } else if (!this.introduced) {
-                this.playAnimation(this.IMAGES_INTRODUCE);
-                setTimeout(() => {
-                    this.introduced = true;
-                }, 1000);
-            } else if (this.lineOfSight && this.introduced) {
-                this.playAnimation(this.IMAGES_ATTACK);
-            } else {
-                this.playAnimation(this.IMAGES_FLOATING);
+            if (!world.hero.gameOver) {
+                if (this.energy == 0 && !this.isDead) {
+                    this.playAnimation(this.IMAGES_DEAD);
+                    setTimeout(() => {
+                        world.hero.gameWon = true;
+                        this.isDead = true;
+                    }, 2000); 
+                } else if (this.gotHit) {
+                    this.playAnimation(this.IMAGES_HURT);
+
+                    setTimeout(() => {
+                        this.gotHit = false;
+                    }, 1000);
+                } else if (!this.introduced) {
+                    this.playAnimation(this.IMAGES_INTRODUCE);
+                    setTimeout(() => {
+                        this.introduced = true;
+                    }, 1000);
+                } else if (this.lineOfSight && this.introduced) {
+                    this.playAnimation(this.IMAGES_ATTACK);
+                } else {
+                    this.playAnimation(this.IMAGES_FLOATING);
+                }
+
             }
-
-
         }, 1000 / 6);
+
     }
 }

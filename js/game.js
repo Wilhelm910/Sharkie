@@ -2,6 +2,7 @@ let canvas;
 let world;
 let gamespeed =  5;
 let keyboard = new Keyboard();
+let intervalIDs = []
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -58,5 +59,38 @@ window.addEventListener('keyup', (event) => {
         keyboard.D = false;
     }
 });
+
+
+function startGame() {
+    let container = document.getElementById('container');
+    container.classList.remove('d-none');
+    let buttons = document.getElementById('buttons-section');
+    buttons.classList.add('d-none');
+    init();
+}
+
+
+function enterFullscreen(element) {
+    if(element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if(element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+      element.msRequestFullscreen();
+    } else if(element.webkitRequestFullscreen) {  // iOS Safari
+      element.webkitRequestFullscreen();
+    }
+  }
+
+  function exitFullscreen() {
+    if(document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if(document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+
+  function fullScreen() {
+    console.log("test")
+    enterFullscreen(document.getElementById('container'));
+  }
 
 

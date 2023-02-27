@@ -15,6 +15,8 @@ class World {
     healthbar = new Healthbar();
     coinbar = new Coinbar();
     poisonbar = new Poisonbar();
+    endscreenLost = new EndscreenLost();
+    endscreenWon = new EndscreenWon();
     //herospeed;
     canvas;
     ctx;
@@ -41,6 +43,7 @@ class World {
         this.removeObjects(this.bubble);
         this.checkForEndposition();
 
+
         // funkion check endPosition. WEnn ja gamespeed = 0; spawn endboss. Remove restliche gegner, ...
     }
 
@@ -57,6 +60,8 @@ class World {
                 this.endboss.push(endboss);
                 this.finalScreen = true
                 this.enemies = []
+            } else if (world.hero.gameOver) {
+                this.endboss = []
             }
         }, 100);
     }
@@ -76,7 +81,7 @@ class World {
 
     spawnCoins() {
         setInterval(() => {
-            if (!world.hero.gameOver && this.coinCounter <= 5) {
+            if (!world.hero.gameOver || this.coinCounter <= 5 || !world.hero.gameWon) {
                 this.coinCounter++
                 let coin = new Coins();
                 this.coins.push(coin);
@@ -89,13 +94,14 @@ class World {
 
     spawnPoison() {
         setInterval(() => {
-            if (!world.hero.gameOver && world.hero.bubblesForShoot < 5) {
+            if (!world.hero.gameOver && !world.hero.gameWon && world.hero.bubblesForShoot < 5) {
                 let poison = new Poison();
                 this.poison.push(poison);
-            } //else {
-                // SOLLTE NICHT GELEERT WERDEN??
-              //  this.poison = []
-         //   }
+            } else if (world.hero.gameOver) {
+                this.poison = []
+            } else if (world.endboss[0].isDead) {
+                this.poison = []
+            }
         }, Math.floor(Math.random() * 2000) + 2000);
     }
 
@@ -114,6 +120,7 @@ class World {
     drawAll() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         //  this.ctx.translate(this.camera_x, 0);
+        this.addHeroToMap(this.endscreenWon);
         this.addBackgroundToMap(this.background);
         this.addHeroToMap(this.hero);
         this.addToMap(this.endboss);
@@ -124,6 +131,7 @@ class World {
         this.addToMap(this.bubble);
         this.addToMap(this.poison);
         this.addToMap(this.coins);
+        this.addHeroToMap(this.endscreenLost);
         //  this.ctx.translate(-this.camera_x, 0);
         let self = this;
         requestAnimationFrame(function () {
@@ -136,9 +144,11 @@ class World {
         if (!this.hero.gameOver) {
             this.distance++
         }
-        array.forEach(element => {
-            element.drawBackground(this.ctx, this.distance);
-        });
+        if (!this.hero.gameWon) {
+            array.forEach(element => {
+                element.drawBackground(this.ctx, this.distance);
+            });
+        }
     }
 
 
@@ -286,7 +296,6 @@ class World {
         this.endboss.forEach(element => {
             for (let i = 0; i < this.bubble.length; i++) {
                 if (this.bubble[i].isCollidingBubble/*2*/(element) && !element.tagged) {
-                    console.log("test")
                     element.tagged = true;
                     element.gotHit = true;
                     element.energy--

@@ -9,6 +9,7 @@ class Hero extends MovingObjects {
     bubblesForShoot = 0;
     heroFinslap = false;
     coins = 0;
+    gameWon = false;
 
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
@@ -131,24 +132,28 @@ class Hero extends MovingObjects {
     }
 
 
+
     animate() {
         setInterval(() => {
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
-                if (this.world.hero.world.keyboard.RIGHT) {
-                    this.swimRight();
+                if (!this.gameWon) {
+                    if (this.world.hero.world.keyboard.RIGHT) {
+                        this.swimRight();
+                    }
+                    if (this.world.hero.world.keyboard.LEFT) {
+                        this.swimLeft();
+                        this.mirroredImage = true;
+                    }
+                    if (this.world.hero.world.keyboard.UP) {
+                        this.swimUp();
+                        this.swimmingUp = true;
+                    }
+                    if (this.world.hero.world.keyboard.DOWN) {
+                        this.swimDown();
+                        this.swimmingDown = true;
+                    }
                 }
-                if (this.world.hero.world.keyboard.LEFT) {
-                    this.swimLeft();
-                    this.mirroredImage = true;
-                }
-                if (this.world.hero.world.keyboard.UP) {
-                    this.swimUp();
-                    this.swimmingUp = true;
-                }
-                if (this.world.hero.world.keyboard.DOWN) {
-                    this.swimDown();
-                    this.swimmingDown = true;
-                }
+
             }
 
             // Hiermit kann ich das Bild auf dem Helden mittig zentrieren
@@ -165,40 +170,29 @@ class Hero extends MovingObjects {
     }
 
     aliveAnimations() {
-        if (this.isHurtPoison()) {
-            this.playAnimation(this.IMAGES_POISONED);
-        }
-        else if (this.isHurtElectroshock()) {
-            this.playAnimation(this.IMAGES_ELECTROSHOCK);
-        }
-        else if (this.isHurtNormal()) {
-            this.playAnimation(this.IMAGES_NORMAL);
-        }
-        else if (this.world.hero.world.keyboard.RIGHT ||
-            this.world.hero.world.keyboard.LEFT ||
-            this.world.hero.world.keyboard.UP ||
-            this.world.hero.world.keyboard.DOWN) {
-            this.playAnimation(this.IMAGES_SWIM)
-        }
-        else if (this.world.hero.world.keyboard.D && !this.heroFinslap) {
-            this.heroFinslap = true;
-            this.playAnimation(this.IMAGES_FINSLAP);
-            setTimeout(() => {
-                this.heroFinslap = false;
-            }, 100);
-        }
-        else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) {
-            console.log(this.bubbleShot)
-            this.bubbleShot = true;
-            console.log(this.bubbleShot)
-            console.log("test")
-            this.playAnimation(this.IMAGES_BUBBLEATTACK);
-            setTimeout(() => {
-                this.bubbleShot = false;
-
-            }, 1000);
-        }
-        else {
+        if (!this.gameWon) {
+            if (this.isHurtPoison()) {
+                this.playAnimation(this.IMAGES_POISONED);
+            }
+            else if (this.isHurtElectroshock()) {
+                this.playAnimation(this.IMAGES_ELECTROSHOCK);
+            }
+            else if (this.isHurtNormal()) {
+                this.playAnimation(this.IMAGES_NORMAL);
+            }
+            else if (this.moving()) {
+                this.playAnimation(this.IMAGES_SWIM)
+            }
+            else if (this.world.hero.world.keyboard.D && !this.heroFinslap) {
+                this.finAttack();
+            }
+            else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) {
+                this.bubbleAttack();
+            }
+            else {
+                this.playAnimation(this.IMAGES_IDLE)
+            }
+        } else {
             this.playAnimation(this.IMAGES_IDLE)
         }
     }
@@ -220,5 +214,32 @@ class Hero extends MovingObjects {
             this.swimUp();
             gamespeed = 0;
         }
+        setTimeout(() => {
+           // document.getElementById('end-screen').classList.remove('d-none')
+        }, 3);
+    }
+
+    finAttack() {
+        this.heroFinslap = true;
+        this.playAnimation(this.IMAGES_FINSLAP);
+        setTimeout(() => {
+            this.heroFinslap = false;
+        }, 100);
+    }
+
+    bubbleAttack() {
+        this.bubbleShot = true;
+        this.playAnimation(this.IMAGES_BUBBLEATTACK);
+        setTimeout(() => {
+            this.bubbleShot = false;
+
+        }, 1000);
+    }
+
+    moving() {
+        return this.world.hero.world.keyboard.RIGHT ||
+        this.world.hero.world.keyboard.LEFT ||
+        this.world.hero.world.keyboard.UP ||
+        this.world.hero.world.keyboard.DOWN
     }
 }

@@ -26,20 +26,66 @@
     <script src="models/bubbleattack.class.js"></script>
     <script src="models/poison.class.js"></script>
     <script src="models/keyboard.class.js"></script>
+    <script src="models/endScreenLost.class.js"></script>
+    <script src="models/endScreenWon.class.js"></script>
     <script src="js/game.js"></script>
 </head>
 
-<body onload="init()">
-    <h1>Sharkie</h1>
-    <div id="container">
+<body>
+
+    <div id="header">
+        <div id="fullscreen-container">
+            <img onclick="fullScreen()" class="fullscreen-img" src="img/6.Buttons/Full Screen/Mesa de trabajo 6.png">
+        </div>
+        <div>
+            <h1>Sharkie</h1>
+        </div>
+    </div>
+
+    <div id="end-screen" class="d-none">
+        <div id="lost-screen">
+            <img src="img/6.Buttons/Tittles/Game Over/Recurso 9.png">
+        </div>
+        <div id="won-sreen"></div>
+    </div>
+
+    <div class="d-none" id="container">
         <canvas id="canvas" width="1080px" height="720px"></canvas>
         <div class="d-none">
             <p>Game Speed</p>
             <p id="showGamespeed">10</p>
         </div>
-
         <input onchange="changeSpeed()" type="range" min="0" max="20" value="10" class="slider d-none" id="slider">
     </div>
+
+
+    <div id="buttons-section">
+        <div class="img-container" onclick="startGame()">
+            <img class="img" src="img/6.Buttons/Start/3.png">
+        </div>
+        <div id="action-buttons">
+            <div>
+                <div class="img-container">
+                    <img class="img" src="img/6.Buttons/Tittles/Attack tittle.png">
+                </div>
+                <div class="img-container">
+                    <img class="img" src="img/6.Buttons/Key/arrow keys.png">
+                </div>
+            </div>
+            <div>
+                <div class="img-container">
+                    <img class="img" src="img/6.Buttons/Tittles/Move title.png">
+                </div>
+                <div class="img-container">
+                    <img class="img" src="img/6.Buttons/Key/Space Bar key.png">
+                </div>
+                <div class="img-container">
+                    <img class="img" src="img/6.Buttons/Key/D key.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 
