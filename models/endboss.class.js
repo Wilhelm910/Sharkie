@@ -1,5 +1,5 @@
 class Endboss extends MovingObjects {
-    endboss_sound = new Audio('audio/music_Endboss.mp3');
+    swimming_sound = new Audio('audio/swimming.mp3');
     isDead = false;
     introduced = false;
     //  lineOfSight = false;
@@ -84,22 +84,24 @@ class Endboss extends MovingObjects {
     animate() {
 
         setInterval(() => {
-            this.endboss_sound.play();
+            this.swimming_sound.pause();
+            this.swimming_sound.currentTime = 0.3;
             if (!world.hero.gameOver) {
                 if (this.energy < 0) {
                     this.swimUpEndboss();
-                    this.endboss_sound.pause();
+                    this.swimming_sound.pause();
+                    this.swimming_sound.currentTime = 0.3;
                 }
                
                 if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
                     this.swimLeftEndboss();
-                  
+                    this.swimming_sound.play();
                     if (this.position_x < 0) {
                         this.turnRight = true;
                     }
                 } else if (this.turnRight && this.lineOfSight) {
                     this.swimRightEndboss();
-                  
+                    this.swimming_sound.play();
                     this.mirroredImage = true;
                     if (this.position_x > 750) {
                         this.turnRight = false;
@@ -107,8 +109,9 @@ class Endboss extends MovingObjects {
                     }
                 }
                 if (this.introduced && !this.lineOfSight) {
-                  
+                    
                     setTimeout(() => {
+                        this.swimming_sound.play();
                         this.attackHero();
                     }, 2000);
                 }

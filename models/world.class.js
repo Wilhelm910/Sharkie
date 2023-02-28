@@ -1,4 +1,10 @@
 class World {
+    endboss_sound = new Audio('audio/music_Endboss.mp3');
+    poison_sound = new Audio('audio/poison.mp3')
+    coin_sound = new Audio('audio/coin.mp3');
+    game_sound = new Audio('audio/gamesound.mp3');
+    gameover_sound = new Audio('audio/gameover.mp3');
+    
     hero = new Hero();
     background = [
         new Water(),
@@ -81,15 +87,32 @@ class World {
 
     checkForEndposition() {
         setInterval(() => {
-            if (this.hero.distance > /*1500*/0 && this.endboss.length < 1) {
+            if (this.hero.distance < 1500) {
+                this.game_sound.play();
+            }
+            if (this.hero.gameOver) {
+                this.game_sound.pause();
+                this.endboss_sound.pause();
+                this.gameover_sound.play();
+                setTimeout(() => {
+                    this.gameover_sound.pause();
+                    this.gameover_sound.currentTime = 0;
+                }, 2000);
+            }
+            
+            
+            if (this.hero.distance > 1500 && this.endboss.length < 1 && !this.hero.gameWon) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
                 this.finalScreen = true
                 this.enemies = []
+                this.game_sound.pause();
+                this.endboss_sound.play();
             } else if (this.endboss.length == 1) {
                 if (this.endboss.isDead) {
                     this.poison = []
                     this.endboss = []
+                    this.endboss_sound.pause();
                 }
             }
         }, 100);
@@ -238,9 +261,14 @@ class World {
         this.poison.forEach(element => {
             if (this.hero.isColliding(element)) {
                 if (element.tagged == false) {
+                    this.poison_sound.play();
                     this.hero.bubblesForShoot++
                     element.tagged = true
                     this.poison.splice(this.poison.indexOf(element), 1)
+                    setTimeout(() => {
+                        this.poison_sound.pause();
+                        this.poison_sound.currentTime = 0;
+                    }, 600);
                 }
             }
         });
@@ -251,9 +279,11 @@ class World {
         this.coins.forEach(element => {
             if (this.hero.isColliding(element)) {
                 if (element.tagged == false) {
+                    this.coin_sound.play();
                     this.hero.coins++
                     element.tagged = true
                     this.coins.splice(this.coins.indexOf(element), 1)
+                   // this.coin_sound.pause();
                 }
             }
         });

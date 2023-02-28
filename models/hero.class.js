@@ -1,6 +1,7 @@
 class Hero extends MovingObjects {
-    swimming_sound = new Audio('audio/swimming.mp3');
+    pufferfish_sound = new Audio('audio/pufferfish.mp3');
     shooting_bubble_sound = new Audio('audio/shooting_bubble.mp3');
+    electroshock_sound = new Audio('audio/electroshock.mp3');
     test = new Audio('audio/test.wav');
     world;
     //speed = 5;
@@ -137,27 +138,27 @@ class Hero extends MovingObjects {
 
     animate() {
         setInterval(() => {
-            this.swimming_sound.pause();
+           
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
                 if (!this.gameWon) {
                     if (this.world.hero.world.keyboard.RIGHT) {
                         this.swimRight();
-                        this.swimming_sound.play();
+                      
                     }
                     if (this.world.hero.world.keyboard.LEFT) {
                         this.swimLeft();
                         this.mirroredImage = true;
-                        this.swimming_sound.play();
+                      
                     }
                     if (this.world.hero.world.keyboard.UP) {
                         this.swimUp();
                         this.swimmingUp = true;
-                        this.swimming_sound.play();
+                        
                     }
                     if (this.world.hero.world.keyboard.DOWN) {
                         this.swimDown();
                         this.swimmingDown = true;
-                        this.swimming_sound.play();
+                       
                     }
                 }
 
@@ -180,9 +181,15 @@ class Hero extends MovingObjects {
         if (!this.gameWon) {
             if (this.isHurtPoison()) {
                 this.playAnimation(this.IMAGES_POISONED);
+                this.pufferfish_sound.play();
             }
             else if (this.isHurtElectroshock()) {
                 this.playAnimation(this.IMAGES_ELECTROSHOCK);
+                this.electroshock_sound.currentTime = 1;
+                this.electroshock_sound.play();
+                setTimeout(() => {
+                    this.electroshock_sound.pause();
+                }, 500);
             }
             else if (this.isHurtNormal()) {
                 this.playAnimation(this.IMAGES_NORMAL);
