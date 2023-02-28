@@ -84,7 +84,7 @@ class Endboss extends MovingObjects {
 
         setInterval(() => {
             if (!world.hero.gameOver) {
-                if (this.energy == 0) {
+                if (this.energy < 0) {
                     this.swimUpEndboss();
                 }
                 if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
@@ -112,7 +112,7 @@ class Endboss extends MovingObjects {
 
         setInterval(() => {
             if (!world.hero.gameOver) {
-                if (this.energy == 0 && !this.isDead) {
+                if (this.energy < 0 && !this.isDead) {
                     this.playAnimation(this.IMAGES_DEAD);
                     setTimeout(() => {
                         world.hero.gameWon = true;

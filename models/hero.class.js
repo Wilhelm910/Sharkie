@@ -6,7 +6,7 @@ class Hero extends MovingObjects {
     deadByPoison = false;
     deadByElectroshock = false;
     deadByNormal = false;
-    bubblesForShoot = 0;
+    bubblesForShoot = 10000;
     heroFinslap = false;
     coins = 0;
     gameWon = false;
@@ -203,16 +203,19 @@ class Hero extends MovingObjects {
             this.gameOver = true;
             this.swimUp();
             gamespeed = 0;
+          
         } else if (this.deadByElectroshock) {
             this.playAnimation(this.IMAGES_DEAD_ELECTROSHOCK);
             this.gameOver = true;
             this.swimDown();
             gamespeed = 0;
+           
         } else if (this.deadByNormal) {
             this.playAnimation(this.IMAGES_DEAD_POISONED);
             this.gameOver = true;
             this.swimUp();
             gamespeed = 0;
+          
         }
         setTimeout(() => {
            // document.getElementById('end-screen').classList.remove('d-none')
@@ -233,7 +236,7 @@ class Hero extends MovingObjects {
         setTimeout(() => {
             this.bubbleShot = false;
 
-        }, 1000);
+        }, 100);
     }
 
     moving() {

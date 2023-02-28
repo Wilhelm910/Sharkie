@@ -93,9 +93,11 @@ class DrawingObjects {
     }
 
 
-    drawBackground(ctx,distance) {
+    drawBackground(ctx) {
+      //  console.log(distance)
         if (distance > this.endPosition) {
             gamespeed = 0
+            
         }
         ctx.drawImage(this.img, this.position_x, this.position_y, this.background_width, this.background_height);
         ctx.drawImage(this.img, this.position_x2, this.position_y, this.background_width, this.background_height);

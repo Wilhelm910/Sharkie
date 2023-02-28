@@ -25,12 +25,14 @@ class World {
     coinCounter = 0;
     bubbleCounter = 0;
     finalScreen = false;
-    distance = 0;
+    //distance = 0;
+    newGame = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.checkForNewGame();
         this.spawnEnemies();
         this.spawnPoison();
         this.spawnCoins();
@@ -47,6 +49,30 @@ class World {
         // funkion check endPosition. WEnn ja gamespeed = 0; spawn endboss. Remove restliche gegner, ...
     }
 
+    checkForNewGame() {
+        setInterval(() => {
+            if (gameStart) {
+                world.hero.gameOver = false;
+                world.hero.deadByPoison = false;
+                world.hero.deadByElectroshock = false;
+                world.hero.deadByNormal = false;
+                world.hero.gameWon = false;
+                world.hero.energy = 100;
+                gamespeed = 5
+                distance = 0
+                if (this.endboss.length > 0) {
+                    world.endboss.introduced = false;
+                    world.endboss.isDead = false;
+                    world.endboss.energy = 2;
+                }
+            }
+            if (gameStart) {
+                gameStart = false;
+            }
+        }, 100);
+
+    }
+
 
     setWorld() {
         this.hero.world = this;
@@ -55,14 +81,16 @@ class World {
 
     checkForEndposition() {
         setInterval(() => {
-            if (this.distance > 1500 && this.endboss.length < 1) {
+            if (distance > 1500 && this.endboss.length < 1) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
                 this.finalScreen = true
                 this.enemies = []
-            }// else if (world.hero.gameOver) {
-               // this.endboss = []
-           // }
+            } else if (this.endboss.length == 1) {
+                if (this.endboss.isDead) {
+                    this.endboss = []
+                }
+            }
         }, 100);
     }
 
@@ -81,11 +109,12 @@ class World {
 
     spawnCoins() {
         setInterval(() => {
-            if (!world.hero.gameOver || this.coinCounter <= 5 || !world.hero.gameWon) {
+            if (!world.hero.gameOver && this.coinCounter <= 5 && !world.hero.gameWon) {
                 this.coinCounter++
                 let coin = new Coins();
                 this.coins.push(coin);
-            } else {
+            }
+            if (world.hero.gameOver || this.coinCounter > 5 || world.hero.gameWon || this.endboss.length > 0) {
                 this.coins = []
             }
         }, Math.floor(Math.random() * 3000) + 3000);
@@ -99,8 +128,11 @@ class World {
                 this.poison.push(poison);
             } else if (world.hero.gameOver) {
                 this.poison = []
-            } else if (world.endboss[0].isDead) {
-                this.poison = []
+            } else if (world.endboss.length > 0) {
+                if (this.endboss.isDead) {
+                    this.poison = []
+                }
+
             }
         }, Math.floor(Math.random() * 2000) + 2000);
     }
@@ -142,11 +174,11 @@ class World {
 
     addBackgroundToMap(array) {
         if (!this.hero.gameOver) {
-            this.distance++
+            distance++
         }
         if (!this.hero.gameWon) {
             array.forEach(element => {
-                element.drawBackground(this.ctx, this.distance);
+                element.drawBackground(this.ctx);
             });
         }
     }
@@ -299,7 +331,6 @@ class World {
                     element.tagged = true;
                     element.gotHit = true;
                     element.energy--
-                    console.log(element.energy)
                     this.bubble.splice(i, 1)
                     element.tagged = false;
                 }
@@ -334,7 +365,7 @@ class World {
                     this.hero.bubblesForShoot--
                 }
             }
-        }, 10);
+        }, 200);
     }
 
 } 
