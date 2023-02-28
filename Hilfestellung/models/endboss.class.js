@@ -1,4 +1,6 @@
 class Endboss extends MovingObject {
+  
+    
     IMAGES_WALK = [
         '../img/4_enemie_boss_chicken/1_walk/G1.png',
         '../img/4_enemie_boss_chicken/1_walk/G2.png',

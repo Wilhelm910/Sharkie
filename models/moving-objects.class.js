@@ -97,7 +97,7 @@ class MovingObjects extends DrawingObjects {
 
     swimLeftEnemie() {
         if (!this.gameOver) {
-            this.position_x -= this.enemieSpeed + (gamespeed / 2);
+            this.position_x -= this.enemieSpeed + (this.gamespeed / 2);
             if (this instanceof Pufferfish && this.lineOfSight) {
                 this.position_x -= 2
             }

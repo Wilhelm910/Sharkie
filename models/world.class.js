@@ -1,12 +1,12 @@
 class World {
-
+    hero = new Hero();
     background = [
         new Water(),
         new ThirdLayer(),
         new SecondLayer(),
         new FirstLayer()
     ];
-    hero = new Hero();
+
     enemies = [];
     endboss = [];
     bubble = [];
@@ -25,7 +25,6 @@ class World {
     coinCounter = 0;
     bubbleCounter = 0;
     finalScreen = false;
-    //distance = 0;
     newGame = false;
 
     constructor(canvas, keyboard) {
@@ -58,8 +57,9 @@ class World {
                 world.hero.deadByNormal = false;
                 world.hero.gameWon = false;
                 world.hero.energy = 100;
-                gamespeed = 5
-                distance = 0
+                world.hero.gamespeed = 5
+                world.hero.distance = 0
+                world.finalScreen = false;
                 if (this.endboss.length > 0) {
                     world.endboss.introduced = false;
                     world.endboss.isDead = false;
@@ -81,13 +81,14 @@ class World {
 
     checkForEndposition() {
         setInterval(() => {
-            if (distance > 1500 && this.endboss.length < 1) {
+            if (this.hero.distance > /*1500*/0 && this.endboss.length < 1) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
                 this.finalScreen = true
                 this.enemies = []
             } else if (this.endboss.length == 1) {
                 if (this.endboss.isDead) {
+                    this.poison = []
                     this.endboss = []
                 }
             }
@@ -128,11 +129,6 @@ class World {
                 this.poison.push(poison);
             } else if (world.hero.gameOver) {
                 this.poison = []
-            } else if (world.endboss.length > 0) {
-                if (this.endboss.isDead) {
-                    this.poison = []
-                }
-
             }
         }, Math.floor(Math.random() * 2000) + 2000);
     }
@@ -174,7 +170,7 @@ class World {
 
     addBackgroundToMap(array) {
         if (!this.hero.gameOver) {
-            distance++
+            this.hero.distance++
         }
         if (!this.hero.gameWon) {
             array.forEach(element => {

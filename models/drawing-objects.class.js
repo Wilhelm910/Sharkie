@@ -3,7 +3,7 @@ class DrawingObjects {
     CANVAS_HEIGHT = document.getElementById('canvas').height
     background_width = 3840 / (1080 / this.CANVAS_HEIGHT)
     background_height = 1080 / (1080 / this.CANVAS_HEIGHT)
-    endPosition = 1500;
+    endPosition = /*1500*/ 0;
     position_x = 0;
     position_x2 = this.background_width;
     position_y = 0;
@@ -13,7 +13,9 @@ class DrawingObjects {
     height;
     currentImage = 0;
     tagged = false;
-    
+    distance = 0;
+    gamespeed = 5;
+
 
 
     playAnimation(images) {
@@ -94,27 +96,36 @@ class DrawingObjects {
 
 
     drawBackground(ctx) {
-      //  console.log(distance)
-        if (distance > this.endPosition) {
-            gamespeed = 0
-            
+        if (this.distance > this.endPosition) {
+            this.gamespeed = 0
         }
         ctx.drawImage(this.img, this.position_x, this.position_y, this.background_width, this.background_height);
         ctx.drawImage(this.img, this.position_x2, this.position_y, this.background_width, this.background_height);
-        this.alignBackground()
+        if (!(world == undefined)) {
+
+            if (!world.hero.gameOver) {
+                if (world.endboss.length <= 0) {
+                    this.alignBackground()
+                }
+            }
+        }
+
+        //   if (world) {
+
+        //  }
     }
 
 
     alignBackground() {
         if (this.position_x < -this.background_width) {
-            this.position_x = this.background_width + this.position_x2 - (gamespeed * this.speedModifier)
+            this.position_x = this.background_width + this.position_x2 - (this.gamespeed * this.speedModifier)
         } else {
-            this.position_x -= gamespeed * this.speedModifier;
+            this.position_x -= this.gamespeed * this.speedModifier;
         }
         if (this.position_x2 < -this.background_width) {
-            this.position_x2 = this.background_width + this.position_x - (gamespeed * this.speedModifier)
+            this.position_x2 = this.background_width + this.position_x - (this.gamespeed * this.speedModifier)
         } else {
-            this.position_x2 -= gamespeed * this.speedModifier;
+            this.position_x2 -= this.gamespeed * this.speedModifier;
         }
     }
 }

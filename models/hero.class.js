@@ -1,12 +1,14 @@
 class Hero extends MovingObjects {
-
+    swimming_sound = new Audio('audio/swimming.mp3');
+    shooting_bubble_sound = new Audio('audio/shooting_bubble.mp3');
+    test = new Audio('audio/test.wav');
     world;
     //speed = 5;
     bubbleShot = false;
     deadByPoison = false;
     deadByElectroshock = false;
     deadByNormal = false;
-    bubblesForShoot = 10000;
+    bubblesForShoot = 0;
     heroFinslap = false;
     coins = 0;
     gameWon = false;
@@ -135,22 +137,27 @@ class Hero extends MovingObjects {
 
     animate() {
         setInterval(() => {
+            this.swimming_sound.pause();
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
                 if (!this.gameWon) {
                     if (this.world.hero.world.keyboard.RIGHT) {
                         this.swimRight();
+                        this.swimming_sound.play();
                     }
                     if (this.world.hero.world.keyboard.LEFT) {
                         this.swimLeft();
                         this.mirroredImage = true;
+                        this.swimming_sound.play();
                     }
                     if (this.world.hero.world.keyboard.UP) {
                         this.swimUp();
                         this.swimmingUp = true;
+                        this.swimming_sound.play();
                     }
                     if (this.world.hero.world.keyboard.DOWN) {
                         this.swimDown();
                         this.swimmingDown = true;
+                        this.swimming_sound.play();
                     }
                 }
 
@@ -202,20 +209,17 @@ class Hero extends MovingObjects {
             this.playAnimation(this.IMAGES_DEAD_POISONED);
             this.gameOver = true;
             this.swimUp();
-            gamespeed = 0;
-          
+            this.gamespeed = 0;
         } else if (this.deadByElectroshock) {
             this.playAnimation(this.IMAGES_DEAD_ELECTROSHOCK);
             this.gameOver = true;
             this.swimDown();
-            gamespeed = 0;
-           
+            this.gamespeed = 0;
         } else if (this.deadByNormal) {
             this.playAnimation(this.IMAGES_DEAD_POISONED);
             this.gameOver = true;
             this.swimUp();
-            gamespeed = 0;
-          
+            this.gamespeed = 0;
         }
         setTimeout(() => {
            // document.getElementById('end-screen').classList.remove('d-none')
@@ -233,8 +237,10 @@ class Hero extends MovingObjects {
     bubbleAttack() {
         this.bubbleShot = true;
         this.playAnimation(this.IMAGES_BUBBLEATTACK);
+        this.shooting_bubble_sound.play()
         setTimeout(() => {
             this.bubbleShot = false;
+            this.shooting_bubble_sound.pause();
 
         }, 100);
     }

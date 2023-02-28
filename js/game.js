@@ -1,9 +1,9 @@
 let canvas;
 let world;
-let gamespeed = 5;
+//let gamespeed = 5;
 let keyboard = new Keyboard();
 let intervalIDs = []
-let distance = 0;
+//let distance = 0;
 let gameStart = false;
 
 function init() {
@@ -71,9 +71,6 @@ function startGame() {
     let buttons = document.getElementById('buttons-section');
     buttons.classList.add('d-none');
     init();
-    console.log(gamespeed)
-    console.log(distance)
-
 }
 
 
