@@ -6,6 +6,7 @@ let intervalIDs = []
 //let distance = 0;
 let gameStart = false;
 let test123 = false;
+let mainMenu = false;
 
 function init() {
     gameStart = true;
@@ -71,7 +72,7 @@ function startGame() {
     container.classList.remove('d-none');
     let startScreen = document.getElementById('start-screen');
     startScreen.classList.add('d-none');
-    test123 = true;
+    mainMenu = false;
     init();
 }
 
@@ -121,5 +122,11 @@ function showCredits() {
     document.getElementById('game-navigation').classList.add('d-none')
     document.getElementById('credit-section').classList.remove('d-none')
     document.getElementById('return-btn').classList.remove('d-none')
+}
+
+function backToMainMenu() {
+    document.getElementById('canvas-container').classList.add('d-none')
+    document.getElementById('start-screen').classList.remove('d-none')
+    mainMenu = true;
 }
 

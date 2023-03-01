@@ -38,26 +38,74 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.checkForNewGame();
-        this.spawnEnemies();
-        this.spawnPoison();
-        this.spawnCoins();
-        this.drawAll();
-        this.setWorld();
-        this.checkCollision();
-        this.shootBubble();
-        this.removeObjects(this.enemies);
-        this.removeObjects(this.poison);
-        this.removeObjects(this.bubble);
-        this.checkForEndposition();
-        this.playMusic();
+
+       // this.testtest();
+          this.checkForNewGame();
+          this.spawnEnemies();
+          this.spawnPoison();
+          this.spawnCoins();
+          this.drawAll();
+          this.setWorld();
+          this.checkCollision();
+          this.shootBubble();
+          this.removeObjects(this.enemies);
+          this.removeObjects(this.poison);
+          this.removeObjects(this.bubble);
+          this.checkForEndposition();
+          this.playMusic();
+          this.returnToMainMenu(); 
+
 
         // funkion check endPosition. WEnn ja gamespeed = 0; spawn endboss. Remove restliche gegner, ...
     }
 
+    testtest() {
+        setInterval(() => {
+            console.log(mainMenu)
+        }, 100);
+        if (!mainMenu) {
+            console.log(mainMenu)
+            this.checkForNewGame();
+            this.spawnEnemies();
+            this.spawnPoison();
+            this.spawnCoins();
+            this.drawAll();
+            this.setWorld();
+            this.checkCollision();
+            this.shootBubble();
+            this.removeObjects(this.enemies);
+            this.removeObjects(this.poison);
+            this.removeObjects(this.bubble);
+            this.checkForEndposition();
+            this.playMusic();
+            this.returnToMainMenu();
+        }
+    }
+
+    returnToMainMenu() {
+        setInterval(() => {
+            if (mainMenu) {
+                this.clearArrays();
+                this.resetBooleans();
+            }
+        }, 100);
+    }
+
+    clearArrays() {
+        this.endboss = []
+        this.enemies = []
+        this.coins = []
+        this.background = []
+        this.poison = []
+        this.bubble = []
+    }
+
+    resetBooleans() {
+
+    }
+
     playMusic() {
         setInterval(() => {
-            console.log(test123)
             if (this.hero.distance < 1500) {
                 this.game_sound.play();
             }
@@ -83,7 +131,7 @@ class World {
 
     checkForNewGame() {
         setInterval(() => {
-            if(test123) {
+            if (test123) {
                 this.enemies = []
                 test123 = false;
             }
@@ -417,8 +465,8 @@ class World {
                         this.bubbleTimer = false;
                     }, 500);
                 }
-                }
-                
+            }
+
         }, 10);
     }
 

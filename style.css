@@ -63,8 +63,19 @@ canvas {
 
 .back-to-main {
     position: absolute;
-    top: 400px;
-    left: 800px;
+    top: 680px;
+    left: 970px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 4px;
+    transition: all 175ms ease-in-out;
+    background-color: yellow
+}
+
+.back-to-main:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 175ms ease-in-out;
 }
 
 #credit-section {
