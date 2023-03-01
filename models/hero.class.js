@@ -2,18 +2,17 @@ class Hero extends MovingObjects {
     pufferfish_sound = new Audio('audio/pufferfish.mp3');
     shooting_bubble_sound = new Audio('audio/shooting_bubble.mp3');
     electroshock_sound = new Audio('audio/electroshock.mp3');
-    test = new Audio('audio/test.wav');
+    // test = new Audio('audio/test.wav');
     world;
     //speed = 5;
     bubbleShot = false;
     deadByPoison = false;
     deadByElectroshock = false;
     deadByNormal = false;
-    bubblesForShoot = 0;
+    bubblesForShoot = 10;
     heroFinslap = false;
     coins = 0;
     gameWon = false;
-
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -131,34 +130,33 @@ class Hero extends MovingObjects {
         this.height = 1000 / 4
         this.energy = 100;
         this.animate();
-
+        this.bubbleAttack();
     }
 
 
 
     animate() {
         setInterval(() => {
-           
+
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
                 if (!this.gameWon) {
                     if (this.world.hero.world.keyboard.RIGHT) {
                         this.swimRight();
-                      
                     }
                     if (this.world.hero.world.keyboard.LEFT) {
                         this.swimLeft();
                         this.mirroredImage = true;
-                      
+
                     }
                     if (this.world.hero.world.keyboard.UP) {
                         this.swimUp();
                         this.swimmingUp = true;
-                        
+
                     }
                     if (this.world.hero.world.keyboard.DOWN) {
                         this.swimDown();
                         this.swimmingDown = true;
-                       
+
                     }
                 }
 
@@ -201,7 +199,8 @@ class Hero extends MovingObjects {
                 this.finAttack();
             }
             else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) {
-                this.bubbleAttack();
+                this.bubbleShot = true;
+
             }
             else {
                 this.playAnimation(this.IMAGES_IDLE)
@@ -229,7 +228,7 @@ class Hero extends MovingObjects {
             this.gamespeed = 0;
         }
         setTimeout(() => {
-           // document.getElementById('end-screen').classList.remove('d-none')
+            // document.getElementById('end-screen').classList.remove('d-none')
         }, 3);
     }
 
@@ -242,20 +241,25 @@ class Hero extends MovingObjects {
     }
 
     bubbleAttack() {
-        this.bubbleShot = true;
-        this.playAnimation(this.IMAGES_BUBBLEATTACK);
-        this.shooting_bubble_sound.play()
-        setTimeout(() => {
-            this.bubbleShot = false;
-            this.shooting_bubble_sound.pause();
+        setInterval(() => {
+            if (this.bubbleShot) {
+                this.playAnimation(this.IMAGES_BUBBLEATTACK);
+                this.shooting_bubble_sound.play();
+                setTimeout(() => {
+                    this.bubbleShot = false;
+                    this.shooting_bubble_sound.pause();
+                    this.shooting_bubble_sound.currentTime = 0;
+                }, 400);
+            }
+        }, 1000 / 7);
 
-        }, 100);
+
     }
 
     moving() {
         return this.world.hero.world.keyboard.RIGHT ||
-        this.world.hero.world.keyboard.LEFT ||
-        this.world.hero.world.keyboard.UP ||
-        this.world.hero.world.keyboard.DOWN
+            this.world.hero.world.keyboard.LEFT ||
+            this.world.hero.world.keyboard.UP ||
+            this.world.hero.world.keyboard.DOWN
     }
 }

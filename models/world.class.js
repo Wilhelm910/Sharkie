@@ -4,7 +4,7 @@ class World {
     coin_sound = new Audio('audio/coin.mp3');
     game_sound = new Audio('audio/gamesound.mp3');
     gameover_sound = new Audio('audio/gameover.mp3');
-    
+
     hero = new Hero();
     background = [
         new Water(),
@@ -32,6 +32,7 @@ class World {
     bubbleCounter = 0;
     finalScreen = false;
     newGame = false;
+    bubbleTimer = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -49,13 +50,43 @@ class World {
         this.removeObjects(this.poison);
         this.removeObjects(this.bubble);
         this.checkForEndposition();
-
+        this.playMusic();
 
         // funkion check endPosition. WEnn ja gamespeed = 0; spawn endboss. Remove restliche gegner, ...
     }
 
+    playMusic() {
+        setInterval(() => {
+            console.log(test123)
+            if (this.hero.distance < 1500) {
+                this.game_sound.play();
+            }
+            if (this.hero.distance > 1500) {
+                this.game_sound.pause();
+                this.endboss_sound.play();
+            }
+            if (this.hero.gameOver) {
+                this.game_sound.pause();
+                this.endboss_sound.pause();
+                this.gameover_sound.play();
+                setTimeout(() => {
+                    this.gameover_sound.pause();
+                    this.gameover_sound.currentTime = 0;
+                }, 4000);
+            }
+            if (this.hero.gameWon) {
+                this.endboss_sound.pause();
+            }
+        }, 100);
+
+    }
+
     checkForNewGame() {
         setInterval(() => {
+            if(test123) {
+                this.enemies = []
+                test123 = false;
+            }
             if (gameStart) {
                 world.hero.gameOver = false;
                 world.hero.deadByPoison = false;
@@ -65,11 +96,17 @@ class World {
                 world.hero.energy = 100;
                 world.hero.gamespeed = 5
                 world.hero.distance = 0
+                this.game_sound.pause();
+                this.game_sound.currentTime = 0;
                 world.finalScreen = false;
+                this.gameover_sound.pause();
+                this.gameover_sound.currentTime = 0;
                 if (this.endboss.length > 0) {
                     world.endboss.introduced = false;
                     world.endboss.isDead = false;
                     world.endboss.energy = 2;
+                    this.endboss_sound.pause();
+                    this.endboss_sound.currentTime = 0;
                 }
             }
             if (gameStart) {
@@ -87,32 +124,15 @@ class World {
 
     checkForEndposition() {
         setInterval(() => {
-            if (this.hero.distance < 1500) {
-                this.game_sound.play();
-            }
-            if (this.hero.gameOver) {
-                this.game_sound.pause();
-                this.endboss_sound.pause();
-                this.gameover_sound.play();
-                setTimeout(() => {
-                    this.gameover_sound.pause();
-                    this.gameover_sound.currentTime = 0;
-                }, 2000);
-            }
-            
-            
             if (this.hero.distance > 1500 && this.endboss.length < 1 && !this.hero.gameWon) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
                 this.finalScreen = true
                 this.enemies = []
-                this.game_sound.pause();
-                this.endboss_sound.play();
             } else if (this.endboss.length == 1) {
                 if (this.endboss.isDead) {
                     this.poison = []
                     this.endboss = []
-                    this.endboss_sound.pause();
                 }
             }
         }, 100);
@@ -283,7 +303,7 @@ class World {
                     this.hero.coins++
                     element.tagged = true
                     this.coins.splice(this.coins.indexOf(element), 1)
-                   // this.coin_sound.pause();
+                    // this.coin_sound.pause();
                 }
             }
         });
@@ -332,6 +352,7 @@ class World {
                 if (!element.tagged) {
                     this.hero.hit(element.attack)
                     element.tagged = true
+                    console.log("test")
                 }
                 if (this.hero.energy == 0) {
                     this.initializeDeadAnimation(element);
@@ -380,18 +401,25 @@ class World {
 
     shootBubble() {
         setInterval(() => {
-            if (this.keyboard.SPACE && this.hero.bubblesForShoot > 0 && !this.hero.bubbleShot) {
-                if (world.hero.mirroredImage) {
-                    let bubble = new Bubbleattack(this.hero.position_x + 25, this.hero.position_y + 130)
-                    this.bubble.push(bubble)
-                    this.hero.bubblesForShoot--
-                } else if (!world.hero.mirroredImage) {
-                    let bubble = new Bubbleattack(this.hero.position_x + 155, this.hero.position_y + 130)
-                    this.bubble.push(bubble)
-                    this.hero.bubblesForShoot--
+            if (this.keyboard.SPACE && this.hero.bubblesForShoot > 0 && this.hero.bubbleShot) {
+                if (!this.bubbleTimer) {
+                    this.bubbleTimer = true;
+                    if (world.hero.mirroredImage) {
+                        let bubble = new Bubbleattack(this.hero.position_x + 25, this.hero.position_y + 130)
+                        this.bubble.push(bubble)
+                        this.hero.bubblesForShoot--
+                    } else if (!world.hero.mirroredImage) {
+                        let bubble = new Bubbleattack(this.hero.position_x + 155, this.hero.position_y + 130)
+                        this.bubble.push(bubble)
+                        this.hero.bubblesForShoot--
+                    }
+                    setTimeout(() => {
+                        this.bubbleTimer = false;
+                    }, 500);
                 }
-            }
-        }, 200);
+                }
+                
+        }, 10);
     }
 
 } 

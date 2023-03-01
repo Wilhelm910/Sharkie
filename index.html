@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharkie</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./fonts.css">
     <script src="models/world.class.js"></script>
     <script src="models/drawing-objects.class.js"></script>
     <script src="models/moving-objects.class.js"></script>
@@ -33,11 +34,11 @@
 
 <body>
 
-    <div id="header">
+    <div class="d-none" id="header">
         <div id="fullscreen-container">
             <img onclick="fullScreen()" class="fullscreen-img" src="img/6.Buttons/Full Screen/Mesa de trabajo 6.png">
         </div>
-       <div><h1>Sharkie</h1></div>
+
         <div id="start-container" onclick="startGame()">
             <img class="start-img" src="img/6.Buttons/Start/3.png">
         </div>
@@ -50,21 +51,75 @@
         <div id="won-sreen"></div>
     </div>
 
-    <div class="d-none" id="container">
-        <canvas id="canvas" width="1080px" height="720px"></canvas>
-        <div class="d-none">
-            <p>Game Speed</p>
-            <p id="showGamespeed">10</p>
-        </div>
-        <input onchange="changeSpeed()" type="range" min="0" max="20" value="10" class="slider d-none" id="slider">
+
+
+
+
+
+
+    <div class="d-none center" id="canvas-container">
+        <canvas id="canvas" class="border-styling" width="1080px" height="720px"></canvas>
+        <div class="back-to-main">BACK TO MAIN MENU</div>
     </div>
 
 
+    <div id="start-screen" class="startscreen-container border-styling center">
+
+        <div class="h1-container">
+            <h1>SHARKIE</h1>
+        </div>
+
+        <div class="game-navigation" id="game-navigation">
+            <div onclick="startGame()">PLAY</div>
+            <div onclick="showControllKeys()">CONTROLLS</div>
+            <div onclick="fullScreen()">FULLSCREEN</div>
+            <div onclick="showCredits()">CREDITS</div>
+        </div>
+
+        <div class="icon-container d-none" id="return-btn" onclick="returnToNavigation()"><img class="icon" src="./icons/turn-left.png"></div>
+
+        <div class="controll-keys d-none" id="controll-keys">
+                <div>
+                    <div class="icon-container"><img class="icon" src="./icons/buttons.png"></div>
+                    <div>MOVE SHARKIE</div>
+                </div>
+                <div>
+                    <div class="icon-container"><img class="icon" src="./icons/d.png"></div>
+                    <div>FIN ATTACK</div>
+                </div>
+                <div>
+                    <div class="icon-container"><img class="icon" src="./icons/space.png"></div>
+                    <div>BUBBLE ATTACK</div>
+                </div>
+        </div>
+    </div>
+
+
+    <div class="d-none" id="credit-section">
+        <a href="https://www.flaticon.com/free-icons/arrow-key" title="arrow key icons">Arrow key icons created by
+            Freepik - Flaticon</a>
+        <a href="https://www.flaticon.com/free-icons/ui" title="ui icons">Ui icons created by Bharat Icons -
+            Flaticon</a>
+        <a href="https://www.flaticon.com/free-icons/keyboard" title="keyboard icons">Keyboard icons created by Freepik
+            - Flaticon</a>
+            <a href="https://www.flaticon.com/free-icons/undo" title="undo icons">Undo icons created by muhammad atho' - Flaticon</a>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
     <div id="buttons-section">
-       
 
 
-        <div id="action-buttons">
+
+        <div class="d-none" id="action-buttons">
             <div>
                 <div class="img-container-attack">
                     <img class="img" src="img/6.Buttons/Tittles/Attack tittle.png">
@@ -87,7 +142,11 @@
             </div>
         </div>
     </div>
-
+    <div class="d-none">
+        <p>Game Speed</p>
+        <p id="showGamespeed">10</p>
+    </div>
+    <input onchange="changeSpeed()" type="range" min="0" max="20" value="10" class="slider d-none" id="slider">
 
 </body>
 

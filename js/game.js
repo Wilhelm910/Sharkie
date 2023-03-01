@@ -5,6 +5,7 @@ let keyboard = new Keyboard();
 let intervalIDs = []
 //let distance = 0;
 let gameStart = false;
+let test123 = false;
 
 function init() {
     gameStart = true;
@@ -66,10 +67,11 @@ window.addEventListener('keyup', (event) => {
 // distance zurücksetzen
 
 function startGame() {
-    let container = document.getElementById('container');
+    let container = document.getElementById('canvas-container');
     container.classList.remove('d-none');
-    let buttons = document.getElementById('buttons-section');
-    buttons.classList.add('d-none');
+    let startScreen = document.getElementById('start-screen');
+    startScreen.classList.add('d-none');
+    test123 = true;
     init();
 }
 
@@ -93,8 +95,31 @@ function exitFullscreen() {
 }
 
 function fullScreen() {
-    console.log("test")
-    enterFullscreen(document.getElementById('container'));
+    alert('Not yet implemented')
+   // enterFullscreen(document.getElementById('container'));
 }
 
+
+function showControllKeys() {
+    document.getElementById('game-navigation').classList.add('d-none')
+    document.getElementById('controll-keys').classList.remove('d-none')
+    document.getElementById('return-btn').classList.remove('d-none')
+}
+
+function returnToNavigation() {
+    document.getElementById('game-navigation').classList.remove('d-none')
+    document.getElementById('return-btn').classList.add('d-none')
+    if (document.getElementById('controll-keys').classList.contains('d-none')) {
+        document.getElementById('credit-section').classList.add('d-none')
+    }
+    if (document.getElementById('credit-section').classList.contains('d-none')) {
+        document.getElementById('controll-keys').classList.add('d-none')
+    }
+}
+
+function showCredits() {
+    document.getElementById('game-navigation').classList.add('d-none')
+    document.getElementById('credit-section').classList.remove('d-none')
+    document.getElementById('return-btn').classList.remove('d-none')
+}
 
