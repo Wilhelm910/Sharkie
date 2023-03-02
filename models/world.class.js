@@ -5,7 +5,10 @@ class World {
     game_sound = new Audio('audio/gamesound.mp3');
     gameover_sound = new Audio('audio/gameover.mp3');
 
-    hero = new Hero();
+   
+        hero = new Hero();
+    
+    
     background = [
         new Water(),
         new ThirdLayer(),
@@ -38,49 +41,25 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-
-       // this.testtest();
-          this.checkForNewGame();
-          this.spawnEnemies();
-          this.spawnPoison();
-          this.spawnCoins();
-          this.drawAll();
-          this.setWorld();
-          this.checkCollision();
-          this.shootBubble();
-          this.removeObjects(this.enemies);
-          this.removeObjects(this.poison);
-          this.removeObjects(this.bubble);
-          this.checkForEndposition();
-          this.playMusic();
-          this.returnToMainMenu(); 
+      //  this.checkForNewGame();
+        this.spawnEnemies();
+        this.spawnPoison();
+        this.spawnCoins();
+        this.drawAll();
+        this.setWorld();
+        this.checkCollision();
+        this.shootBubble();
+        this.removeObjects(this.enemies);
+        this.removeObjects(this.poison);
+        this.removeObjects(this.bubble);
+        this.checkForEndposition();
+        this.playMusic();
+        this.returnToMainMenu();
 
 
         // funkion check endPosition. WEnn ja gamespeed = 0; spawn endboss. Remove restliche gegner, ...
     }
 
-    testtest() {
-        setInterval(() => {
-            console.log(mainMenu)
-        }, 100);
-        if (!mainMenu) {
-            console.log(mainMenu)
-            this.checkForNewGame();
-            this.spawnEnemies();
-            this.spawnPoison();
-            this.spawnCoins();
-            this.drawAll();
-            this.setWorld();
-            this.checkCollision();
-            this.shootBubble();
-            this.removeObjects(this.enemies);
-            this.removeObjects(this.poison);
-            this.removeObjects(this.bubble);
-            this.checkForEndposition();
-            this.playMusic();
-            this.returnToMainMenu();
-        }
-    }
 
     returnToMainMenu() {
         setInterval(() => {
@@ -98,18 +77,39 @@ class World {
         this.background = []
         this.poison = []
         this.bubble = []
+        //delete this.hero 
     }
 
     resetBooleans() {
-
+        world.hero.gameOver = false;
+        world.hero.deadByPoison = false;
+        world.hero.deadByElectroshock = false;
+        world.hero.deadByNormal = false;
+        world.hero.gameWon = false;
+        world.hero.energy = 100;
+        world.hero.gamespeed = 5
+        world.hero.distance = 0
+        this.game_sound.pause();
+        this.game_sound.currentTime = 0;
+        world.finalScreen = false;
+        this.gameover_sound.pause();
+        this.gameover_sound.currentTime = 0;
+        if (this.endboss.length > 0) {
+            world.endboss.introduced = false;
+            world.endboss.isDead = false;
+            world.endboss.energy = 2;
+            this.endboss_sound.pause();
+            this.endboss_sound.currentTime = 0;
+            this.endboss = []
+        }
     }
 
     playMusic() {
         setInterval(() => {
-            if (this.hero.distance < 1500) {
+            if (this.hero.distance < world.hero.endPosition) {
                 this.game_sound.play();
             }
-            if (this.hero.distance > 1500) {
+            if (this.hero.distance > world.hero.endPosition) {
                 this.game_sound.pause();
                 this.endboss_sound.play();
             }
@@ -128,7 +128,7 @@ class World {
         }, 100);
 
     }
-
+/*
     checkForNewGame() {
         setInterval(() => {
             if (test123) {
@@ -163,7 +163,7 @@ class World {
         }, 100);
 
     }
-
+*/
 
     setWorld() {
         this.hero.world = this;
@@ -180,7 +180,7 @@ class World {
             } else if (this.endboss.length == 1) {
                 if (this.endboss.isDead) {
                     this.poison = []
-                    this.endboss = []
+                   // this.endboss = []
                 }
             }
         }, 100);
@@ -400,7 +400,6 @@ class World {
                 if (!element.tagged) {
                     this.hero.hit(element.attack)
                     element.tagged = true
-                    console.log("test")
                 }
                 if (this.hero.energy == 0) {
                     this.initializeDeadAnimation(element);

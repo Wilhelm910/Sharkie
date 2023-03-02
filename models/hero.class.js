@@ -9,10 +9,11 @@ class Hero extends MovingObjects {
     deadByPoison = false;
     deadByElectroshock = false;
     deadByNormal = false;
-    bubblesForShoot = 10;
+    bubblesForShoot = 0;
     heroFinslap = false;
     coins = 0;
     gameWon = false;
+    heroDistance = 0;
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -137,7 +138,9 @@ class Hero extends MovingObjects {
 
     animate() {
         setInterval(() => {
-
+            this.heroDistance++
+           // console.log(this.heroDistance)
+           // console.log(this.position_x)
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
                 if (!this.gameWon) {
                     if (this.world.hero.world.keyboard.RIGHT) {

@@ -7,6 +7,7 @@ let intervalIDs = []
 let gameStart = false;
 let test123 = false;
 let mainMenu = false;
+let heroExists = false;
 
 function init() {
     gameStart = true;
@@ -97,7 +98,7 @@ function exitFullscreen() {
 
 function fullScreen() {
     alert('Not yet implemented')
-   // enterFullscreen(document.getElementById('container'));
+    // enterFullscreen(document.getElementById('container'));
 }
 
 
@@ -129,4 +130,31 @@ function backToMainMenu() {
     document.getElementById('start-screen').classList.remove('d-none')
     mainMenu = true;
 }
+/*
+let i = 0
+function setStopInterval(fn, time) {
+    let id = setInterval(fn, time);
+    intervalIDs.push(id)
+}
 
+setStopInterval(sayHello,1000)
+setStopInterval(sayBye,1000)
+
+function sayHello() {
+    console.log("hello " + i)
+    i++
+}
+
+function sayBye() {
+    console.log("bye " + i)
+    i++
+}
+
+function stopGame() {
+ intervalIDs.forEach(clearInterval)
+    console.log("test")
+
+
+}
+
+*/
