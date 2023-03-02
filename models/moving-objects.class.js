@@ -102,6 +102,7 @@ class MovingObjects extends DrawingObjects {
                 this.position_x -= 2
             }
             if (this instanceof Jellyfish) {
+                console.log("test")
                 if (this.moveUp) {
                     this.position_y -= this.enemieSpeed / 2;
                 }
