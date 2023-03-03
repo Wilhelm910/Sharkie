@@ -2,9 +2,8 @@ class Hero extends MovingObjects {
     pufferfish_sound = new Audio('audio/pufferfish.mp3');
     shooting_bubble_sound = new Audio('audio/shooting_bubble.mp3');
     electroshock_sound = new Audio('audio/electroshock.mp3');
-    // test = new Audio('audio/test.wav');
+
     world;
-    //speed = 5;
     bubbleShot = false;
     deadByPoison = false;
     deadByElectroshock = false;
@@ -13,7 +12,7 @@ class Hero extends MovingObjects {
     heroFinslap = false;
     coins = 0;
     gameWon = false;
-    heroDistance = 0;
+
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -104,8 +103,6 @@ class Hero extends MovingObjects {
 
     IMAGES_FINSLAP = [
         'img/1.Sharkie/4.Attack/Fin slap/1.png',
-        // 'img/1.Sharkie/4.Attack/Fin slap/2.png',
-        // 'img/1.Sharkie/4.Attack/Fin slap/3.png',
         'img/1.Sharkie/4.Attack/Fin slap/4.png',
         'img/1.Sharkie/4.Attack/Fin slap/5.png',
         'img/1.Sharkie/4.Attack/Fin slap/6.png',
@@ -138,9 +135,6 @@ class Hero extends MovingObjects {
 
     animate() {
         setInterval(() => {
-            this.heroDistance++
-           // console.log(this.heroDistance)
-           // console.log(this.position_x)
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
                 if (!this.gameWon) {
                     if (this.world.hero.world.keyboard.RIGHT) {
@@ -149,22 +143,17 @@ class Hero extends MovingObjects {
                     if (this.world.hero.world.keyboard.LEFT) {
                         this.swimLeft();
                         this.mirroredImage = true;
-
                     }
                     if (this.world.hero.world.keyboard.UP) {
                         this.swimUp();
                         this.swimmingUp = true;
-
                     }
                     if (this.world.hero.world.keyboard.DOWN) {
                         this.swimDown();
                         this.swimmingDown = true;
-
                     }
                 }
-
             }
-
             // Hiermit kann ich das Bild auf dem Helden mittig zentrieren
             //this.world.camera_x = -this.position_x
         }, 1000 / 60);
@@ -194,6 +183,7 @@ class Hero extends MovingObjects {
             }
             else if (this.isHurtNormal()) {
                 this.playAnimation(this.IMAGES_NORMAL);
+                this.pufferfish_sound.play();
             }
             else if (this.moving()) {
                 this.playAnimation(this.IMAGES_SWIM)
@@ -203,7 +193,6 @@ class Hero extends MovingObjects {
             }
             else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) {
                 this.bubbleShot = true;
-
             }
             else {
                 this.playAnimation(this.IMAGES_IDLE)
@@ -212,6 +201,7 @@ class Hero extends MovingObjects {
             this.playAnimation(this.IMAGES_IDLE)
         }
     }
+
 
     deadAnimations() {
         if (this.deadByPoison) {
@@ -230,9 +220,6 @@ class Hero extends MovingObjects {
             this.swimUp();
             this.gamespeed = 0;
         }
-        setTimeout(() => {
-            // document.getElementById('end-screen').classList.remove('d-none')
-        }, 3);
     }
 
     finAttack() {
@@ -242,6 +229,7 @@ class Hero extends MovingObjects {
             this.heroFinslap = false;
         }, 100);
     }
+
 
     bubbleAttack() {
         setInterval(() => {
@@ -255,9 +243,8 @@ class Hero extends MovingObjects {
                 }, 400);
             }
         }, 1000 / 7);
-
-
     }
+
 
     moving() {
         return this.world.hero.world.keyboard.RIGHT ||

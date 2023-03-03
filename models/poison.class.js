@@ -1,5 +1,4 @@
 class Poison extends FixedObjects {
-//    tagged = false;
     IMAGES_POISON = [
         'img/4. Objects/Posión/animated/1.png',
         'img/4. Objects/Posión/animated/2.png',

@@ -1,13 +1,8 @@
 let canvas;
 let world;
-//let gamespeed = 5;
 let keyboard = new Keyboard();
-let intervalIDs = []
-//let distance = 0;
 let gameStart = false;
-let test123 = false;
 let mainMenu = false;
-let heroExists = false;
 
 function init() {
     gameStart = true;
@@ -15,11 +10,6 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
-function changeSpeed() {
-    let slider = document.getElementById('slider');
-    document.getElementById('showGamespeed').innerHTML = slider.value
-    gamespeed = slider.value
-}
 
 window.addEventListener('keydown', (event) => {
     let key = event.keyCode
@@ -66,7 +56,6 @@ window.addEventListener('keyup', (event) => {
     }
 });
 
-// distance zurücksetzen
 
 function startGame() {
     let container = document.getElementById('canvas-container');
@@ -88,6 +77,7 @@ function enterFullscreen(element) {
     }
 }
 
+
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -95,6 +85,7 @@ function exitFullscreen() {
         document.webkitExitFullscreen();
     }
 }
+
 
 function fullScreen() {
     alert('Not yet implemented')
@@ -108,6 +99,7 @@ function showControllKeys() {
     document.getElementById('return-btn').classList.remove('d-none')
 }
 
+
 function returnToNavigation() {
     document.getElementById('game-navigation').classList.remove('d-none')
     document.getElementById('return-btn').classList.add('d-none')
@@ -119,42 +111,16 @@ function returnToNavigation() {
     }
 }
 
+
 function showCredits() {
     document.getElementById('game-navigation').classList.add('d-none')
     document.getElementById('credit-section').classList.remove('d-none')
     document.getElementById('return-btn').classList.remove('d-none')
 }
 
+
 function backToMainMenu() {
     document.getElementById('canvas-container').classList.add('d-none')
     document.getElementById('start-screen').classList.remove('d-none')
     mainMenu = true;
 }
-/*
-let i = 0
-function setStopInterval(fn, time) {
-    let id = setInterval(fn, time);
-    intervalIDs.push(id)
-}
-
-setStopInterval(sayHello,1000)
-setStopInterval(sayBye,1000)
-
-function sayHello() {
-    console.log("hello " + i)
-    i++
-}
-
-function sayBye() {
-    console.log("bye " + i)
-    i++
-}
-
-function stopGame() {
- intervalIDs.forEach(clearInterval)
-    console.log("test")
-
-
-}
-
-*/

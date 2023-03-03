@@ -19,7 +19,5 @@ class EndscreenLost extends DrawingObjects {
                 this.height = 187 / 2;
             }
         }, 1000);
-
     }
-
 }

@@ -1,6 +1,5 @@
 class MovingObjects extends DrawingObjects {
     enemieSpeed = Math.floor(Math.random() * 2) + 3;
-    // heroSpeed = 5;
     speed = 5;
     mirroredImage = false;
     swimmingUp = false;
@@ -16,7 +15,6 @@ class MovingObjects extends DrawingObjects {
     energy;
     attack;
     bubbleSpeed;
-  
 
 
     swimRight() {
@@ -34,7 +32,7 @@ class MovingObjects extends DrawingObjects {
             if (this.position_x > 0) {
                 this.position_x -= this.speed * 2;
             }
-        } 
+        }
         if (world.finalScreen) {
             if (this.position_x > 0) {
                 this.position_x -= this.speed;
@@ -82,6 +80,7 @@ class MovingObjects extends DrawingObjects {
         }
     }
 
+
     attackHero() {
         // Hero unter Endboss
         if (world.hero.position_y - 100 > this.position_y) {
@@ -91,7 +90,6 @@ class MovingObjects extends DrawingObjects {
         if (world.hero.position_y < this.position_y + 100) {
             this.position_y -= this.speed / 2;
         }
-
     }
 
 
@@ -99,25 +97,29 @@ class MovingObjects extends DrawingObjects {
         if (!this.gameOver) {
             this.position_x -= this.enemieSpeed + (this.gamespeed / 2);
             if (this instanceof Pufferfish && this.lineOfSight) {
-                this.position_x -= 2
+                this.position_x -= this.speed / 2.2
             }
             if (this instanceof Jellyfish) {
-               // console.log("test22")
-                if (this.moveUp) {
-                    this.position_y -= this.enemieSpeed / 2;
-                }
-                if (this.position_y < 50) {
-                    this.moveUp = false;
-                    this.moveDown = true;
-                }
-                if (this.moveDown) {
-                    this.position_y += this.enemieSpeed / 2;
-                }
-                if (this.position_y > 500) {
-                    this.moveUp = true;
-                    this.moveDown = false;
-                }
+                this.movementOfJellyfish();
             }
+        }
+    }
+
+
+    movementOfJellyfish() {
+        if (this.moveUp) {
+            this.position_y -= this.enemieSpeed / 2;
+        }
+        if (this.position_y < 50) {
+            this.moveUp = false;
+            this.moveDown = true;
+        }
+        if (this.moveDown) {
+            this.position_y += this.enemieSpeed / 2;
+        }
+        if (this.position_y > 500) {
+            this.moveUp = true;
+            this.moveDown = false;
         }
     }
 
@@ -134,9 +136,10 @@ class MovingObjects extends DrawingObjects {
             && this.position_y + 110 < obj.position_y + obj.height);
     }
 
+    
     isCollidingEndboss(obj) {
         if (world.hero.mirroredImage) {
-            return (this.position_x + 30 < obj.position_x + obj.width -25
+            return (this.position_x + 30 < obj.position_x + obj.width - 25
                 && this.position_y + 110 + this.height - 160 > obj.position_y + 190
                 && this.position_x + 30 > obj.position_x + 10
                 && this.position_y + 110 < obj.position_y + 190 + obj.height - 260);
@@ -160,16 +163,8 @@ class MovingObjects extends DrawingObjects {
             && this.position_y + 110 < obj.position_y + 190 + obj.height - 260);
     }
 
-/*
-    isCollidingBubble(obj) {
-        return (this.position_x + this.width > obj.position_x
-            && this.position_y + this.height > obj.position_y
-            && this.position_x < obj.position_x
-            && this.position_y < obj.position_y + obj.height);
-    }
 
-*/
-    isCollidingBubble/*2*/(obj) {
+    isCollidingBubble(obj) {
         if (world.hero.mirroredImage) {
             return (this.position_x < obj.position_x + obj.width
                 && this.position_y + this.height > obj.position_y

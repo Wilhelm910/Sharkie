@@ -1,7 +1,5 @@
 class Jellyfish extends MovingObjects {
     world;
-    //tagged = false;
-    jellyDistance = 0;
     IMAGES_SWIM = [
         'img/2.Enemy/2 Jelly fish/1.Swim/Yellow 1.png',
         'img/2.Enemy/2 Jelly fish/1.Swim/Yellow 2.png',
@@ -27,57 +25,10 @@ class Jellyfish extends MovingObjects {
         this.height = 300 / 4
         this.attack = 'electroshock';
         this.animate();
-       // this.setStopInterval(this.swim(),1000/60)
-      //  this.setStopInterval(this.animate(),1000/7)
-       // this.stopGame()
     }
 
-    setStopInterval(fn,time) {
-        let id = setInterval(fn,time);
-        intervalIDs.push(id)
-    }
-
-    swim() {
-        if (this.gotHit) {
-            this.swimUpEnemie();
-        } else {
-            this.swimLeftEnemie();
-        }
-    }
-
-    animate() {
-        if (this.gotHit) {
-            this.playAnimation(this.IMAGES_DEAD_JELLYFISH);
-        } else {
-            this.playAnimation(this.IMAGES_SWIM);
-        }
-    }
-
-    stopGame() {
-        intervalIDs.forEach(clearInterval)
-    }
-
-    /*
-    animate() {
-        setInterval(this.xyz(), 1000/60);
-        setInterval(this.zzz(), 1000/7);
-       // setInterval(this.playAnimation(this.IMAGES_SWIM), 1000/7);
-    }
-
-    xyz() {
-       this.swimLeftEnemie()
-       console.log("test")
-    }
-
-    zzz() {
-       this.playAnimation(this.IMAGES_SWIM)
-    }
-
-*/
     animate() {
         setInterval(() => {
-           // this.jellyDistance++
-           // console.log(this.jellyDistance)
             if (this.gotHit) {
                 this.swimUpEnemie();
             } else {
@@ -93,33 +44,5 @@ class Jellyfish extends MovingObjects {
             }
         }, 1000 / 7);
     }
-
-
-    
-
-
-    
-
-    
-
 }
-
-
-/*
-
-function setStopInterval(fn,time) {
-    let id = setInterval(fn,time);
-    intervalIDs.push(id)
-}
-
-setStopInterval(sayHello,1000)
-
-function sayHello() {
-    console.log("hello")
-}
-
-function stopGame() {
-    intervalIDs.forEach(clearInterval)
-}
-*/
 

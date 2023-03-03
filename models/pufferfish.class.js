@@ -1,8 +1,5 @@
 class Pufferfish extends MovingObjects {
     world;
-  //  tagged = false;
-  //  gotHit = false;
-   // lineOfSight = false;
     IMAGES_SWIM = [
         'img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
         'img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png',
@@ -49,6 +46,7 @@ class Pufferfish extends MovingObjects {
         this.animate();
     }
 
+
     animate() {
         setInterval(() => {
             if (this.gotHit) {
@@ -57,7 +55,6 @@ class Pufferfish extends MovingObjects {
                 this.swimLeftEnemie();
             }
         }, 1000 / 60);
-
         setInterval(() => {
             if (this.gotHit) {
                 this.playAnimation(this.IMAGES_DEAD_PUFFERFISH);
@@ -67,8 +64,6 @@ class Pufferfish extends MovingObjects {
             }  else {
                 this.playAnimation(this.IMAGES_SWIM);
             }
-
         }, 1000 / 10);
     }
-
 }

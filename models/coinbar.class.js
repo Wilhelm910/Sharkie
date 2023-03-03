@@ -15,7 +15,7 @@ class Coinbar extends FixedObjects {
         this.width = 595 / 3;
         this.height = 158 / 3;
         this.setPercentage()
-     
+
     }
 
     setPercentage() {
@@ -34,6 +34,5 @@ class Coinbar extends FixedObjects {
                 this.loadImage(this.IMAGES[5]);
             }
         }, 1000 / 60);
-
     }
 }

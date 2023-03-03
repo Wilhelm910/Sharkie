@@ -1,12 +1,10 @@
 class Endboss extends MovingObjects {
     swimming_sound = new Audio('audio/swimming.mp3');
+
     isDead = false;
     introduced = false;
-    //  lineOfSight = false;
     turnRight = false;
-    //  tagged = false;
-    //  gotHit = false;
-    //  energy = 2;
+
     IMAGES_FLOATING = [
         'img/2.Enemy/3 Final Enemy/2.floating/1.png',
         'img/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -82,16 +80,13 @@ class Endboss extends MovingObjects {
     }
 
     animate() {
-
         setInterval(() => {
             this.swimming_sound.pause();
-            //this.swimming_sound.currentTime = 1;
             if (!world.hero.gameOver) {
                 if (this.energy < 0) {
-                    this.swimUpEndboss();
                     this.swimming_sound.pause();
+                    this.swimUpEndboss();
                 }
-               
                 if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
                     this.swimLeftEndboss();
                     this.swimming_sound.play();
@@ -107,13 +102,12 @@ class Endboss extends MovingObjects {
                         this.mirroredImage = false;
                     }
                 }
-                if (this.introduced && !this.lineOfSight) {
+                if (this.introduced && !this.lineOfSight && !this.isDead) {
                     setTimeout(() => {
                         this.swimming_sound.play();
                         this.attackHero();
                     }, 2000);
                 }
-
             }
         }, 1000 / 60);
 
@@ -126,10 +120,9 @@ class Endboss extends MovingObjects {
                     setTimeout(() => {
                         world.hero.gameWon = true;
                         this.isDead = true;
-                    }, 2000); 
+                    }, 1500);
                 } else if (this.gotHit) {
                     this.playAnimation(this.IMAGES_HURT);
-
                     setTimeout(() => {
                         this.gotHit = false;
                     }, 1000);
@@ -143,9 +136,7 @@ class Endboss extends MovingObjects {
                 } else {
                     this.playAnimation(this.IMAGES_FLOATING);
                 }
-
             }
         }, 1000 / 6);
-
     }
 }

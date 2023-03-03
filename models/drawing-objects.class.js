@@ -16,11 +16,8 @@ class DrawingObjects {
     distance = 0;
     gamespeed = 5;
 
-
-
     playAnimation(images) {
         if (this instanceof Jellyfish) {
-          //  console.log("test33")
         }
         if (!this.gameOver) {
             let i = this.currentImage % images.length
@@ -75,29 +72,9 @@ class DrawingObjects {
             ctx.stroke();
         }
     }
-    /*
-        drawEndbossHitBox(ctx) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.position_x + 10, this.position_y + 190, this.width - 25, this.height - 260);
-            ctx.stroke();
-    
-        }
-    *//*
-        drawHitBox(ctx) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.position_x, this.position_y, this.width, this.height);
-            ctx.stroke();
-        }
-    */
+
     draw(ctx) {
-      
-            ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
-       
-        
+        ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
     }
 
 
@@ -115,10 +92,6 @@ class DrawingObjects {
                 }
             }
         }
-
-        //   if (world) {
-
-        //  }
     }
 
 

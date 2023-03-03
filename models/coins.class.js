@@ -1,5 +1,4 @@
 class Coins extends FixedObjects {
-  //  tagged = false;
     IMAGES = [
         'img/4. Objects/1. Coins/1.png',
         'img/4. Objects/1. Coins/2.png',

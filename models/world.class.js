@@ -4,18 +4,15 @@ class World {
     coin_sound = new Audio('audio/coin.mp3');
     game_sound = new Audio('audio/gamesound.mp3');
     gameover_sound = new Audio('audio/gameover.mp3');
-
+    gamewon_sound = new Audio('audio/gamewon.mp3')
 
     hero = new Hero();
-
-
     background = [
         new Water(),
         new ThirdLayer(),
         new SecondLayer(),
         new FirstLayer()
     ];
-
     enemies = [];
     endboss = [];
     bubble = [];
@@ -26,7 +23,6 @@ class World {
     poisonbar = new Poisonbar();
     endscreenLost = new EndscreenLost();
     endscreenWon = new EndscreenWon();
-    //herospeed;
     canvas;
     ctx;
     keyboard;
@@ -41,7 +37,6 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        //  this.checkForNewGame();
         this.spawnEnemies();
         this.spawnPoison();
         this.spawnCoins();
@@ -55,9 +50,6 @@ class World {
         this.checkForEndposition();
         this.playMusic();
         this.returnToMainMenu();
-
-
-        // funkion check endPosition. WEnn ja gamespeed = 0; spawn endboss. Remove restliche gegner, ...
     }
 
 
@@ -65,7 +57,7 @@ class World {
         setInterval(() => {
             if (mainMenu) {
                 this.clearIntervals();
-                this.resetBooleans();
+              //  this.resetBooleans();
                 this.clearArrays();
             }
         }, 100);
@@ -76,15 +68,12 @@ class World {
     }
 
     clearArrays() {
-        
         this.endboss = []
         this.enemies = []
         this.coins = []
         this.background = []
         this.poison = []
         this.bubble = []
-      //  this.hero = null;
-        //this.world = null;
     }
 
     resetBooleans() {
@@ -131,51 +120,18 @@ class World {
             }
             if (this.hero.gameWon) {
                 this.endboss_sound.pause();
+                this.gamewon_sound.play();
+                setTimeout(() => {
+                    this.gamewon_sound.pause();
+                }, 3000);
             }
         }, 100);
 
     }
-    /*
-        checkForNewGame() {
-            setInterval(() => {
-                if (test123) {
-                    this.enemies = []
-                    test123 = false;
-                }
-                if (gameStart) {
-                    world.hero.gameOver = false;
-                    world.hero.deadByPoison = false;
-                    world.hero.deadByElectroshock = false;
-                    world.hero.deadByNormal = false;
-                    world.hero.gameWon = false;
-                    world.hero.energy = 100;
-                    world.hero.gamespeed = 5
-                    world.hero.distance = 0
-                    this.game_sound.pause();
-                    this.game_sound.currentTime = 0;
-                    world.finalScreen = false;
-                    this.gameover_sound.pause();
-                    this.gameover_sound.currentTime = 0;
-                    if (this.endboss.length > 0) {
-                        world.endboss.introduced = false;
-                        world.endboss.isDead = false;
-                        world.endboss.energy = 2;
-                        this.endboss_sound.pause();
-                        this.endboss_sound.currentTime = 0;
-                    }
-                }
-                if (gameStart) {
-                    gameStart = false;
-                }
-            }, 100);
     
-        }
-    */
-
     setWorld() {
         this.hero.world = this;
     }
-
 
     checkForEndposition() {
         setInterval(() => {
@@ -187,7 +143,6 @@ class World {
             } else if (this.endboss.length == 1) {
                 if (this.endboss.isDead) {
                     this.poison = []
-                    // this.endboss = []
                 }
             }
         }, 100);
@@ -390,10 +345,6 @@ class World {
 
     enemieCollision() {
         this.enemies.forEach(element => {
-            // for (let i = 0; i < this.bubble.length; i++) {
-            //     if (this.bubble[i].isColliding(element)) {
-            //     }
-            // }
             if (this.hero.isInLine(element)) {
                 element.lineOfSight = true;
             } else {
@@ -428,7 +379,7 @@ class World {
     bubbleCollisionEndboss() {
         this.endboss.forEach(element => {
             for (let i = 0; i < this.bubble.length; i++) {
-                if (this.bubble[i].isCollidingBubble/*2*/(element) && !element.tagged) {
+                if (this.bubble[i].isCollidingBubble(element) && !element.tagged) {
                     element.tagged = true;
                     element.gotHit = true;
                     element.energy--

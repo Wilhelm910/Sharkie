@@ -35,7 +35,5 @@ class Poisonbar extends FixedObjects {
                 this.loadImage(this.IMAGES[5]);
             }
         }, 1000 / 60);
-
     }
-
 }

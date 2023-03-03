@@ -35,7 +35,5 @@ class Healthbar extends FixedObjects {
                 this.loadImage(this.IMAGES[0]);
             }
         }, 1000 / 60);
-
     }
-
 }

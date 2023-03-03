@@ -14,8 +14,6 @@ body {
     height: 100vh;
 }
 
-
-
 h1 {
     text-align: center;
     padding: 10px;
@@ -88,8 +86,8 @@ canvas {
 
 #credit-section {
     position: absolute;
-    top: 600px;
-    left: 700px;
+    top: 800px;
+    left: 55%;
     display: flex;
     flex-direction: column;
 }
@@ -102,7 +100,7 @@ canvas {
 .controll-keys {
     position: absolute;
     top: 450px;
-    left: 700px;
+    left: 65%;
     display: flex;
     flex-direction: column;
 }
@@ -110,7 +108,7 @@ canvas {
 #return-btn {
     position: absolute;
     top: 350px;
-    left: 950px;
+    left: 85%;
     transition: all 175ms ease-in-out;
 }
 
@@ -162,11 +160,6 @@ canvas {
     height: 100%;
 }
 
-
-#slider {
-    width: 100%;
-}
-
 p {
     font-size: 24px;
 }
@@ -175,41 +168,12 @@ p {
     display: none !important;
 }
 
-#action-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#action-buttons div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#buttons-section {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
 #end-screen {
     z-index: 999;
 }
 
-.img {
-    width: 100%;
-}
 
 
-
-#header {
-    display: flex;
-    justify-content: space-between;
-}
 
 @media only screen and (max-width: 1080px) {
 
@@ -225,45 +189,63 @@ p {
         width: 100%;
     }
 
+    #return-btn {
+        top: 350px;
+        left: 85%;
+    }   
+
+    .controll-keys {
+        top: 450px;
+        left: 60%
+    }
+
+    #credit-section {
+        top: 700px;
+    }
+
 }
 
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 830px) {
     
     .game-navigation {
        left: 63%;
     }
 
-    #credit-section {
-       
-        top: 70%;
-        left: 50%;
-    
-    }
 
     .controll-keys {
-  
-        top: 30%;
-        left: 55%;
-        display: flex;
-   
+        top: 450px;
+        left: 40%;
     }
     
     #return-btn {
-
-        top: 1%;
-        left: 89%;
+        top: 350px;
+        left: 79%;
     
-    }
+    }   
 
 }
 
-@media only screen and (max-width: 530px) {
+@media only screen and (max-width: 540px) {
 
 
     .game-navigation {
         top: 20%;
         left: 25%;
+    }
+
+    .controll-keys {
+        top: 450px;
+        left: 5%;
+    }
+    
+    #return-btn {
+        top: 350px;
+        left: 60%;
+    }  
+
+    #credit-section {
+        left: 30%;
     }
    
 
@@ -293,25 +275,17 @@ p {
     }
 
     #credit-section {
-       
         top: 70%;
         left: 50%;
-    
     }
 
     .controll-keys {
-  
         top: 30%;
         left: 55%;
-        display: flex;
-   
     }
     
     #return-btn {
-
-        top: 1%;
         left: 89%;
-    
     }
 
 

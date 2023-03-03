@@ -1,6 +1,5 @@
 class EndscreenWon extends DrawingObjects {
 
-
     IMAGE_WON = [
         'img/6.Buttons/Tittles/You win/Mesa de trabajo 1.png'
     ]
@@ -14,14 +13,12 @@ class EndscreenWon extends DrawingObjects {
 
     animate() {
         setInterval(() => {
-           if(world.finalScreen) {
-            if (world.endboss[0].isDead) {
-                this.width = this.CANVAS_WIDTH;
-                this.height = this.CANVAS_HEIGHT;
+            if (world.finalScreen) {
+                if (world.endboss[0].isDead) {
+                    this.width = this.CANVAS_WIDTH;
+                    this.height = this.CANVAS_HEIGHT;
+                }
             }
-           }
         }, 600);
-
     }
-
 }
