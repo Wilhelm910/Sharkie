@@ -27,44 +27,10 @@ class Jellyfish extends MovingObjects {
         this.height = 300 / 4
         this.attack = 'electroshock';
         this.animate();
-        //this.setStopInterval(this.swim,1000/60)
-       // this.setStopInterval(this.animate,1000/7)
+       // this.setStopInterval(this.swim(),1000/60)
+      //  this.setStopInterval(this.animate(),1000/7)
        // this.stopGame()
     }
-    
-    animate() {
-        setInterval(this.xyz(), 1000/60);
-       // setInterval(this.playAnimation(this.IMAGES_SWIM), 1000/7);
-    }
-
-    xyz() {
-        this.swimLeftEnemie()
-        this.playAnimation(this.IMAGES_SWIM)
-    }
-
-/*
-    animate() {
-        setInterval(() => {
-           // this.jellyDistance++
-           // console.log(this.jellyDistance)
-            if (this.gotHit) {
-                this.swimUpEnemie();
-            } else {
-                this.swimLeftEnemie();
-            }
-        }, 1000 / 60);
-
-        setInterval(() => {
-            if (this.gotHit) {
-                this.playAnimation(this.IMAGES_DEAD_JELLYFISH);
-            } else {
-                this.playAnimation(this.IMAGES_SWIM);
-            }
-        }, 1000 / 7);
-    }
-*/
-
-    /*
 
     setStopInterval(fn,time) {
         let id = setInterval(fn,time);
@@ -90,10 +56,52 @@ class Jellyfish extends MovingObjects {
     stopGame() {
         intervalIDs.forEach(clearInterval)
     }
-    */
-/*
-    
+
+    /*
+    animate() {
+        setInterval(this.xyz(), 1000/60);
+        setInterval(this.zzz(), 1000/7);
+       // setInterval(this.playAnimation(this.IMAGES_SWIM), 1000/7);
+    }
+
+    xyz() {
+       this.swimLeftEnemie()
+       console.log("test")
+    }
+
+    zzz() {
+       this.playAnimation(this.IMAGES_SWIM)
+    }
+
 */
+    animate() {
+        setInterval(() => {
+           // this.jellyDistance++
+           // console.log(this.jellyDistance)
+            if (this.gotHit) {
+                this.swimUpEnemie();
+            } else {
+                this.swimLeftEnemie();
+            }
+        }, 1000 / 60);
+
+        setInterval(() => {
+            if (this.gotHit) {
+                this.playAnimation(this.IMAGES_DEAD_JELLYFISH);
+            } else {
+                this.playAnimation(this.IMAGES_SWIM);
+            }
+        }, 1000 / 7);
+    }
+
+
+    
+
+
+    
+
+    
+
 }
 
 

@@ -85,12 +85,11 @@ class Endboss extends MovingObjects {
 
         setInterval(() => {
             this.swimming_sound.pause();
-            this.swimming_sound.currentTime = 0.3;
+            //this.swimming_sound.currentTime = 1;
             if (!world.hero.gameOver) {
                 if (this.energy < 0) {
                     this.swimUpEndboss();
                     this.swimming_sound.pause();
-                    this.swimming_sound.currentTime = 0.3;
                 }
                
                 if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
@@ -109,7 +108,6 @@ class Endboss extends MovingObjects {
                     }
                 }
                 if (this.introduced && !this.lineOfSight) {
-                    
                     setTimeout(() => {
                         this.swimming_sound.play();
                         this.attackHero();
@@ -124,7 +122,7 @@ class Endboss extends MovingObjects {
             if (!world.hero.gameOver) {
                 if (this.energy < 0 && !this.isDead) {
                     this.playAnimation(this.IMAGES_DEAD);
-                    
+                    this.swimming_sound.pause();
                     setTimeout(() => {
                         world.hero.gameWon = true;
                         this.isDead = true;

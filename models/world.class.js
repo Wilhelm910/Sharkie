@@ -5,10 +5,10 @@ class World {
     game_sound = new Audio('audio/gamesound.mp3');
     gameover_sound = new Audio('audio/gameover.mp3');
 
-   
-        hero = new Hero();
-    
-    
+
+    hero = new Hero();
+
+
     background = [
         new Water(),
         new ThirdLayer(),
@@ -41,7 +41,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-      //  this.checkForNewGame();
+        //  this.checkForNewGame();
         this.spawnEnemies();
         this.spawnPoison();
         this.spawnCoins();
@@ -64,20 +64,27 @@ class World {
     returnToMainMenu() {
         setInterval(() => {
             if (mainMenu) {
-                this.clearArrays();
+                this.clearIntervals();
                 this.resetBooleans();
+                this.clearArrays();
             }
         }, 100);
     }
 
+    clearIntervals() {
+        for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    }
+
     clearArrays() {
+        
         this.endboss = []
         this.enemies = []
         this.coins = []
         this.background = []
         this.poison = []
         this.bubble = []
-        //delete this.hero 
+      //  this.hero = null;
+        //this.world = null;
     }
 
     resetBooleans() {
@@ -128,42 +135,42 @@ class World {
         }, 100);
 
     }
-/*
-    checkForNewGame() {
-        setInterval(() => {
-            if (test123) {
-                this.enemies = []
-                test123 = false;
-            }
-            if (gameStart) {
-                world.hero.gameOver = false;
-                world.hero.deadByPoison = false;
-                world.hero.deadByElectroshock = false;
-                world.hero.deadByNormal = false;
-                world.hero.gameWon = false;
-                world.hero.energy = 100;
-                world.hero.gamespeed = 5
-                world.hero.distance = 0
-                this.game_sound.pause();
-                this.game_sound.currentTime = 0;
-                world.finalScreen = false;
-                this.gameover_sound.pause();
-                this.gameover_sound.currentTime = 0;
-                if (this.endboss.length > 0) {
-                    world.endboss.introduced = false;
-                    world.endboss.isDead = false;
-                    world.endboss.energy = 2;
-                    this.endboss_sound.pause();
-                    this.endboss_sound.currentTime = 0;
+    /*
+        checkForNewGame() {
+            setInterval(() => {
+                if (test123) {
+                    this.enemies = []
+                    test123 = false;
                 }
-            }
-            if (gameStart) {
-                gameStart = false;
-            }
-        }, 100);
-
-    }
-*/
+                if (gameStart) {
+                    world.hero.gameOver = false;
+                    world.hero.deadByPoison = false;
+                    world.hero.deadByElectroshock = false;
+                    world.hero.deadByNormal = false;
+                    world.hero.gameWon = false;
+                    world.hero.energy = 100;
+                    world.hero.gamespeed = 5
+                    world.hero.distance = 0
+                    this.game_sound.pause();
+                    this.game_sound.currentTime = 0;
+                    world.finalScreen = false;
+                    this.gameover_sound.pause();
+                    this.gameover_sound.currentTime = 0;
+                    if (this.endboss.length > 0) {
+                        world.endboss.introduced = false;
+                        world.endboss.isDead = false;
+                        world.endboss.energy = 2;
+                        this.endboss_sound.pause();
+                        this.endboss_sound.currentTime = 0;
+                    }
+                }
+                if (gameStart) {
+                    gameStart = false;
+                }
+            }, 100);
+    
+        }
+    */
 
     setWorld() {
         this.hero.world = this;
@@ -172,7 +179,7 @@ class World {
 
     checkForEndposition() {
         setInterval(() => {
-            if (this.hero.distance > 1500 && this.endboss.length < 1 && !this.hero.gameWon) {
+            if (this.hero.distance > world.hero.endPosition && this.endboss.length < 1 && !this.hero.gameWon) {
                 let endboss = new Endboss();
                 this.endboss.push(endboss);
                 this.finalScreen = true
@@ -180,7 +187,7 @@ class World {
             } else if (this.endboss.length == 1) {
                 if (this.endboss.isDead) {
                     this.poison = []
-                   // this.endboss = []
+                    // this.endboss = []
                 }
             }
         }, 100);
@@ -328,7 +335,7 @@ class World {
     collectingPoison() {
         this.poison.forEach(element => {
             if (this.hero.isColliding(element)) {
-                if (element.tagged == false) {
+                if (element.tagged == false && this.hero.bubblesForShoot < 5) {
                     this.poison_sound.play();
                     this.hero.bubblesForShoot++
                     element.tagged = true

@@ -3,7 +3,7 @@ class DrawingObjects {
     CANVAS_HEIGHT = document.getElementById('canvas').height
     background_width = 3840 / (1080 / this.CANVAS_HEIGHT)
     background_height = 1080 / (1080 / this.CANVAS_HEIGHT)
-    endPosition = 1500;
+    endPosition = 0;
     position_x = 0;
     position_x2 = this.background_width;
     position_y = 0;
@@ -19,6 +19,9 @@ class DrawingObjects {
 
 
     playAnimation(images) {
+        if (this instanceof Jellyfish) {
+          //  console.log("test33")
+        }
         if (!this.gameOver) {
             let i = this.currentImage % images.length
             let path = images[i]
@@ -91,7 +94,10 @@ class DrawingObjects {
         }
     */
     draw(ctx) {
-        ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
+      
+            ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
+       
+        
     }
 
 
