@@ -77,19 +77,23 @@ function enterFullscreen(element) {
     }
 }
 
-
+/*
 function exitFullscreen() {
+    document.getElementById('exit-fullscreen').classList.add('d-none')
+    document.getElementById('fullscreen').classList.remove('d-none')
     if (document.exitFullscreen) {
         document.exitFullscreen();
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
     }
 }
-
+*/
 
 function fullScreen() {
-    alert('Not yet implemented')
-    // enterFullscreen(document.getElementById('container'));
+   // document.getElementById('exit-fullscreen').classList.remove('d-none')
+  //  document.getElementById('fullscreen').classList.add('d-none')
+    let element = document.getElementById('canvas-container')
+    enterFullscreen(element)
 }
 
 

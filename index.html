@@ -50,7 +50,9 @@
 
     <div class="d-none center" id="canvas-container">
         <canvas id="canvas" class="border-styling" width="1080px" height="720px"></canvas>
-        <div class="back-to-main" onclick="backToMainMenu()">MAIN MENU</div>
+        <div id="back-to-main" class="in-game-btn" onclick="backToMainMenu()">MAIN MENU</div>
+        <div id="fullscreen" class="in-game-btn d-none" onclick="fullScreen()">FULLSCREEN</div>
+        <div id="exit-fullscreen" class="d-none in-game-btn" onclick="exitFullscreen()">EXIT FULLSCREEN</div>
     </div>
 
 
@@ -63,7 +65,6 @@
         <div class="game-navigation" id="game-navigation">
             <div onclick="startGame()">PLAY</div>
             <div onclick="showControllKeys()">CONTROLLS</div>
-            <div onclick="fullScreen()">FULLSCREEN</div>
             <div onclick="showCredits()">CREDITS</div>
         </div>
 

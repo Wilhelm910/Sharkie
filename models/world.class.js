@@ -32,6 +32,7 @@ class World {
     finalScreen = false;
     newGame = false;
     bubbleTimer = false;
+    movingBubble = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -57,7 +58,8 @@ class World {
         setInterval(() => {
             if (mainMenu) {
                 this.clearIntervals();
-              //  this.resetBooleans();
+                //  this.resetBooleans();
+                this.stopMusic();
                 this.clearArrays();
             }
         }, 100);
@@ -68,36 +70,44 @@ class World {
     }
 
     clearArrays() {
-        this.endboss = []
-        this.enemies = []
-        this.coins = []
-        this.background = []
-        this.poison = []
-        this.bubble = []
+        this.endboss = [];
+        this.enemies = [];
+        this.coins = [];
+        this.background = [];
+        this.poison = [];
+        this.bubble = [];
     }
-
-    resetBooleans() {
-        world.hero.gameOver = false;
-        world.hero.deadByPoison = false;
-        world.hero.deadByElectroshock = false;
-        world.hero.deadByNormal = false;
-        world.hero.gameWon = false;
-        world.hero.energy = 100;
-        world.hero.gamespeed = 5
-        world.hero.distance = 0
-        this.game_sound.pause();
-        this.game_sound.currentTime = 0;
-        world.finalScreen = false;
-        this.gameover_sound.pause();
-        this.gameover_sound.currentTime = 0;
-        if (this.endboss.length > 0) {
-            world.endboss.introduced = false;
-            world.endboss.isDead = false;
-            world.endboss.energy = 2;
-            this.endboss_sound.pause();
-            this.endboss_sound.currentTime = 0;
-            this.endboss = []
+    /*
+        resetBooleans() {
+            world.hero.gameOver = false;
+            world.hero.deadByPoison = false;
+            world.hero.deadByElectroshock = false;
+            world.hero.deadByNormal = false;
+            world.hero.gameWon = false;
+            world.hero.energy = 100;
+            world.hero.gamespeed = 5
+            world.hero.distance = 0
+            this.game_sound.pause();
+            this.game_sound.currentTime = 0;
+            world.finalScreen = false;
+            this.gameover_sound.pause();
+            this.gameover_sound.currentTime = 0;
+            if (this.endboss.length > 0) {
+                world.endboss.introduced = false;
+                world.endboss.isDead = false;
+                world.endboss.energy = 2;
+                this.endboss_sound.pause();
+                this.endboss_sound.currentTime = 0;
+                this.endboss = []
+            }
         }
+    */
+
+    stopMusic() {
+        this.game_sound.pause();
+        this.endboss_sound.pause();
+        this.gamewon_sound.pause();
+        this.gameover_sound.pause();
     }
 
     playMusic() {
@@ -121,14 +131,11 @@ class World {
             if (this.hero.gameWon) {
                 this.endboss_sound.pause();
                 this.gamewon_sound.play();
-                setTimeout(() => {
-                    this.gamewon_sound.pause();
-                }, 3000);
             }
         }, 100);
 
     }
-    
+
     setWorld() {
         this.hero.world = this;
     }
@@ -177,11 +184,14 @@ class World {
 
     spawnPoison() {
         setInterval(() => {
+            if (world.hero.gameOver || world.hero.gameWon) {
+                this.poison = []
+            }
+        }, 500);
+        setInterval(() => {
             if (!world.hero.gameOver && !world.hero.gameWon && world.hero.bubblesForShoot < 5) {
                 let poison = new Poison();
                 this.poison.push(poison);
-            } else if (world.hero.gameOver) {
-                this.poison = []
             }
         }, Math.floor(Math.random() * 2000) + 2000);
     }
@@ -363,6 +373,9 @@ class World {
                     this.initializeDeadAnimation(element);
                 }
             }
+            if (this.hero.gameOver) {
+                element.tagged = true;
+            }
         });
     }
 
@@ -413,10 +426,17 @@ class World {
                         let bubble = new Bubbleattack(this.hero.position_x + 25, this.hero.position_y + 130)
                         this.bubble.push(bubble)
                         this.hero.bubblesForShoot--
+                        setTimeout(() => {
+                            this.movingBubble = true;
+                        }, 1000);
+
                     } else if (!world.hero.mirroredImage) {
                         let bubble = new Bubbleattack(this.hero.position_x + 155, this.hero.position_y + 130)
                         this.bubble.push(bubble)
                         this.hero.bubblesForShoot--
+                        setTimeout(() => {
+                            this.movingBubble = true;
+                        }, 1000);
                     }
                     setTimeout(() => {
                         this.bubbleTimer = false;

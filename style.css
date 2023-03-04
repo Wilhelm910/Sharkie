@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    padding: 0;
 }
 
 body {
@@ -30,6 +31,7 @@ h1 {
 }
 
 
+
 .center {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -44,7 +46,7 @@ canvas {
 }
 
 .border-styling {
-    border: 5px solid black;
+    border: 1px solid black;
     border-radius: 20px;
 }
 
@@ -67,10 +69,7 @@ canvas {
     left: 75%;
 }
 
-.back-to-main {
-    position: absolute;
-    top: 680px;
-    left: 970px;
+.in-game-btn {
     border: 1px solid black;
     border-radius: 4px;
     padding: 4px;
@@ -78,10 +77,29 @@ canvas {
     background-color: yellow
 }
 
-.back-to-main:hover {
+.in-game-btn:hover {
     cursor: pointer;
     transform: scale(1.05);
     transition: all 175ms ease-in-out;
+}
+
+#back-to-main {
+    position: absolute;
+    top: 90%;
+    left: 85%;
+  
+}
+
+#fullscreen {
+    position: absolute;
+    top: 680px;
+    left: 20px;
+}
+
+#exit-fullscreen {
+    position: absolute;
+    top: 680px;
+    left: 20px;
 }
 
 #credit-section {
@@ -187,6 +205,8 @@ p {
 
     canvas {
         width: 100%;
+        border: none !important;
+        border-radius: 0 !important;
     }
 
     #return-btn {
@@ -212,6 +232,9 @@ p {
        left: 63%;
     }
 
+    #back-to-main {
+        left: 80%;
+    }
 
     .controll-keys {
         top: 450px;
@@ -228,6 +251,9 @@ p {
 
 @media only screen and (max-width: 540px) {
 
+    #start-screen {
+        height: 100vh;
+    }
 
     .game-navigation {
         top: 20%;
@@ -248,7 +274,11 @@ p {
         left: 30%;
     }
    
-
+    #back-to-main {
+     
+        top: 85%;
+        left: 70%;
+    }
 }
 
 @media only screen and (max-height: 720px) {
@@ -257,7 +287,7 @@ p {
         height: 100vh;
     }
 
-    #container {
+    #canvas-container {
         height: 100vh;
     }
 
@@ -265,12 +295,8 @@ p {
         height: 100vh;
     }
 
-    #header {
-        display: none !important;
-    }
-
     .game-navigation {
-        top: 10%;
+        top: 35%;
         left: 70%;
     }
 
@@ -285,6 +311,7 @@ p {
     }
     
     #return-btn {
+        top: 1%;
         left: 89%;
     }
 

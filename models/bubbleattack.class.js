@@ -1,5 +1,4 @@
 class Bubbleattack extends MovingObjects {
-
     IMAGES_BUBBLE = [
         'img/1.Sharkie/4.Attack/Bubble trap/Bubble.png',
         'img/1.Sharkie/4.Attack/Bubble trap/Bubble.png',
