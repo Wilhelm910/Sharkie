@@ -84,18 +84,24 @@ class Endboss extends MovingObjects {
             this.swimming_sound.pause();
             if (!world.hero.gameOver) {
                 if (this.energy < 0) {
-                    this.swimming_sound.pause();
-                    this.swimUpEndboss();
+                    if (sound) {
+                        this.swimming_sound.pause();
+                        this.swimUpEndboss();
+                    }
                 }
                 if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
                     this.swimLeftEndboss();
-                    this.swimming_sound.play();
+                    if (sound) {
+                        this.swimming_sound.play();
+                    }
                     if (this.position_x < 0) {
                         this.turnRight = true;
                     }
                 } else if (this.turnRight && this.lineOfSight) {
                     this.swimRightEndboss();
-                    this.swimming_sound.play();
+                    if (sound) {
+                        this.swimming_sound.play();
+                    }
                     this.mirroredImage = true;
                     if (this.position_x > 750) {
                         this.turnRight = false;
@@ -116,7 +122,9 @@ class Endboss extends MovingObjects {
             if (!world.hero.gameOver) {
                 if (this.energy < 0 && !this.isDead) {
                     this.playAnimation(this.IMAGES_DEAD);
-                    this.swimming_sound.pause();
+                    if (sound) {
+                        this.swimming_sound.pause();
+                    }
                     setTimeout(() => {
                         world.hero.gameWon = true;
                         this.isDead = true;

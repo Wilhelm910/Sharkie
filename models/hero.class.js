@@ -170,20 +170,13 @@ class Hero extends MovingObjects {
     aliveAnimations() {
         if (!this.gameWon) {
             if (this.isHurtPoison()) {
-                this.playAnimation(this.IMAGES_POISONED);
-                this.pufferfish_sound.play();
+                this.hurtByPoison();
             }
             else if (this.isHurtElectroshock()) {
-                this.playAnimation(this.IMAGES_ELECTROSHOCK);
-                this.electroshock_sound.currentTime = 1;
-                this.electroshock_sound.play();
-                setTimeout(() => {
-                    this.electroshock_sound.pause();
-                }, 500);
+                this.hurtByElectro();
             }
             else if (this.isHurtNormal()) {
-                this.playAnimation(this.IMAGES_NORMAL);
-                this.pufferfish_sound.play();
+                this.hurtByNormal();
             }
             else if (this.moving()) {
                 this.playAnimation(this.IMAGES_SWIM)
@@ -202,6 +195,33 @@ class Hero extends MovingObjects {
         }
     }
 
+
+    hurtByElectro() {
+        this.playAnimation(this.IMAGES_ELECTROSHOCK);
+        if (sound) {
+            this.electroshock_sound.currentTime = 1;
+            this.electroshock_sound.play();
+            setTimeout(() => {
+                this.electroshock_sound.pause();
+            }, 500);
+        }
+    }
+
+
+    hurtByPoison() {
+        this.playAnimation(this.IMAGES_POISONED);
+        if (sound) {
+            this.pufferfish_sound.play();
+        }
+    }
+
+
+    hurtByNormal() {
+        this.playAnimation(this.IMAGES_NORMAL);
+        if (sound) {
+            this.pufferfish_sound.play();
+        }
+    }
 
     deadAnimations() {
         if (this.deadByPoison) {
@@ -235,11 +255,15 @@ class Hero extends MovingObjects {
         setInterval(() => {
             if (this.bubbleShot) {
                 this.playAnimation(this.IMAGES_BUBBLEATTACK);
-                this.shooting_bubble_sound.play();
+                if (sound) {
+                    this.shooting_bubble_sound.play();
+                }
                 setTimeout(() => {
                     this.bubbleShot = false;
-                    this.shooting_bubble_sound.pause();
-                    this.shooting_bubble_sound.currentTime = 0;
+                    if (sound) {
+                        this.shooting_bubble_sound.pause();
+                        this.shooting_bubble_sound.currentTime = 0;
+                    }
                 }, 400);
             }
         }, 1000 / 7);

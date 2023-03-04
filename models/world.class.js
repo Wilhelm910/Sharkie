@@ -111,28 +111,32 @@ class World {
     }
 
     playMusic() {
-        setInterval(() => {
-            if (this.hero.distance < world.hero.endPosition) {
-                this.game_sound.play();
-            }
-            if (this.hero.distance > world.hero.endPosition) {
-                this.game_sound.pause();
-                this.endboss_sound.play();
-            }
-            if (this.hero.gameOver) {
-                this.game_sound.pause();
-                this.endboss_sound.pause();
-                this.gameover_sound.play();
-                setTimeout(() => {
-                    this.gameover_sound.pause();
-                    this.gameover_sound.currentTime = 0;
-                }, 4000);
-            }
-            if (this.hero.gameWon) {
-                this.endboss_sound.pause();
-                this.gamewon_sound.play();
-            }
-        }, 100);
+        if(sound) {
+            setInterval(() => {
+          
+                if (this.hero.distance < world.hero.endPosition) {
+                    this.game_sound.play();
+                }
+                if (this.hero.distance > world.hero.endPosition) {
+                    this.game_sound.pause();
+                    this.endboss_sound.play();
+                }
+                if (this.hero.gameOver) {
+                    this.game_sound.pause();
+                    this.endboss_sound.pause();
+                    this.gameover_sound.play();
+                    setTimeout(() => {
+                        this.gameover_sound.pause();
+                        this.gameover_sound.currentTime = 0;
+                    }, 4000);
+                }
+                if (this.hero.gameWon) {
+                    this.endboss_sound.pause();
+                    this.gamewon_sound.play();
+                }
+            }, 100); 
+        }
+ 
 
     }
 

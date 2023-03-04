@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let gameStart = false;
 let mainMenu = false;
+let sound = true;
 
 function init() {
     gameStart = true;
@@ -66,34 +67,16 @@ function startGame() {
     init();
 }
 
-
-function enterFullscreen(element) {
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
-        element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) {  // iOS Safari
-        element.webkitRequestFullscreen();
+function soundOptions() {
+    if (sound) {
+        console.log(sound)
+        document.getElementById('sound-on').classList.remove('d-none')
+        document.getElementById('sound-off').classList.add('d-none')
+    } else if (!sound) {
+        console.log(sound)
+        document.getElementById('sound-on').classList.add('d-none')
+        document.getElementById('sound-off').classList.remove('d-none')
     }
-}
-
-/*
-function exitFullscreen() {
-    document.getElementById('exit-fullscreen').classList.add('d-none')
-    document.getElementById('fullscreen').classList.remove('d-none')
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    }
-}
-*/
-
-function fullScreen() {
-   // document.getElementById('exit-fullscreen').classList.remove('d-none')
-  //  document.getElementById('fullscreen').classList.add('d-none')
-    let element = document.getElementById('canvas-container')
-    enterFullscreen(element)
 }
 
 
