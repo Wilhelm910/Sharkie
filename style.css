@@ -58,12 +58,17 @@ canvas {
     background-size: cover;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: flex-end;
     color: yellow;
     border-radius: 20px;
 }
 
 .game-navigation {
+   
+}
+
+game-navigation {
     position: absolute;
     top: 400px;
     left: 75%;
