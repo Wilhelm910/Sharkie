@@ -58,16 +58,17 @@ class World {
         setInterval(() => {
             if (mainMenu) {
                 this.clearIntervals();
-                //  this.resetBooleans();
                 this.stopMusic();
                 this.clearArrays();
             }
         }, 100);
     }
 
+
     clearIntervals() {
         for (let i = 1; i < 9999; i++) window.clearInterval(i);
     }
+
 
     clearArrays() {
         this.endboss = [];
@@ -77,31 +78,7 @@ class World {
         this.poison = [];
         this.bubble = [];
     }
-    /*
-        resetBooleans() {
-            world.hero.gameOver = false;
-            world.hero.deadByPoison = false;
-            world.hero.deadByElectroshock = false;
-            world.hero.deadByNormal = false;
-            world.hero.gameWon = false;
-            world.hero.energy = 100;
-            world.hero.gamespeed = 5
-            world.hero.distance = 0
-            this.game_sound.pause();
-            this.game_sound.currentTime = 0;
-            world.finalScreen = false;
-            this.gameover_sound.pause();
-            this.gameover_sound.currentTime = 0;
-            if (this.endboss.length > 0) {
-                world.endboss.introduced = false;
-                world.endboss.isDead = false;
-                world.endboss.energy = 2;
-                this.endboss_sound.pause();
-                this.endboss_sound.currentTime = 0;
-                this.endboss = []
-            }
-        }
-    */
+
 
     stopMusic() {
         this.game_sound.pause();
@@ -110,10 +87,10 @@ class World {
         this.gameover_sound.pause();
     }
 
+
     playMusic() {
-        if(sound) {
-            setInterval(() => {
-          
+        setInterval(() => {
+            if (sound) {
                 if (this.hero.distance < world.hero.endPosition) {
                     this.game_sound.play();
                 }
@@ -134,15 +111,20 @@ class World {
                     this.endboss_sound.pause();
                     this.gamewon_sound.play();
                 }
-            }, 100); 
-        }
- 
-
+            } else if (!sound) {
+                this.endboss_sound.pause();
+                this.game_sound.pause();
+                this.gamewon_sound.pause();
+                this.gameover_sound.pause();
+            }
+        }, 100);
     }
+
 
     setWorld() {
         this.hero.world = this;
     }
+
 
     checkForEndposition() {
         setInterval(() => {
@@ -254,7 +236,7 @@ class World {
                 element.draw(this.ctx)
             }
             element.draw(this.ctx)
-            element.drawHitBox(this.ctx)
+           // element.drawHitBox(this.ctx)
             if (element.mirroredImage) {
                 this.undoFlipImage(element);
             }
@@ -268,7 +250,7 @@ class World {
             element.draw(this.ctx)
         }
         element.draw(this.ctx)
-        element.drawHitBox(this.ctx)
+       // element.drawHitBox(this.ctx)
         if (element.mirroredImage) {
             this.undoFlipImage(element);
         }
@@ -305,7 +287,9 @@ class World {
         this.poison.forEach(element => {
             if (this.hero.isColliding(element)) {
                 if (element.tagged == false && this.hero.bubblesForShoot < 5) {
-                    this.poison_sound.play();
+                    if (sound) {
+                        this.poison_sound.play();
+                    }
                     this.hero.bubblesForShoot++
                     element.tagged = true
                     this.poison.splice(this.poison.indexOf(element), 1)
@@ -323,7 +307,9 @@ class World {
         this.coins.forEach(element => {
             if (this.hero.isColliding(element)) {
                 if (element.tagged == false) {
-                    this.coin_sound.play();
+                    if (sound) {
+                        this.coin_sound.play();
+                    }
                     this.hero.coins++
                     element.tagged = true
                     this.coins.splice(this.coins.indexOf(element), 1)
@@ -427,28 +413,35 @@ class World {
                 if (!this.bubbleTimer) {
                     this.bubbleTimer = true;
                     if (world.hero.mirroredImage) {
-                        let bubble = new Bubbleattack(this.hero.position_x + 25, this.hero.position_y + 130)
-                        this.bubble.push(bubble)
-                        this.hero.bubblesForShoot--
-                        setTimeout(() => {
-                            this.movingBubble = true;
-                        }, 1000);
-
+                        this.shootBubbleToLeft();
                     } else if (!world.hero.mirroredImage) {
-                        let bubble = new Bubbleattack(this.hero.position_x + 155, this.hero.position_y + 130)
-                        this.bubble.push(bubble)
-                        this.hero.bubblesForShoot--
-                        setTimeout(() => {
-                            this.movingBubble = true;
-                        }, 1000);
+                        this.shootBubbleToRight();
                     }
                     setTimeout(() => {
                         this.bubbleTimer = false;
                     }, 500);
                 }
             }
-
         }, 10);
     }
 
+    
+    shootBubbleToLeft() {
+        let bubble = new Bubbleattack(this.hero.position_x + 25, this.hero.position_y + 130)
+        this.bubble.push(bubble)
+        this.hero.bubblesForShoot--
+        setTimeout(() => {
+            this.movingBubble = true;
+        }, 1000);
+    }
+
+
+    shootBubbleToRight() {
+        let bubble = new Bubbleattack(this.hero.position_x + 155, this.hero.position_y + 130)
+        this.bubble.push(bubble)
+        this.hero.bubblesForShoot--
+        setTimeout(() => {
+            this.movingBubble = true;
+        }, 1000);
+    }
 } 

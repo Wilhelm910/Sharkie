@@ -132,7 +132,6 @@ class Hero extends MovingObjects {
     }
 
 
-
     animate() {
         setInterval(() => {
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
@@ -159,37 +158,30 @@ class Hero extends MovingObjects {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
+            if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock)
                 this.aliveAnimations();
-            } else {
+            else
                 this.deadAnimations();
-            }
         }, 1000 / 7);
     }
 
+    
     aliveAnimations() {
         if (!this.gameWon) {
-            if (this.isHurtPoison()) {
+            if (this.isHurtPoison())
                 this.hurtByPoison();
-            }
-            else if (this.isHurtElectroshock()) {
+            else if (this.isHurtElectroshock())
                 this.hurtByElectro();
-            }
-            else if (this.isHurtNormal()) {
+            else if (this.isHurtNormal())
                 this.hurtByNormal();
-            }
-            else if (this.moving()) {
+            else if (this.moving())
                 this.playAnimation(this.IMAGES_SWIM)
-            }
-            else if (this.world.hero.world.keyboard.D && !this.heroFinslap) {
+            else if (this.world.hero.world.keyboard.D && !this.heroFinslap)
                 this.finAttack();
-            }
-            else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) {
+            else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot)
                 this.bubbleShot = true;
-            }
-            else {
+            else
                 this.playAnimation(this.IMAGES_IDLE)
-            }
         } else {
             this.playAnimation(this.IMAGES_IDLE)
         }
@@ -210,17 +202,15 @@ class Hero extends MovingObjects {
 
     hurtByPoison() {
         this.playAnimation(this.IMAGES_POISONED);
-        if (sound) {
+        if (sound)
             this.pufferfish_sound.play();
-        }
     }
 
 
     hurtByNormal() {
         this.playAnimation(this.IMAGES_NORMAL);
-        if (sound) {
+        if (sound) 
             this.pufferfish_sound.play();
-        }
     }
 
     deadAnimations() {
@@ -241,6 +231,7 @@ class Hero extends MovingObjects {
             this.gamespeed = 0;
         }
     }
+
 
     finAttack() {
         this.heroFinslap = true;

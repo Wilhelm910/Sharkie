@@ -16,24 +16,23 @@ class Poisonbar extends FixedObjects {
         this.width = 595 / 3;
         this.height = 158 / 3;
         this.setPercentage()
-     
+
     }
 
     setPercentage() {
         setInterval(() => {
-            if (world.hero.bubblesForShoot == 0) {
+            if (world.hero.bubblesForShoot == 0)
                 this.loadImage(this.IMAGES[0]);
-            } else if (world.hero.bubblesForShoot == 1) {
+            else if (world.hero.bubblesForShoot == 1)
                 this.loadImage(this.IMAGES[1]);
-            } else if (world.hero.bubblesForShoot == 2) {
+            else if (world.hero.bubblesForShoot == 2)
                 this.loadImage(this.IMAGES[2]);
-            } else if (world.hero.bubblesForShoot == 3) {
+            else if (world.hero.bubblesForShoot == 3)
                 this.loadImage(this.IMAGES[3]);
-            } else if (world.hero.bubblesForShoot == 4) {
+            else if (world.hero.bubblesForShoot == 4)
                 this.loadImage(this.IMAGES[4]);
-            } else {
+            else
                 this.loadImage(this.IMAGES[5]);
-            }
         }, 1000 / 60);
     }
 }

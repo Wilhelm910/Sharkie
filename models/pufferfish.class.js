@@ -49,11 +49,10 @@ class Pufferfish extends MovingObjects {
 
     animate() {
         setInterval(() => {
-            if (this.gotHit) {
+            if (this.gotHit)
                 this.swimUpEnemie();
-            } else {
+            else
                 this.swimLeftEnemie();
-            }
         }, 1000 / 60);
         setInterval(() => {
             if (this.gotHit) {
@@ -61,7 +60,7 @@ class Pufferfish extends MovingObjects {
             } else if (this.lineOfSight) {
                 this.playAnimation(this.IMAGES_TRANSITION);
                 this.playAnimation(this.IMAGES_BUBBLESWIM);
-            }  else {
+            } else {
                 this.playAnimation(this.IMAGES_SWIM);
             }
         }, 1000 / 10);

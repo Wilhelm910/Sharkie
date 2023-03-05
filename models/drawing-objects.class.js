@@ -39,6 +39,7 @@ class DrawingObjects {
         this.img.src = path;
     }
 
+
     loadImages(imgArray) {
         imgArray.forEach(path => {
             let img = new Image();
@@ -46,6 +47,7 @@ class DrawingObjects {
             this.imageCache[path] = img;
         });
     }
+
 
     drawHitBox(ctx) {
         if (this instanceof Hero) {
@@ -73,6 +75,7 @@ class DrawingObjects {
         }
     }
 
+
     draw(ctx) {
         ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
     }
@@ -85,7 +88,6 @@ class DrawingObjects {
         ctx.drawImage(this.img, this.position_x, this.position_y, this.background_width, this.background_height);
         ctx.drawImage(this.img, this.position_x2, this.position_y, this.background_width, this.background_height);
         if (!(world == undefined)) {
-
             if (!world.hero.gameOver) {
                 if (world.endboss.length <= 0) {
                     this.alignBackground()

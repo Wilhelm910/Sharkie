@@ -65,7 +65,19 @@ function startGame() {
     startScreen.classList.add('d-none');
     mainMenu = false;
     init();
+    updateInGameSoundIcons()
 }
+
+function updateInGameSoundIcons() {
+    if (sound) {
+        document.getElementById('in-game-sound-on').classList.remove('d-none')
+        document.getElementById('in-game-sound-off').classList.add('d-none')
+    } else if (!sound) {
+        document.getElementById('in-game-sound-on').classList.add('d-none')
+        document.getElementById('in-game-sound-off').classList.remove('d-none')
+    }
+}
+
 
 function soundOptions() {
     if (sound) {
@@ -112,4 +124,31 @@ function backToMainMenu() {
     document.getElementById('canvas-container').classList.add('d-none')
     document.getElementById('start-screen').classList.remove('d-none')
     mainMenu = true;
+    checkSoundOptions()
+}
+
+
+function checkSoundOptions() {
+    if (sound) {
+        document.getElementById('sound-on').classList.add('d-none')
+        document.getElementById('sound-off').classList.remove('d-none')
+    } else if (!sound) {
+        document.getElementById('sound-on').classList.remove('d-none')
+        document.getElementById('sound-off').classList.add('d-none')
+    }
+}
+
+
+function soundOptionsInGame() {
+    if (sound) {
+        sound = false;
+        console.log(sound)
+        document.getElementById('in-game-sound-on').classList.add('d-none')
+        document.getElementById('in-game-sound-off').classList.remove('d-none')
+    } else if (!sound) {
+        sound = true;
+        console.log(sound)
+        document.getElementById('in-game-sound-on').classList.remove('d-none')
+        document.getElementById('in-game-sound-off').classList.add('d-none')
+    }
 }

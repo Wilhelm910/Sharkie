@@ -16,24 +16,24 @@ class Healthbar extends FixedObjects {
         this.width = 595 / 3;
         this.height = 158 / 3;
         this.setPercentage()
-     
+
     }
+
 
     setPercentage() {
         setInterval(() => {
-            if (world.hero.energy == 100) {
+            if (world.hero.energy == 100)
                 this.loadImage(this.IMAGES[5]);
-            } else if (world.hero.energy == 80) {
+            else if (world.hero.energy == 80)
                 this.loadImage(this.IMAGES[4]);
-            } else if (world.hero.energy == 60) {
+            else if (world.hero.energy == 60)
                 this.loadImage(this.IMAGES[3]);
-            } else if (world.hero.energy == 40) {
+            else if (world.hero.energy == 40)
                 this.loadImage(this.IMAGES[2]);
-            } else if (world.hero.energy == 20) {
+            else if (world.hero.energy == 20)
                 this.loadImage(this.IMAGES[1]);
-            } else {
+            else
                 this.loadImage(this.IMAGES[0]);
-            }
         }, 1000 / 60);
     }
 }
