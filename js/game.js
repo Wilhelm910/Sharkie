@@ -69,10 +69,12 @@ function startGame() {
 
 function soundOptions() {
     if (sound) {
+        sound = false;
         console.log(sound)
         document.getElementById('sound-on').classList.remove('d-none')
         document.getElementById('sound-off').classList.add('d-none')
     } else if (!sound) {
+        sound = true;
         console.log(sound)
         document.getElementById('sound-on').classList.add('d-none')
         document.getElementById('sound-off').classList.remove('d-none')

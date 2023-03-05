@@ -15,22 +15,22 @@ body {
     height: 100vh;
 }
 
+.h1-container {
+    display: flex;
+    justify-content: center;
+   
+}
+
 h1 {
-    text-align: center;
     padding: 10px;
     color: yellow;
     font-weight: bold;
     font-size: 50px;
-}
-
-.h1-container {
     border: 3px solid yellow;
     border-radius: 24px;
     background-color: rgb(13, 13, 87);
-    margin-top: 8px;
+    margin-top: 16px;
 }
-
-
 
 .center {
     position: absolute;
@@ -65,14 +65,56 @@ canvas {
 }
 
 .game-navigation {
-   
+   margin: 32px;
 }
 
-game-navigation {
-    position: absolute;
-    top: 400px;
-    left: 75%;
+.controll-keys {
+    margin: 16px;
 }
+
+#return-btn {
+    margin: 16px;
+    transition: all 175ms ease-in-out;
+}
+
+#return-btn:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 175ms ease-in-out;
+}
+
+.icon-container {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    background-color: yellow;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 8px;
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+}
+
+#credit-section {
+    display: flex;
+    flex-direction: column;
+    margin: 32px;
+}
+
+#credit-section a {
+    text-decoration: none;
+    color: yellow;
+}
+
+
+
+
+
+
+
 
 .in-game-btn {
     border: 1px solid black;
@@ -107,40 +149,6 @@ game-navigation {
     left: 20px;
 }
 
-#credit-section {
-    position: absolute;
-    top: 700px;
-    left: 45%;
-    display: flex;
-    flex-direction: column;
-}
-
-#credit-section a {
-    text-decoration: none;
-    color: yellow;
-}
-
-.controll-keys {
-    position: absolute;
-    top: 420px;
-    left: 65%;
-    display: flex;
-    flex-direction: column;
-}
-
-#return-btn {
-    position: absolute;
-    top: 340px;
-    left: 85%;
-    transition: all 175ms ease-in-out;
-}
-
-#return-btn:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-    transition: all 175ms ease-in-out;
-}
-
 .controll-keys div {
     display: flex;
     align-items: center;
@@ -166,21 +174,6 @@ game-navigation {
     cursor: pointer;
     transform: scale(1.1);
     transition: all 175ms ease-in-out;
-}
-
-.icon-container {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    background-color: yellow;
-    border-radius: 8px;
-    padding: 8px;
-    margin: 8px;
-}
-
-.icon {
-    width: 100%;
-    height: 100%;
 }
 
 p {
@@ -213,72 +206,16 @@ p {
         border: none !important;
         border-radius: 0 !important;
     }
-
-    #return-btn {
-        top: 340px;
-        left: 85%;
-    }   
-
-    .controll-keys {
-        top: 420px;
-        left: 60%
-    }
-
-    #credit-section {
-        top: 700px;
-    }
-
 }
 
 
 @media only screen and (max-width: 830px) {
-    
-    .game-navigation {
-       left: 63%;
-    }
-
     #back-to-main {
         left: 70%;
     }
-
-    .controll-keys {
-        top: 420px;
-        left: 40%;
-    }
-    
-    #return-btn {
-        top: 340px;
-        left: 79%;
-    
-    }   
-
 }
 
 @media only screen and (max-width: 540px) {
-
-    #start-screen {
-        height: 100vh;
-    }
-
-    .game-navigation {
-        top: 20%;
-        left: 25%;
-    }
-
-    .controll-keys {
-        top: 420px;
-        left: 5%;
-    }
-    
-    #return-btn {
-        top: 340px;
-        left: 60%;
-    }  
-
-    #credit-section {
-        left: 30%;
-    }
-   
     #back-to-main {
         top: 85%;
         left: 60%;
@@ -298,26 +235,15 @@ p {
     canvas {
         height: 100vh;
     }
-
-    .game-navigation {
-        top: 35%;
-        left: 70%;
-    }
-
-    #credit-section {
-        top: 60%;
-        left: 40%;
-    }
-
-    .controll-keys {
-        top: 30%;
-        left: 55%;
-    }
     
-    #return-btn {
-        top: 1%;
-        left: 89%;
+    .icon-container {
+        margin: 4px;
     }
 
+    .h1-container {
+        position: absolute;
+        top: 30px;
+        left: 50px;
+    }
 
 }
