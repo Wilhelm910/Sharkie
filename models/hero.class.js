@@ -178,8 +178,8 @@ class Hero extends MovingObjects {
                 this.playAnimation(this.IMAGES_SWIM)
             else if (this.world.hero.world.keyboard.D && !this.heroFinslap)
                 this.finAttack();
-            else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot)
-                this.bubbleShot = true;
+            else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) 
+                this.bubbleShot = true; 
             else
                 this.playAnimation(this.IMAGES_IDLE)
         } else {
