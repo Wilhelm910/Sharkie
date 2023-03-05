@@ -38,7 +38,8 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.spawnEnemies();
+        this.spawnJellyfish();
+        this.spawnPufferfish();
         this.spawnPoison();
         this.spawnCoins();
         this.drawAll();
@@ -142,15 +143,23 @@ class World {
     }
 
 
-    spawnEnemies() {
+    spawnJellyfish() {
+        setInterval(() => {
+            if (!world.hero.gameOver && !this.finalScreen) {
+                let jellyfish = new Jellyfish();
+                this.enemies.push(jellyfish);
+            }
+        }, Math.floor(Math.random() * 2000) + 2000);
+    }
+
+
+    spawnPufferfish() {
         setInterval(() => {
             if (!world.hero.gameOver && !this.finalScreen) {
                 let pufferfish = new Pufferfish();
-                let jellyfish = new Jellyfish();
                 this.enemies.push(pufferfish);
-                this.enemies.push(jellyfish);
             }
-        }, Math.floor(Math.random() * 2000) + 1000);
+        }, Math.floor(Math.random() * 1000) + 1000);
     }
 
 
