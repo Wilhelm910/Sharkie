@@ -51,28 +51,43 @@ class DrawingObjects {
 
     drawHitBox(ctx) {
         if (this instanceof Hero) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.position_x + 30, this.position_y + 110, this.width - 65, this.height - 160);
-            ctx.stroke();
+           this.heroHitbox(ctx);
         } else if (this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.position_x + 10, this.position_y + 190, this.width - 25, this.height - 260);
-            ctx.stroke();
+           this.endbossHitbox(ctx);
         } else if (this instanceof Pufferfish
             || this instanceof Jellyfish
             || this instanceof Poison
             || this instanceof Coins
             || this instanceof Bubbleattack) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.position_x, this.position_y, this.width, this.height);
-            ctx.stroke();
+            this.remainingObjectsHitbox(ctx);
         }
+    }
+
+
+    heroHitbox(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'red';
+        ctx.rect(this.position_x + 30, this.position_y + 110, this.width - 65, this.height - 160);
+        ctx.stroke();
+    }
+
+
+    endbossHitbox(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'red';
+        ctx.rect(this.position_x + 10, this.position_y + 190, this.width - 25, this.height - 260);
+        ctx.stroke();
+    }
+
+
+    remainingObjectsHitbox(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'red';
+        ctx.rect(this.position_x, this.position_y, this.width, this.height);
+        ctx.stroke();
     }
 
 

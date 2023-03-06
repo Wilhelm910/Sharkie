@@ -8,6 +8,7 @@
     <title>Sharkie</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./fonts.css">
+    <link rel="icon" type="image/png" href="./icons/gamepad.png"/>
     <script src="models/world.class.js"></script>
     <script src="models/drawing-objects.class.js"></script>
     <script src="models/moving-objects.class.js"></script>
@@ -33,15 +34,17 @@
 </head>
 
 <body>
-    <div class="h1-container">
+    <div id="h1-container">
         <h1>SHARKIE</h1>
     </div>
 
     <div class="d-none center" id="canvas-container">
         <canvas id="canvas" class="border-styling" width="1080px" height="720px"></canvas>
         <div id="back-to-main">
-            <div id="in-game-sound-on" onclick="soundOptionsInGame()" class="icon-container in-game-style"><img class="icon" src="./icons/hohe-lautstarke.png"></div>
-            <div id="in-game-sound-off" onclick="soundOptionsInGame()" class="icon-container in-game-style d-none"><img class="icon" src="./icons/lautstarke-stumm-schalten.png"></div>
+            <div id="in-game-sound-on" onclick="soundOptionsInGame()" class="icon-container in-game-style"><img
+                    class="icon" src="./icons/hohe-lautstarke.png"></div>
+            <div id="in-game-sound-off" onclick="soundOptionsInGame()" class="icon-container in-game-style d-none"><img
+                    class="icon" src="./icons/lautstarke-stumm-schalten.png"></div>
             <div class="in-game-btn" onclick="backToMainMenu()">MAIN MENU</div>
         </div>
     </div>
@@ -89,6 +92,8 @@
             <a href="https://www.flaticon.com/de/kostenlose-icons/lautstarke-stumm-schalten"
                 title="lautstärke stumm schalten Icons">Lautstärke stumm schalten Icons erstellt von twentyfour -
                 Flaticon</a>
+            <a href="https://www.flaticon.com/de/kostenlose-icons/videokonsole" title="videokonsole Icons">Videokonsole
+                Icons erstellt von IconMarketPK - Flaticon</a>
         </div>
     </div>
 </body>

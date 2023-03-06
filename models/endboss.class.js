@@ -81,72 +81,114 @@ class Endboss extends MovingObjects {
 
     animate() {
         setInterval(() => {
-            this.swimming_sound.pause();
-            if (!world.hero.gameOver) {
-                if (this.energy < 0) {
-                    if (sound) {
-                        this.swimming_sound.pause();
-                    }
-                    this.swimUpEndboss();
-                }
-                if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight) {
-                    this.swimLeftEndboss();
-                    if (sound) {
-                        this.swimming_sound.play();
-                    }
-                    if (this.position_x < 0) {
-                        this.turnRight = true;
-                    }
-                } else if (this.turnRight && this.lineOfSight) {
-                    this.swimRightEndboss();
-                    if (sound) {
-                        this.swimming_sound.play();
-                    }
-                    this.mirroredImage = true;
-                    if (this.position_x > 750) {
-                        this.turnRight = false;
-                        this.mirroredImage = false;
-                    }
-                }
-                if (this.introduced && !this.lineOfSight && !this.isDead) {
-                    setTimeout(() => {
-                        if (sound) {
-                            this.swimming_sound.play();
-                        }
-                        this.attackHero();
-                    }, 2000);
-                }
-            }
+            this.endbossMovement();
         }, 1000 / 60);
 
 
         setInterval(() => {
-            if (!world.hero.gameOver) {
-                if (this.energy < 0 && !this.isDead) {
-                    this.playAnimation(this.IMAGES_DEAD);
-                    if (sound) {
-                        this.swimming_sound.pause();
-                    }
-                    setTimeout(() => {
-                        world.hero.gameWon = true;
-                        this.isDead = true;
-                    }, 1500);
-                } else if (this.gotHit) {
-                    this.playAnimation(this.IMAGES_HURT);
-                    setTimeout(() => {
-                        this.gotHit = false;
-                    }, 1000);
-                } else if (!this.introduced) {
-                    this.playAnimation(this.IMAGES_INTRODUCE);
-                    setTimeout(() => {
-                        this.introduced = true;
-                    }, 1000);
-                } else if (this.lineOfSight && this.introduced) {
-                    this.playAnimation(this.IMAGES_ATTACK);
-                } else {
-                    this.playAnimation(this.IMAGES_FLOATING);
-                }
-            }
+            this.endbossAnimations();
         }, 1000 / 6);
+    }
+
+
+    endbossMovement() {
+        this.swimming_sound.pause();
+        if (!world.hero.gameOver) {
+            if (this.energy < 0)
+                this.endbossIsDead();
+            if (this.introduced && this.lineOfSight && this.position_x > 0 && !this.turnRight)
+                this.swimToLeft();
+            else if (this.turnRight && this.lineOfSight)
+                this.swimToRight();
+            if (this.introduced && !this.lineOfSight && !this.isDead)
+                this.moveInDirectionOfHero();
+        }
+    }
+
+
+    moveInDirectionOfHero() {
+        setTimeout(() => {
+            if (sound) {
+                this.swimming_sound.play();
+            }
+            this.attackHero();
+        }, 2000);
+    }
+
+
+    swimToRight() {
+        this.swimRightEndboss();
+        if (sound) {
+            this.swimming_sound.play();
+        }
+        this.mirroredImage = true;
+        if (this.position_x > 750) {
+            this.turnRight = false;
+            this.mirroredImage = false;
+        }
+    }
+
+
+    swimToLeft() {
+        this.swimLeftEndboss();
+        if (sound) {
+            this.swimming_sound.play();
+        }
+        if (this.position_x < 0) {
+            this.turnRight = true;
+        }
+    }
+
+
+    endbossIsDead() {
+        if (sound) {
+            this.swimming_sound.pause();
+        }
+        this.swimUpEndboss();
+    }
+
+
+
+
+    endbossAnimations() {
+        if (!world.hero.gameOver) {
+            if (this.energy < 0 && !this.isDead)
+                this.deadAnimations();
+            else if (this.gotHit)
+                this.hurtAnimations();
+            else if (!this.introduced)
+                this.introduceAnimations();
+            else if (this.lineOfSight && this.introduced)
+                this.playAnimation(this.IMAGES_ATTACK);
+            else
+                this.playAnimation(this.IMAGES_FLOATING);
+        }
+    }
+
+    deadAnimations() {
+        this.playAnimation(this.IMAGES_DEAD);
+        if (sound) {
+            this.swimming_sound.pause();
+        }
+        setTimeout(() => {
+            world.hero.gameWon = true;
+            this.isDead = true;
+        }, 1500);
+    }
+
+
+    hurtAnimations() {
+        this.playAnimation(this.IMAGES_HURT);
+        setTimeout(() => {
+            this.gotHit = false;
+        }, 1000);
+    }
+
+    
+    introduceAnimations() {
+        this.playAnimation(this.IMAGES_INTRODUCE);
+        setTimeout(() => {
+            this.introduced = true;
+        }, 1000);
     }
 }

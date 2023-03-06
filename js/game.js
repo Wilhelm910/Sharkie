@@ -59,10 +59,9 @@ window.addEventListener('keyup', (event) => {
 
 
 function startGame() {
-    let container = document.getElementById('canvas-container');
-    container.classList.remove('d-none');
-    let startScreen = document.getElementById('start-screen');
-    startScreen.classList.add('d-none');
+    document.getElementById('canvas-container').classList.remove('d-none');
+    document.getElementById('start-screen').classList.add('d-none');
+    document.getElementById('h1-container').classList.add('d-none')
     mainMenu = false;
     init();
     updateInGameSoundIcons()
@@ -121,6 +120,7 @@ function showCredits() {
 function backToMainMenu() {
     document.getElementById('canvas-container').classList.add('d-none')
     document.getElementById('start-screen').classList.remove('d-none')
+    document.getElementById('h1-container').classList.remove('d-none')
     mainMenu = true;
     checkSoundOptions()
 }

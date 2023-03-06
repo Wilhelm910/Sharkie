@@ -62,6 +62,7 @@ class MovingObjects extends DrawingObjects {
         }
     }
 
+    
     swimLeftEndboss() {
         if (!this.gotHit) {
             this.position_x -= this.speed / 1.5;

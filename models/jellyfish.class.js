@@ -29,20 +29,27 @@ class Jellyfish extends MovingObjects {
 
     animate() {
         setInterval(() => {
-            if (this.gotHit) {
-                this.swimUpEnemie();
-            } else {
-                this.swimLeftEnemie();
-            }
+            this.jellyfishMovement();
         }, 1000 / 60);
-
         setInterval(() => {
-            if (this.gotHit) {
-                this.playAnimation(this.IMAGES_DEAD_JELLYFISH);
-            } else {
-                this.playAnimation(this.IMAGES_SWIM);
-            }
+            this.jellyfishAnimations();
         }, 1000 / 7);
+    }
+
+
+    jellyfishMovement() {
+        if (this.gotHit)
+            this.swimUpEnemie();
+        else
+            this.swimLeftEnemie();
+    }
+
+
+    jellyfishAnimations() {
+        if (this.gotHit)
+            this.playAnimation(this.IMAGES_DEAD_JELLYFISH);
+        else
+            this.playAnimation(this.IMAGES_SWIM);
     }
 }
 

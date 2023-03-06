@@ -12,6 +12,7 @@ class Hero extends MovingObjects {
     heroFinslap = false;
     coins = 0;
     gameWon = false;
+    k = 0;
 
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
@@ -129,40 +130,44 @@ class Hero extends MovingObjects {
         this.energy = 100;
         this.animate();
         this.bubbleAttack();
+        this.attackListener();
+        this.finAttack();
     }
 
 
     animate() {
         setInterval(() => {
-            if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
-                if (!this.gameWon) {
-                    if (this.world.hero.world.keyboard.RIGHT) {
-                        this.swimRight();
-                    }
-                    if (this.world.hero.world.keyboard.LEFT) {
-                        this.swimLeft();
-                        this.mirroredImage = true;
-                    }
-                    if (this.world.hero.world.keyboard.UP) {
-                        this.swimUp();
-                        this.swimmingUp = true;
-                    }
-                    if (this.world.hero.world.keyboard.DOWN) {
-                        this.swimDown();
-                        this.swimmingDown = true;
-                    }
-                }
-            }
-            // Hiermit kann ich das Bild auf dem Helden mittig zentrieren
-            //this.world.camera_x = -this.position_x
+           this.heroMovement();
         }, 1000 / 60);
-
         setInterval(() => {
             if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock)
                 this.aliveAnimations();
             else
                 this.deadAnimations();
         }, 1000 / 7);
+    }
+
+
+    heroMovement() {
+        if (!this.deadByPoison && !this.deadByNormal && !this.deadByElectroshock) {
+            if (!this.gameWon) {
+                if (this.world.hero.world.keyboard.RIGHT) {
+                    this.swimRight();
+                }
+                if (this.world.hero.world.keyboard.LEFT) {
+                    this.swimLeft();
+                    this.mirroredImage = true;
+                }
+                if (this.world.hero.world.keyboard.UP) {
+                    this.swimUp();
+                    this.swimmingUp = true;
+                }
+                if (this.world.hero.world.keyboard.DOWN) {
+                    this.swimDown();
+                    this.swimmingDown = true;
+                }
+            }
+        }
     }
 
     
@@ -176,8 +181,8 @@ class Hero extends MovingObjects {
                 this.hurtByNormal();
             else if (this.moving())
                 this.playAnimation(this.IMAGES_SWIM)
-            else if (this.world.hero.world.keyboard.D && !this.heroFinslap)
-                this.finAttack();
+           // else if (this.world.hero.world.keyboard.D /*&& !this.heroFinslap*/)
+           //     this.heroFinslap = true
             else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) 
                 this.bubbleShot = true; 
             else
@@ -232,13 +237,39 @@ class Hero extends MovingObjects {
         }
     }
 
+    attackListener() {
+        setInterval(() => {
+             if (this.world.hero.world.keyboard.D /*&& !this.heroFinslap*/)
+                this.heroFinslap = true
+        }, 10);
+    }
 
-    finAttack() {
-        this.heroFinslap = true;
-        this.playAnimation(this.IMAGES_FINSLAP);
-        setTimeout(() => {
-            this.heroFinslap = false;
-        }, 100);
+
+    finAttack() {  
+        setInterval(() => {
+            if(this.heroFinslap) {
+           /*   if (this.k > 5) {
+                this.k = 0
+              }
+                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
+                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
+                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
+                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
+                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
+                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
+                    console.log(this.k)
+                setTimeout(() => {
+                    this.k++
+                }, 10);
+                */
+            
+             
+                this.playAnimation(this.IMAGES_FINSLAP);
+                setTimeout(() => {
+                    this.heroFinslap = false;
+                }, 280);
+            }
+        }, 1000 / 7);
     }
 
 
