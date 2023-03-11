@@ -12,104 +12,50 @@ function init() {
 }
 
 
-function mobielActionBtn(btn) {
-    console.log(btn)
-}
-
 window.addEventListener('touchstart', (event) => {
     if (event.srcElement.className == 'mobile-icon up') {
         keyboard.UP = true;
     }
-    console.log(event.srcElement.className)
+    if (event.srcElement.className == 'mobile-icon down') {
+        keyboard.DOWN = true;
+    }
+    if (event.srcElement.className == 'mobile-icon left') {
+        keyboard.LEFT = true;
+    }
+    if (event.srcElement.className == 'mobile-icon right') {
+        keyboard.RIGHT = true;
+    }
+    if (event.srcElement.className == 'mobile-icon bubbleattack') {
+        keyboard.SPACE = true;
+    }
+    if (event.srcElement.className == 'mobile-icon finattack') {
+        keyboard.D = true;
+    }
 })
+
 
 window.addEventListener('touchend', (event) => {
     if (event.srcElement.className == 'mobile-icon up') {
         keyboard.UP = false;
     }
-    console.log(event.srcElement.className)
-})
-
-/*
-window.addEventListener('touchstart', () => {
-    document.getElementById('btn-up').addEventListener('touchstart', () => {
-        keyboard.UP = true;
-    })
-})
-
-
-window.addEventListener('touchend', () => {
-    document.getElementById('btn-up').addEventListener('touchend', () => {
-        keyboard.UP = false;
-    })
-})
-
-window.addEventListener('touchstart', () => {
-    document.getElementById('btn-down').addEventListener('touchstart', () => {
-        keyboard.DOWN = true;
-    })
-})
-
-
-window.addEventListener('touchend', () => {
-    document.getElementById('btn-down').addEventListener('touchend', () => {
+    if (event.srcElement.className == 'mobile-icon down') {
         keyboard.DOWN = false;
-    })
-})
-
-window.addEventListener('touchstart', () => {
-    document.getElementById('btn-left').addEventListener('touchstart', () => {
-        keyboard.LEFT = true;
-    })
-})
-
-
-window.addEventListener('touchend', () => {
-    document.getElementById('btn-left').addEventListener('touchend', () => {
+    }
+    if (event.srcElement.className == 'mobile-icon left') {
         keyboard.LEFT = false;
-    })
-})
-
-window.addEventListener('touchstart', () => {
-    document.getElementById('btn-right').addEventListener('touchstart', () => {
-        keyboard.RIGHT = true;
-    })
-})
-
-
-window.addEventListener('touchend', () => {
-    document.getElementById('btn-right').addEventListener('touchend', () => {
+    }
+    if (event.srcElement.className == 'mobile-icon right') {
         keyboard.RIGHT = false;
-    })
-})
-
-window.addEventListener('touchstart', () => {
-    document.getElementById('btn-bubbleattack').addEventListener('touchstart', () => {
-        keyboard.SPACE = true;
-    })
-})
-
-
-window.addEventListener('touchend', () => {
-    document.getElementById('btn-bubblettack').addEventListener('touchend', () => {
+    }
+    if (event.srcElement.className == 'mobile-icon bubbleattack') {
         keyboard.SPACE = false;
-    })
-})
-
-window.addEventListener('touchstart', () => {
-    document.getElementById('btn-finattack').addEventListener('touchstart', () => {
-        keyboard.D = true;
-    })
-})
-
-
-window.addEventListener('touchend', () => {
-    document.getElementById('btn-finattack').addEventListener('touchend', () => {
+    }
+    if (event.srcElement.className == 'mobile-icon finattack') {
         keyboard.D = false;
-    })
+    }
 })
 
-*/
+
 window.addEventListener('keydown', (event) => {
     let key = event.keyCode
     if (key == 37) {
