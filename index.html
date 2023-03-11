@@ -8,7 +8,7 @@
     <title>Sharkie</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./fonts.css">
-    <link rel="icon" type="image/png" href="./icons/gamepad.png"/>
+    <link rel="icon" type="image/png" href="./icons/gamepad.png" />
     <script src="models/world.class.js"></script>
     <script src="models/drawing-objects.class.js"></script>
     <script src="models/moving-objects.class.js"></script>
@@ -42,10 +42,36 @@
         <canvas id="canvas" class="border-styling" width="1080px" height="720px"></canvas>
         <div id="back-to-main">
             <div id="in-game-sound-on" onclick="soundOptionsInGame()" class="icon-container in-game-style"><img
-                    class="icon" src="./icons/hohe-lautstarke.png"></div>
+                    class="icon margin-bottom-4px" src="./icons/hohe-lautstarke.png"></div>
             <div id="in-game-sound-off" onclick="soundOptionsInGame()" class="icon-container in-game-style d-none"><img
-                    class="icon" src="./icons/lautstarke-stumm-schalten.png"></div>
+                    class="icon margin-bottom-4px" src="./icons/lautstarke-stumm-schalten.png"></div>
             <div class="in-game-btn" onclick="backToMainMenu()">MAIN MENU</div>
+        </div>
+        <div class="d-none" id="mobile-action-btn-container">
+            <div class="arrows-btn-container">
+                <div id="btn-up" onclick="mobielActionBtn('up')" class="mobile-icon-container">
+                    <img class="mobile-icon up" src="./icons/mobiel-movement-icon.png">
+                </div>
+                <div class="flex-row">
+                    <div id="btn-left" onclick="mobielActionBtn('left')" class="mobile-icon-container">
+                        <img class="mobile-icon left" src="./icons/mobiel-movement-icon.png">
+                    </div>
+                    <div id="btn-right" onclick="mobielActionBtn('right')" class="mobile-icon-container">
+                        <img class="mobile-icon right" src="./icons/mobiel-movement-icon.png">
+                    </div>
+                </div>
+                <div id="btn-down" onclick="mobielActionBtn('down')" class="mobile-icon-container">
+                    <img class="mobile-icon down" src="./icons/mobiel-movement-icon.png">
+                </div>
+            </div>
+            <div class="attack-btn-container">
+                <div id="btn-bubbleattack" onclick="mobielActionBtn('bubbleattack')" class="mobile-icon-container">
+                    <img class="mobile-icon" src="./icons/mobile-bubbleattack-icon.png">
+                </div>
+                <div id="btn-finattack" onclick="mobielActionBtn('finattack')" class="mobile-icon-container">
+                    <img class="mobile-icon" src="./icons/mobile-finattack-icon.png">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -94,6 +120,12 @@
                 Flaticon</a>
             <a href="https://www.flaticon.com/de/kostenlose-icons/videokonsole" title="videokonsole Icons">Videokonsole
                 Icons erstellt von IconMarketPK - Flaticon</a>
+            <a href="https://www.flaticon.com/de/kostenlose-icons/pfeil-nach-oben"
+                title="pfeil-nach-oben Icons">Pfeil-nach-oben Icons erstellt von Iconpro86 - Flaticon</a>
+            <a href="https://www.flaticon.com/de/kostenlose-icons/synergie" title="synergie Icons">Synergie Icons
+                erstellt von Freepik - Flaticon</a>
+            <a href="https://www.flaticon.com/de/kostenlose-icons/synergie" title="synergie Icons">Synergie Icons
+                erstellt von Freepik - Flaticon</a>
         </div>
     </div>
 </body>

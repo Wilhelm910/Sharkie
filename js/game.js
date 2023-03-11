@@ -12,6 +12,104 @@ function init() {
 }
 
 
+function mobielActionBtn(btn) {
+    console.log(btn)
+}
+
+window.addEventListener('touchstart', (event) => {
+    if (event.srcElement.className == 'mobile-icon up') {
+        keyboard.UP = true;
+    }
+    console.log(event.srcElement.className)
+})
+
+window.addEventListener('touchend', (event) => {
+    if (event.srcElement.className == 'mobile-icon up') {
+        keyboard.UP = false;
+    }
+    console.log(event.srcElement.className)
+})
+
+/*
+window.addEventListener('touchstart', () => {
+    document.getElementById('btn-up').addEventListener('touchstart', () => {
+        keyboard.UP = true;
+    })
+})
+
+
+window.addEventListener('touchend', () => {
+    document.getElementById('btn-up').addEventListener('touchend', () => {
+        keyboard.UP = false;
+    })
+})
+
+window.addEventListener('touchstart', () => {
+    document.getElementById('btn-down').addEventListener('touchstart', () => {
+        keyboard.DOWN = true;
+    })
+})
+
+
+window.addEventListener('touchend', () => {
+    document.getElementById('btn-down').addEventListener('touchend', () => {
+        keyboard.DOWN = false;
+    })
+})
+
+window.addEventListener('touchstart', () => {
+    document.getElementById('btn-left').addEventListener('touchstart', () => {
+        keyboard.LEFT = true;
+    })
+})
+
+
+window.addEventListener('touchend', () => {
+    document.getElementById('btn-left').addEventListener('touchend', () => {
+        keyboard.LEFT = false;
+    })
+})
+
+window.addEventListener('touchstart', () => {
+    document.getElementById('btn-right').addEventListener('touchstart', () => {
+        keyboard.RIGHT = true;
+    })
+})
+
+
+window.addEventListener('touchend', () => {
+    document.getElementById('btn-right').addEventListener('touchend', () => {
+        keyboard.RIGHT = false;
+    })
+})
+
+window.addEventListener('touchstart', () => {
+    document.getElementById('btn-bubbleattack').addEventListener('touchstart', () => {
+        keyboard.SPACE = true;
+    })
+})
+
+
+window.addEventListener('touchend', () => {
+    document.getElementById('btn-bubblettack').addEventListener('touchend', () => {
+        keyboard.SPACE = false;
+    })
+})
+
+window.addEventListener('touchstart', () => {
+    document.getElementById('btn-finattack').addEventListener('touchstart', () => {
+        keyboard.D = true;
+    })
+})
+
+
+window.addEventListener('touchend', () => {
+    document.getElementById('btn-finattack').addEventListener('touchend', () => {
+        keyboard.D = false;
+    })
+})
+
+*/
 window.addEventListener('keydown', (event) => {
     let key = event.keyCode
     if (key == 37) {
@@ -146,5 +244,14 @@ function soundOptionsInGame() {
         sound = true;
         document.getElementById('in-game-sound-on').classList.remove('d-none')
         document.getElementById('in-game-sound-off').classList.add('d-none')
+    }
+}
+
+
+window.onresize = function () {
+    if (window.innerHeight < 500) {
+        document.getElementById('mobile-action-btn-container').classList.remove('d-none');
+    } else {
+        document.getElementById('mobile-action-btn-container').classList.add('d-none');
     }
 }
