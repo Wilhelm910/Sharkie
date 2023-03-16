@@ -92,7 +92,13 @@ class DrawingObjects {
 
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
+        try {
+            ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
+        } catch(e) {
+            console.log(e)
+            console.log(this.img.src)
+        }
+      
     }
 
 

@@ -8,7 +8,7 @@ class Hero extends MovingObjects {
     deadByPoison = false;
     deadByElectroshock = false;
     deadByNormal = false;
-    bubblesForShoot = 10;
+    bubblesForShoot = 0;
     heroFinslap = false;
     coins = 0;
     gameWon = false;
