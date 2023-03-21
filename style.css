@@ -18,7 +18,7 @@ body {
 #h1-container {
     display: flex;
     justify-content: center;
-    z-index: 3 ;
+    z-index: 3;
 }
 
 h1 {
@@ -135,6 +135,13 @@ canvas {
 .controll-keys div div {
     margin-left: 8px;
     margin-right: 8px;
+}
+
+#rotate-notification {
+    font-size: 24px;
+    position: absolute;
+    top: 120px;
+    left: 80px;
 }
 
 
@@ -273,10 +280,10 @@ p {
     }
 
     .in-game-btn {
-       font-size: 12px;
+        font-size: 12px;
     }
 
-   
+
 }
 
 @media only screen and (max-height: 720px) {
@@ -310,16 +317,16 @@ p {
     .in-game-btn {
         margin: 4px;
         font-size: 8px;
-     }
+    }
 
-     .in-game-style {
+    .in-game-style {
         width: 15px;
         height: 15px;
         padding: 4px;
-     }
+    }
 
-     .margin-bottom-4px {
+    .margin-bottom-4px {
         margin-bottom: 4px;
-     }
+    }
 
 }

@@ -2,7 +2,6 @@ class Hero extends MovingObjects {
     pufferfish_sound = new Audio('audio/pufferfish.mp3');
     shooting_bubble_sound = new Audio('audio/shooting_bubble.mp3');
     electroshock_sound = new Audio('audio/electroshock.mp3');
-
     world;
     bubbleShot = false;
     deadByPoison = false;
@@ -181,8 +180,6 @@ class Hero extends MovingObjects {
                 this.hurtByNormal();
             else if (this.moving())
                 this.playAnimation(this.IMAGES_SWIM)
-           // else if (this.world.hero.world.keyboard.D /*&& !this.heroFinslap*/)
-           //     this.heroFinslap = true
             else if (this.world.hero.world.keyboard.SPACE && this.bubblesForShoot > 0 && !this.bubbleShot) 
                 this.bubbleShot = true; 
             else
@@ -239,7 +236,7 @@ class Hero extends MovingObjects {
 
     attackListener() {
         setInterval(() => {
-             if (this.world.hero.world.keyboard.D /*&& !this.heroFinslap*/)
+             if (this.world.hero.world.keyboard.D)
                 this.heroFinslap = true
         }, 10);
     }
@@ -248,22 +245,6 @@ class Hero extends MovingObjects {
     finAttack() {  
         setInterval(() => {
             if(this.heroFinslap) {
-           /*   if (this.k > 5) {
-                this.k = 0
-              }
-                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
-                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
-                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
-                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
-                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
-                    this.loadImage(this.IMAGES_FINSLAP[this.k]);
-                    console.log(this.k)
-                setTimeout(() => {
-                    this.k++
-                }, 10);
-                */
-            
-             
                 this.playAnimation(this.IMAGES_FINSLAP);
                 setTimeout(() => {
                     this.heroFinslap = false;

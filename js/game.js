@@ -111,6 +111,7 @@ function startGame() {
     updateInGameSoundIcons()
 }
 
+
 function updateInGameSoundIcons() {
     if (sound) {
         document.getElementById('in-game-sound-on').classList.remove('d-none')
@@ -200,4 +201,15 @@ window.onresize = function () {
     } else {
         document.getElementById('mobile-action-btn-container').classList.add('d-none');
     }
+}
+
+
+window.onresize = function () {
+
+        if (window.innerWidth < window.innerHeight && window.innerWidth < 500) {
+            document.getElementById('rotate-notification').classList.remove('d-none')
+        } else {
+            document.getElementById('rotate-notification').classList.add('d-none')
+        }
+
 }
