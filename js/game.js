@@ -254,7 +254,6 @@ function soundOptionsInGame() {
  * 
  */
 window.onresize = function () {
-    console.log(window.innerHeight)
     if (window.innerHeight < 500) {
         document.getElementById('mobile-action-btn-container').classList.remove('d-none');
     } else {
