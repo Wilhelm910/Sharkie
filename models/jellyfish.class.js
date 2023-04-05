@@ -27,6 +27,11 @@ class Jellyfish extends MovingObjects {
         this.animate();
     }
 
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     animate() {
         setInterval(() => {
             this.jellyfishMovement();
@@ -36,7 +41,11 @@ class Jellyfish extends MovingObjects {
         }, 1000 / 7);
     }
 
-
+/**
+ * 
+ * This function is used to move the enemie
+ * 
+ */
     jellyfishMovement() {
         if (this.gotHit)
             this.swimUpEnemie();
@@ -44,7 +53,11 @@ class Jellyfish extends MovingObjects {
             this.swimLeftEnemie();
     }
 
-
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     jellyfishAnimations() {
         if (this.gotHit)
             this.playAnimation(this.IMAGES_DEAD_JELLYFISH);

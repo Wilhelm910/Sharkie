@@ -46,7 +46,11 @@ class Pufferfish extends MovingObjects {
         this.animate();
     }
 
-
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     animate() {
         setInterval(() => {
             this.pufferfishMovement();
@@ -56,7 +60,11 @@ class Pufferfish extends MovingObjects {
         }, 1000 / 10);
     }
 
-    
+/**
+ * 
+ * This function is used to get the pufferfish movement
+ * 
+ */    
     pufferfishMovement() {
         if (this.gotHit)
             this.swimUpEnemie();
@@ -64,7 +72,11 @@ class Pufferfish extends MovingObjects {
             this.swimLeftEnemie();
     }
 
-
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     pufferfishAnimations() {
         if (this.gotHit) {
             this.playAnimation(this.IMAGES_DEAD_PUFFERFISH);

@@ -133,7 +133,11 @@ class Hero extends MovingObjects {
         this.finAttack();
     }
 
-
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     animate() {
         setInterval(() => {
            this.heroMovement();
@@ -169,7 +173,11 @@ class Hero extends MovingObjects {
         }
     }
 
-    
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */    
     aliveAnimations() {
         if (!this.gameWon) {
             if (this.isHurtPoison())
@@ -189,7 +197,11 @@ class Hero extends MovingObjects {
         }
     }
 
-
+/**
+ * 
+ * This function is used to animate the hero when hit
+ * 
+ */
     hurtByElectro() {
         this.playAnimation(this.IMAGES_ELECTROSHOCK);
         if (sound) {
@@ -201,20 +213,33 @@ class Hero extends MovingObjects {
         }
     }
 
-
+/**
+ * 
+ * This function is used to animate the hero when hit
+ * 
+ */
     hurtByPoison() {
         this.playAnimation(this.IMAGES_POISONED);
         if (sound)
             this.pufferfish_sound.play();
     }
 
-
+/**
+ * 
+ * This function is used to animate the hero when hit
+ * 
+ */
     hurtByNormal() {
         this.playAnimation(this.IMAGES_NORMAL);
         if (sound) 
             this.pufferfish_sound.play();
     }
 
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     deadAnimations() {
         if (this.deadByPoison) {
             this.playAnimation(this.IMAGES_DEAD_POISONED);
@@ -234,6 +259,11 @@ class Hero extends MovingObjects {
         }
     }
 
+/**
+ * 
+ * This function is used to coordinate the hero fin attack
+ * 
+ */
     attackListener() {
         setInterval(() => {
              if (this.world.hero.world.keyboard.D)
@@ -241,7 +271,11 @@ class Hero extends MovingObjects {
         }, 10);
     }
 
-
+/**
+ * 
+ * This function is used to coordinate the hero fin attack
+ * 
+ */
     finAttack() {  
         setInterval(() => {
             if(this.heroFinslap) {
@@ -253,7 +287,11 @@ class Hero extends MovingObjects {
         }, 1000 / 7);
     }
 
-
+/**
+ * 
+ * This function is used to coordinate the hero bubble attack
+ * 
+ */
     bubbleAttack() {
         setInterval(() => {
             if (this.bubbleShot) {
@@ -272,7 +310,11 @@ class Hero extends MovingObjects {
         }, 1000 / 7);
     }
 
-
+/**
+ * 
+ * This function is used to listen to the keyboard presses
+ * 
+ */
     moving() {
         return this.world.hero.world.keyboard.RIGHT ||
             this.world.hero.world.keyboard.LEFT ||

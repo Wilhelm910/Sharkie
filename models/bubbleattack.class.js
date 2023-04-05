@@ -1,4 +1,5 @@
 class Bubbleattack extends MovingObjects {
+
     IMAGES_BUBBLE = [
         'img/1.Sharkie/4.Attack/Bubble trap/Bubble.png',
         'img/1.Sharkie/4.Attack/Bubble trap/Bubble.png',
@@ -20,23 +21,52 @@ class Bubbleattack extends MovingObjects {
         this.throw();
     }
 
+
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_BUBBLE);
         }, 1000 / 10);
     }
 
-
+/**
+ * 
+ * This function is used to get the direction of bubble attack
+ * 
+ */
     throw() {
         setInterval(() => {
             if (world.hero.mirroredImage) {
-                this.position_x -= this.bubbleSpeed;
-                this.bubbleSpeed += this.acceleration;
+                this.toLeft();
             } else if (!world.hero.mirroredImage) {
-                this.position_x += this.bubbleSpeed;
-                this.bubbleSpeed += this.acceleration;
+                this.toRight();
             }
         }, 25);
+    }
+
+/**
+ * 
+ * This function is used to get the direction of bubble attack
+ * 
+ */
+    toLeft() {
+        this.position_x -= this.bubbleSpeed;
+        this.bubbleSpeed += this.acceleration;
+    }
+
+
+/**
+ * 
+ * This function is used to get the direction of bubble attack
+ * 
+ */
+    toRight() {
+        this.position_x += this.bubbleSpeed;
+        this.bubbleSpeed += this.acceleration;
     }
 
 }

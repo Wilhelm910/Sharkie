@@ -19,7 +19,11 @@ class Healthbar extends FixedObjects {
 
     }
 
-
+/**
+ * 
+ * This function is used to get the live bar img depending on live points left
+ * 
+ */
     setPercentage() {
         setInterval(() => {
             if (world.hero.energy == 100)

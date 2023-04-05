@@ -16,6 +16,11 @@ class Coins extends FixedObjects {
         this.animate();
     }
 
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     animate() {
         setInterval(() => {
             this.sticky()

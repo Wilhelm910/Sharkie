@@ -11,7 +11,11 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
-
+/**
+ * 
+ * This funcion is used to set variales on true, when buttons on the pad are pressed
+ * 
+ */
 window.addEventListener('touchstart', (event) => {
     if (event.srcElement.className == 'mobile-icon up') {
         keyboard.UP = true;
@@ -33,7 +37,11 @@ window.addEventListener('touchstart', (event) => {
     }
 })
 
-
+/**
+ * 
+ * This funcion is used to set variales on true, when buttons on the pad are pressed
+ * 
+ */
 window.addEventListener('touchend', (event) => {
     if (event.srcElement.className == 'mobile-icon up') {
         keyboard.UP = false;
@@ -55,7 +63,11 @@ window.addEventListener('touchend', (event) => {
     }
 })
 
-
+/**
+ * 
+ * This funcion is used to set variales on true, when buttons on the keyboard are pressed
+ * 
+ */
 window.addEventListener('keydown', (event) => {
     let key = event.keyCode
     if (key == 37) {
@@ -78,7 +90,11 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
-
+/**
+ * 
+ * This funcion is used to set variales on true, when buttons on the keyboard are pressed
+ * 
+ */
 window.addEventListener('keyup', (event) => {
     let key = event.keyCode
     if (key == 37) {
@@ -102,16 +118,26 @@ window.addEventListener('keyup', (event) => {
 });
 
 
+/**
+ * 
+ * This function is used to show the game screen and start the game
+ * 
+ */
 function startGame() {
     document.getElementById('canvas-container').classList.remove('d-none');
     document.getElementById('start-screen').classList.add('d-none');
     document.getElementById('h1-container').classList.add('d-none')
     mainMenu = false;
     init();
-    updateInGameSoundIcons()
+    updateInGameSoundIcons();
+    checkScreenRatio();
 }
 
-
+/**
+ * 
+ * This function is used to update the sound icon if user pressed it
+ * 
+ */
 function updateInGameSoundIcons() {
     if (sound) {
         document.getElementById('in-game-sound-on').classList.remove('d-none')
@@ -122,7 +148,11 @@ function updateInGameSoundIcons() {
     }
 }
 
-
+/**
+ * 
+ * This function is used to activate or deactivate sound 
+ * 
+ */
 function soundOptions() {
     if (sound) {
         sound = false;
@@ -135,14 +165,22 @@ function soundOptions() {
     }
 }
 
-
+/**
+ * 
+ * This function is used to show the control keys in menu
+ * 
+ */
 function showControllKeys() {
     document.getElementById('game-navigation').classList.add('d-none')
     document.getElementById('controll-keys').classList.remove('d-none')
     document.getElementById('return-btn').classList.remove('d-none')
 }
 
-
+/**
+ * 
+ * This function is used to get back to main menu
+ * 
+ */
 function returnToNavigation() {
     document.getElementById('game-navigation').classList.remove('d-none')
     document.getElementById('return-btn').classList.add('d-none')
@@ -154,14 +192,22 @@ function returnToNavigation() {
     }
 }
 
-
+/**
+ * 
+ * This function is used to show the credits in menu
+ * 
+ */
 function showCredits() {
     document.getElementById('game-navigation').classList.add('d-none')
     document.getElementById('credit-section').classList.remove('d-none')
     document.getElementById('return-btn').classList.remove('d-none')
 }
 
-
+/**
+ * 
+ * This function is used to get back to main menu
+ * 
+ */
 function backToMainMenu() {
     document.getElementById('canvas-container').classList.add('d-none')
     document.getElementById('start-screen').classList.remove('d-none')
@@ -170,7 +216,11 @@ function backToMainMenu() {
     checkSoundOptions()
 }
 
-
+/**
+ * 
+ * This function is used to update the sound icon if user pressed it
+ * 
+ */
 function checkSoundOptions() {
     if (sound) {
         document.getElementById('sound-on').classList.add('d-none')
@@ -181,7 +231,11 @@ function checkSoundOptions() {
     }
 }
 
-
+/**
+ * 
+ * This function is used to activate or deactivate sound 
+ * 
+ */
 function soundOptionsInGame() {
     if (sound) {
         sound = false;
@@ -194,8 +248,13 @@ function soundOptionsInGame() {
     }
 }
 
-
+/**
+ * 
+ * This function is used show the control keys for mobile 
+ * 
+ */
 window.onresize = function () {
+    console.log(window.innerHeight)
     if (window.innerHeight < 500) {
         document.getElementById('mobile-action-btn-container').classList.remove('d-none');
     } else {
@@ -204,12 +263,18 @@ window.onresize = function () {
 }
 
 
-window.onresize = function () {
-
-        if (window.innerWidth < window.innerHeight && window.innerWidth < 500) {
-            document.getElementById('rotate-notification').classList.remove('d-none')
-        } else {
-            document.getElementById('rotate-notification').classList.add('d-none')
-        }
-
+/**
+ * 
+ * This function is used show the mobile action buttons
+ * 
+ */
+function checkScreenRatio() {
+setInterval(() => {
+    if (window.innerHeight < 500 && mainMenu == false) {
+        document.getElementById('mobile-action-btn-container').classList.remove('d-none');
+    } else {
+        document.getElementById('mobile-action-btn-container').classList.add('d-none');
+    }
+}, 500);
 }
+

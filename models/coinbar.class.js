@@ -18,6 +18,11 @@ class Coinbar extends FixedObjects {
 
     }
 
+/**
+ * 
+ * This function is used to get the coin bar img depending on colleceted coins
+ * 
+ */
     setPercentage() {
         setInterval(() => {
             if (world.hero.coins == 0) {

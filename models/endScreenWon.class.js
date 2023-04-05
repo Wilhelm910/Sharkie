@@ -11,6 +11,12 @@ class EndscreenWon extends DrawingObjects {
         this.animate();
     }
 
+
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */    
     animate() {
         setInterval(() => {
             if (world.finalScreen) {

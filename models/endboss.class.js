@@ -79,6 +79,12 @@ class Endboss extends MovingObjects {
         this.animate();
     }
 
+
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     animate() {
         setInterval(() => {
             this.endbossMovement();
@@ -90,7 +96,11 @@ class Endboss extends MovingObjects {
         }, 1000 / 6);
     }
 
-
+/**
+ * 
+ * This function is used to initialize the endboss movement
+ * 
+ */
     endbossMovement() {
         this.swimming_sound.pause();
         if (!world.hero.gameOver) {
@@ -105,7 +115,11 @@ class Endboss extends MovingObjects {
         }
     }
 
-
+/**
+ * 
+ * This function is used to let the endboss move in direction of hero
+ * 
+ */
     moveInDirectionOfHero() {
         setTimeout(() => {
             if (sound) {
@@ -115,7 +129,11 @@ class Endboss extends MovingObjects {
         }, 2000);
     }
 
-
+/**
+ * 
+ * This function is used to let the endboss move to the right
+ * 
+ */
     swimToRight() {
         this.swimRightEndboss();
         if (sound) {
@@ -128,7 +146,11 @@ class Endboss extends MovingObjects {
         }
     }
 
-
+/**
+ * 
+ * This function is used to let the endboss move to the left
+ * 
+ */
     swimToLeft() {
         this.swimLeftEndboss();
         if (sound) {
@@ -139,7 +161,11 @@ class Endboss extends MovingObjects {
         }
     }
 
-
+/**
+ * 
+ * This function is used to get the dead movement for endboss
+ * 
+ */
     endbossIsDead() {
         if (sound) {
             this.swimming_sound.pause();
@@ -147,9 +173,11 @@ class Endboss extends MovingObjects {
         this.swimUpEndboss();
     }
 
-
-
-
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     endbossAnimations() {
         if (!world.hero.gameOver) {
             if (this.energy < 0 && !this.isDead)
@@ -165,6 +193,11 @@ class Endboss extends MovingObjects {
         }
     }
 
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     deadAnimations() {
         this.playAnimation(this.IMAGES_DEAD);
         if (sound) {
@@ -176,7 +209,11 @@ class Endboss extends MovingObjects {
         }, 1500);
     }
 
-
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     hurtAnimations() {
         this.playAnimation(this.IMAGES_HURT);
         setTimeout(() => {
@@ -184,7 +221,11 @@ class Endboss extends MovingObjects {
         }, 1000);
     }
 
-    
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */    
     introduceAnimations() {
         this.playAnimation(this.IMAGES_INTRODUCE);
         setTimeout(() => {

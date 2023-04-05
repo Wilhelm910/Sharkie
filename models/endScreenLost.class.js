@@ -12,6 +12,11 @@ class EndscreenLost extends DrawingObjects {
         this.animate();
     }
 
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     animate() {
         setInterval(() => {
             if (world.hero.gameOver && !world.endboss.isDead) {

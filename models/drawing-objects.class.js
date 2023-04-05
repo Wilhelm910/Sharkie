@@ -16,6 +16,12 @@ class DrawingObjects {
     distance = 0;
     gamespeed = 5;
 
+
+/**
+ * 
+ * This function is used to animate the movement
+ * 
+ */
     playAnimation(images) {
         if (this instanceof Jellyfish) {
         }
@@ -34,12 +40,21 @@ class DrawingObjects {
     }
 
 
+/**
+ * 
+ * This function is used to load the first img from every class
+ * 
+ */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
-
+/**
+ * 
+ * This function is used to load all images from every class
+ * 
+ */
     loadImages(imgArray) {
         imgArray.forEach(path => {
             let img = new Image();
@@ -48,7 +63,11 @@ class DrawingObjects {
         });
     }
 
-
+/**
+ * 
+ * This function is used to draw the hit box for collision detection
+ * 
+ */
     drawHitBox(ctx) {
         if (this instanceof Hero) {
            this.heroHitbox(ctx);
@@ -63,7 +82,11 @@ class DrawingObjects {
         }
     }
 
-
+/**
+ * 
+ * This function is used to draw the hit box for collision detection
+ * 
+ */
     heroHitbox(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
@@ -72,7 +95,11 @@ class DrawingObjects {
         ctx.stroke();
     }
 
-
+/**
+ * 
+ * This function is used to draw the hit box for collision detection
+ * 
+ */
     endbossHitbox(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
@@ -81,7 +108,11 @@ class DrawingObjects {
         ctx.stroke();
     }
 
-
+/**
+ * 
+ * This function is used to draw the hit box for collision detection
+ * 
+ */
     remainingObjectsHitbox(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
@@ -90,7 +121,11 @@ class DrawingObjects {
         ctx.stroke();
     }
 
-
+/**
+ * 
+ * This function is used to draw objects on canvas
+ * 
+ */
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
@@ -101,7 +136,11 @@ class DrawingObjects {
       
     }
 
-
+/**
+ * 
+ * This function is used to draw objects on canvas
+ * 
+ */
     drawBackground(ctx) {
         if (this.distance > this.endPosition) {
             this.gamespeed = 0
@@ -117,7 +156,11 @@ class DrawingObjects {
         }
     }
 
-
+/**
+ * 
+ * This function is used to draw objects on canvas
+ * 
+ */
     alignBackground() {
         if (this.position_x < -this.background_width) {
             this.position_x = this.background_width + this.position_x2 - (this.gamespeed * this.speedModifier)

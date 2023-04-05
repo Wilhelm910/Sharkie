@@ -19,6 +19,11 @@ class Poisonbar extends FixedObjects {
 
     }
 
+/**
+ * 
+ * This function is used to get the poison bar img depending on colleceted poison
+ * 
+ */
     setPercentage() {
         setInterval(() => {
             if (world.hero.bubblesForShoot == 0)
